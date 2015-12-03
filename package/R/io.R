@@ -3,15 +3,13 @@
 # Provides short functions for reading and writing data, given a set of
 # paths to folders with original and interim data and a standard way of 
 # storing data frames (as tab-separated files).
-# NB - SANDRA File IO treats all columns of type factor as character; convert these
-# manually to factor if so needed
 
 # Create sandra namespace if not exists
 if( !exists( "sandra" ) ) { 
   sandra = list();
 }
 
-sandra$io = function( pathOriginal, pathInterim ) {
+sandra$io = function( pathScripts, pathOriginal, pathInterim ) {
   # Constructs a SANDRA io object
   #
   # Args:
@@ -35,12 +33,74 @@ sandra$io = function( pathOriginal, pathInterim ) {
     return( pathInterim );
   }
   
+  path = function( ... ) {
+    # Return terms joined by "/" for constructing path names
+    #
+    # Args:
+    #   ...: (character) Terms to join
+    #
+    # Returns:
+    #   (character) path    
+    return( paste( ..., sep="/" ) );
+  }
+  
+  cutExtension = function( filename )  {
+    # Returns the filename without extension; everything up to the last dot
+    #
+    # Args:
+    #   filename: (character) Filename to cut extension from
+    #
+    # Returns:
+    #   (character) Filename without extension
+
+    inputSet  = strsplit( filename, "\\." )[[1]];
+    filePrefix = paste( inputSet[ 1 : ( length( inputSet ) - 1 ) ], collapse = "." );
+    return( filePrefix );
+  }
+  
+  # *** getExtension; 
+  getExtension = function( filename ) {
+    # Returns the extension of the given filename; everything after the last dot
+    #
+    # Args:
+    #   filename: (character) Filename to get extension from
+    #
+    # Returns:
+    #   (character) Filename extension
+
+    inputSet  = strsplit( filename, "\\." )[[1]];
+    # If only one element; no extension, so return empty string
+    if( length( inputSet ) == 1 )
+      return( "" );
+    return( inputSet[ length( inputSet ) ] );
+  }
+  
+  addPostfix = function( filename, postfix ) {
+    # Returns filename, with .postfix appended (before the extension)
+    # For example: "myfile.txt" will be converted to "myfile.postfix.txt".
+    #
+    # Args:
+    #   filename: (character) Filename to add postfix to 
+    #   postfix:  (character) Postfix to add to filename
+    #
+    # Returns:
+    #   (character) Filename with postfix
+    
+    result = cutExtension( filename );
+    return( paste(
+      result,
+      postfix,
+      getExtension( filename ),
+      sep = "."
+    ) );
+  }  
+  
   readSurveyTool = function( filename, original = F ) {
     # Read a TOP Survey Tool answer file
     #
     # Args:
     #   filename: (character) File to read
-    #   original: (logical) If TRUE, return path to original data; if not, return path to interim data
+    #   original: (logical) If TRUE, use path to original data; if not, use path to interim data
     #
     # Returns:
     #   (character) path      
@@ -48,14 +108,13 @@ sandra$io = function( pathOriginal, pathInterim ) {
     
     # Read raw data
     stData = read.table(
-      conc( dir, filename ),
+      path( pathData, filename ),
       sep    = ";",
       header = FALSE,
       fill   = TRUE
     );
     
-    # Convert to char
-    stData = sandra$convert$factorToString( stData );
+    # stData = sandra$convert$factorToString( stData );
     stData = as.matrix( stData );
     
     # Get nice column names (combine labels from row 1 and 2 )
@@ -81,10 +140,6 @@ sandra$io = function( pathOriginal, pathInterim ) {
     return( stData );
   }
   
-  
-  # Read a tab separated file (with varnames at the top) 
-  # as a data frame filled with strings
-  # fileEncoding="UTF-8-BOM",
   readData = function( 
     filename, 
     original= FALSE, 
@@ -94,22 +149,18 @@ sandra$io = function( pathOriginal, pathInterim ) {
     stringAsFactors = F,
     ... 
   ) {
-    # Read a TOP Survey Tool answer file
+    # Read a tab separated file (with varnames at the top) 
     #
     # Args:
     #   filename: (character) File to read
-    #   original: (logical) If TRUE, return path to original data; if not, return path to interim data
-    #
+    #   original: (logical) If TRUE, use path to original data; if not, use path to interim data
+    #   remainder: Arguments passed to read.table with default values
     # Returns:
-    #   (character) path          
-    if( source_data ) {
-      dir = dir_source;
-    } else {
-      dir = dir_data;
-    }
+    #   (data.frame) Data read from file
     
+    pathData = resolvePath( original );
     data = read.table(
-      conc( dir, filename ),
+      path( pathData, filename ),
       sep   = sep,
       quote = quote,
       comment.char = "",
@@ -118,14 +169,77 @@ sandra$io = function( pathOriginal, pathInterim ) {
       stringsAsFactors = F,
       ...
     );
-    
-    data = sandra$convert$factorToString( data );
-    
     return( data );
   }
+
+  # Write a data frame to a tab separated file (with varnames at the top) 
+  # Note: column names are sorted alphabetically
+  writeData = function( 
+    filename, 
+    output, 
+    append = F, 
+    sep = "\t",
+    quote = F, 
+    row.names = F, 
+    col.names = T, 
+    ...
+  )  {
+    # Read a TOP Survey Tool answer file
+    #
+    # Args:
+    #   filename: (character) File to write to
+    #   output:   (data.frame) Data frame to store
+    #   remainder: Arguments passed to write.table with default values
+    # Returns:
+    #   NULL
+    
+    # Store output in file
+    pathData = resolvePath( FALSE );
+    write.table(
+      output,
+      path( pathData, filename ),
+      quote     = quote,
+      sep       = sep,
+      row.names = row.names,
+      append    = append,
+      col.names = !append && col.names, # No column names if appending
+      ...
+    )
+  }
   
+  existsData = function ( filename, original = FALSE )  {
+    # Check if a data file exists (in the data directory)
+    #
+    # Args:
+    #   filename: (character) File to write to
+    #   original: (logical) If TRUE, use path to original data; if not, use path to interim data
+    #
+    # Returns:
+    #   (logical) TRUE if data exists; if not, FALSE
+    
+    pathData = resolvePath( original );
+    return( file.exists( path( pathData, filename ) ) );
+  }
   
-  readVector = function( filename ) {
+  appendData = function( filename, output, ... ) {
+    # Create file if exists, else append data to existing file
+    #
+    # Args:
+    #   filename: (character) File to write to
+    #   original: (logical) If TRUE, use path to original data; if not, use path to interim data
+    #
+    # Returns:
+    #   (logical) TRUE if data exists; if not, FALSE
+    
+    append = existsData( filename );
+    writeData(
+      filename,
+      output,
+      append
+    );
+  }
+  
+  readVector = function( filename, original = FALSE ) {
     # Read a vector as a newline separated file
     #
     # Args:
@@ -135,16 +249,58 @@ sandra$io = function( pathOriginal, pathInterim ) {
     #   (data.frame)
     x = readData(
       filename,
+      original = original,
       header = F
     );
     return( as.vector( t( x ) ) );
   }  
   
+  writeVector = function( filename, output ) {
+    # Write a vector to a newline separated file
+    #
+    # Args:
+    #   filename: (character) File to write to
+    #   output:   (vector)    Vector to write
+    #
+    # Returns:
+    #   NULL
+    
+    x = empty_dataframe( c( "colname" ) );
+    x[ 1 : length( output ), ] = output;
+    
+    writeData(
+      filename,
+      x,    
+      col.names = F,
+      sort_columns = F
+    );
+  }  
+  
+  runScript = function( script ) {
+    source( path( pathScripts, script ) );
+  }  
+  
   # Return properties that we want to have exposed
   return( list(
+    # Values
+    pathOriginal   = pathOriginal,
+    pathInterim    = pathInterim,
+    
+    # Helper Functions
     resolvePath    = resolvePath,
+    path           = path,
+    cutExtension   = cutExtension,
+    getExtension   = getExtension,
+    addPostfix     = addPostfix,
+    
+    # Main Functions
     readSurveyTool = readSurveyTool,
     readData       = readData,
-    readVector     = readVector
+    writeData      = writeData,
+    existsData     = existsData,
+    appendData     = appendData,
+    readVector     = readVector,
+    writeVector    = writeVector,
+    runScript      = runScript
   ) );
 }
