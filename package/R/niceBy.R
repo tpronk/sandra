@@ -27,7 +27,7 @@ sandra$niceBy = function(
   factors,
   aggregation,
   apply_function = lapply,
-  debug = T,
+  debug = F,
   result_type = "data.frame",
   ...
 ) {

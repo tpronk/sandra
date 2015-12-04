@@ -8,7 +8,7 @@ if( !exists( "sandra" ) ) {
   sandra = list();
 }
 
-sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0, debug = T, ... ) {
+sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0, debug = F, ... ) {
 
   # ***********************
   # *** Inner Functions ***
