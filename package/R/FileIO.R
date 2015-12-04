@@ -1,5 +1,6 @@
 # *********************
-# *** SANDRA File IO
+# *** SANDRA FileIO
+
 # Provides short functions for reading and writing data, given a set of
 # paths to folders with original and interim data and a standard way of 
 # storing data frames (as tab-separated files).
@@ -9,7 +10,15 @@ if( !exists( "sandra" ) ) {
   sandra = list();
 }
 
-sandra$io = function( pathScripts, pathOriginal, pathInterim ) {
+sandra$FrameworkFileIO = function( pathAnalysis ) {
+  return( sandra$FileIO(
+    paste( pathAnalysis, "scripts",  sep = "/" ),
+    paste( pathAnalysis, "original", sep = "/" ),
+    paste( pathAnalysis, "interim",  sep = "/" )
+  ) );
+}
+
+sandra$FileIO = function( pathScripts, pathOriginal, pathInterim ) {
   # Constructs a SANDRA io object
   #
   # Args:
@@ -146,7 +155,9 @@ sandra$io = function( pathScripts, pathOriginal, pathInterim ) {
     sep = "\t", 
     quote = "", 
     comment.char = "",
-    stringAsFactors = F,
+    header = TRUE,
+    fill = TRUE,
+    stringsAsFactors = FALSE,
     ... 
   ) {
     # Read a tab separated file (with varnames at the top) 
@@ -163,10 +174,10 @@ sandra$io = function( pathScripts, pathOriginal, pathInterim ) {
       path( pathData, filename ),
       sep   = sep,
       quote = quote,
-      comment.char = "",
-      header       = header,
-      fill   = TRUE,
-      stringsAsFactors = F,
+      comment.char = comment.char,
+      header = header,
+      fill   = fill,
+      stringsAsFactors = stringsAsFactors,
       ...
     );
     return( data );
@@ -280,7 +291,7 @@ sandra$io = function( pathScripts, pathOriginal, pathInterim ) {
     source( path( pathScripts, script ) );
   }  
   
-  # Return properties that we want to have exposed
+  # Return exposed properties
   return( list(
     # Values
     pathOriginal   = pathOriginal,

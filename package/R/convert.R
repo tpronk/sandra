@@ -7,7 +7,7 @@ if( !exists( "sandra" ) ) {
   sandra = list();
 }
 
-sandra$convert = list(
+sandra$Convert = list(
   factorToString = function( convertMe ) {
     # Converts each column of a data frame that is of type factor to type character
     # Based on: http://stackoverflow.com/questions/2851015/convert-data-frame-columns-from-factors-to-characters/2853231#2853231
