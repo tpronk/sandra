@@ -7,7 +7,8 @@ library( "sandra" );
 packageVersion( "sandra" )
 
 
-io = sandra$io(
+io = sandra$FileIO(
+  "pathCode",
   "pathOriginal",
   "pathInterim"
 );

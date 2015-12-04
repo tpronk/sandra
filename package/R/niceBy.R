@@ -22,7 +22,7 @@ if( !exists( "sandra" ) ) {
 #
 # parallel_by returns a data.frame with as columns the elements in results and as rows the results returned
 # by each call to aggregation. 
-sandra$nice_by = function(
+sandra$niceBy = function(
   ds,
   factors,
   aggregation,
