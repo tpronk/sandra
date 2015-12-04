@@ -11,16 +11,16 @@ if( !exists( "sandra" ) ) {
 sandra$decodeJasmin1 = function(
   input, 
   participationID = c( "UserID" ),
+  verbose   = FALSE,
   colRunID  = "RunID",
   colName   = "Name",
-  colValue  = "Value",
-  interim_folder = "jasmin1_interim",
-  output_folder  = "jasmin1_output",
-  source_file    = "jasmin1_data.csv"
+  colValue  = "Value"
 ) {
   # Implements ADPT report function
   report = function( reportMe ) {
-    print( paste( reportMe, sep = "", collapse = "" ) );
+    if( verbose ) {
+      print( paste( reportMe, sep = "", collapse = "" ) );
+    }
   }
   
   # Implements ADPT conc function
@@ -229,7 +229,7 @@ sandra$decodeJasmin1 = function(
   
   parse_data_evlogs = function( evlogs ) {
     # Requires: evlogs
-    print("*** parse_data_evlogs started" );
+    report("*** parse_data_evlogs started" );
     
     # sequence_report: short list of strange things in sequence numbers
     sequence_report = c();
@@ -1140,7 +1140,7 @@ sandra$decodeJasmin1 = function(
     }
   ); 
   
-  # Check if source_file was properly formatted
+  # Check if input was properly formatted
   if( length( names( input ) ) == 1 ) {
     print( "sandra$Jasmin1Decoder$decode. Warning: I found one variable name at the first row. Are you sure the is tab (\\t) separated?")
   }
@@ -1199,25 +1199,17 @@ sandra$decodeJasmin1 = function(
       sets[[ length( sets ) + 1 ]] = c( i, next_done );
     }
   }
-      
-  # Setup interim and output directory
-  dir_interim = io$path( io$pathInterim, interim_folder );
-  dir.create( dir_interim, showWarning = FALSE );
-  filename = io$path( io$pathInterim, source_file );
-  
-  dir_output = io$path( io$pathInterim, output_folder );
-  dir.create( dir_output, showWarning = FALSE );
-  
-  print( paste( "process_lotus. ", length( sets ), " sets found" ) );
+
+  report( conc( "process_lotus. ", length( sets ), " sets found" ) );
   
   # *********
   # *** Convert sets and construct trialdata
-  trialdata = NULL;
+  trialdata = list();
   for( set_id in 1:length( sets ) )
   {
     nwarnings = length( warnings() );
     
-    print( paste( "process_lotus. Processing set ", set_id, " of ", length( sets ) ) );
+    report( conc( "process_lotus. Processing set ", set_id, " of ", length( sets ) ) );
     metadata[ set_id, "run_from"   ] = input[ sets[[set_id]][1], colRunID ];
     metadata[ set_id, "run_to"     ] = input[ sets[[set_id]][2], colRunID ];
     metadata[ set_id, "set_id"     ] = set_id;
@@ -1241,7 +1233,7 @@ sandra$decodeJasmin1 = function(
       }
     }
     
-    print( paste( "process_lotus. Preparing evlogs" ) );
+    report( "process_lotus. Preparing evlogs" );
     
     # Prepare evlogs
     cols_evlogs = c( "source", "type", "name", "value", "time", "sequence_number" );
@@ -1272,8 +1264,8 @@ sandra$decodeJasmin1 = function(
     
     metadata[ set_id, "event_count" ] = nrow( evlogs );
     
-    print( paste( "process_lotus. event_count: ", metadata[ set_id, "event_count" ] ) );
-    print( paste( "process_lotus. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
+    report( conc( "process_lotus. event_count: ", metadata[ set_id, "event_count" ] ) );
+    report( conc( "process_lotus. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
     
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
@@ -1318,19 +1310,37 @@ sandra$decodeJasmin1 = function(
       # );
       
       # add data_outside to trialdata
-      if( is.null( trialdata ) ) {
-        trialdata = data_outside;
+      if( !( task_id %in% names( trialdata ) ) ) {
+        trialdata[[ task_id ]] = data_outside;
       } else {
         # Check whether data_outside and trialdata contain same columns, else report warning
-        if( ! ( length( trialdata ) == length( data_outside ) && all( trialdata == data_outside ) ) ) {
-          print( "process_lotus. Warning: different columns in trialdata collected so far and trialdata of current set" );
+        if( !( 
+             length( trialdata[[ task_id ]] ) == length( data_outside ) 
+          && all( trialdata[[ task_id ]] == data_outside ) 
+        ) ) {
+          print( conc(
+            "process_lotus. Warning: different columns in trialdata of ",
+            task_id,
+            " collected so far and trialdata in current set" 
+          ) );
           print( conc(
             "metadata: ",
             paste( metadata[ set_id, ], collapse = ", " )
           ) );
+          print( conc(
+            "existing trialdata columns: ",
+            paste( names( trialdata[[ task_id ]], collapse = ", " ) )
+          ) );
+          print( conc(
+            "current trialdata columns: ",
+            paste( names( data_outside, collapse = ", " ) )
+          ) );          
         }
         
-        trialdata[ ( nrow( trialdata ) + 1 ) : ( nrow( trialdata ) + nrow( data_outside ) ), ] = data_outside;
+        trialdata[[ task_id ]][
+            ( nrow( trialdata[[ task_id ]] ) + 1 ) 
+          : ( nrow( trialdata[[ task_id ]] ) + nrow( data_outside ) ), 
+        ] = data_outside;
       }      
     }
     
@@ -1338,5 +1348,8 @@ sandra$decodeJasmin1 = function(
       print( paste( "process_lotus. There were warnings at set_id ", set_id ) );
     }
   }    
-  return( trialdata );  
+  return( list( 
+    metadata  = metadata,
+    trialdata = trialdata 
+  ) );  
 }
