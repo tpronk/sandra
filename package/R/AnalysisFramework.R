@@ -38,9 +38,11 @@ sandra$install = function( pathAnalysis = NA ) {
   
   # *** Prepare Analysis folder
   # Ask for Analysis folder
-  pathAnalysis = choose.dir(
-    caption = "Select folder to install SANDRA Analysis Framework in"
-  );
+  if( is.na( pathAnalysis ) ) {
+    pathAnalysis = choose.dir(
+      caption = "Select folder to install SANDRA Analysis Framework in"
+    );
+  }
   # Convert backslashes to forward slashes
   pathAnalysis = paste( 
     strsplit( pathAnalysis,  "\\", fixed=T )[[1]],
