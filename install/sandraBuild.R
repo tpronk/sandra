@@ -1,7 +1,8 @@
 # *** Build package
 library( "devtools" )
-build(   "D:/wamp/www/sandra/trunk/src" );
-install( "D:/wamp/www/sandra/trunk/src" );
+pathSandra = "D:/wamp/www/sandra/trunk/src";
+build( pathSandra );
+install( pathSandra );
 
 # *** Load it and show version number
 rm( sandra );

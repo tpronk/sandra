@@ -1330,11 +1330,11 @@ sandra$decodeJasmin1 = function(
           ) );
           print( conc(
             "existing trialdata columns: ",
-            paste( names( trialdata[[ task_id ]], collapse = ", " ) )
+            paste( names( trialdata[[ task_id ]] ), collapse = ", " )
           ) );
           print( conc(
             "current trialdata columns: ",
-            paste( names( data_outside, collapse = ", " ) )
+            paste( names( data_outside ), collapse = ", " )
           ) );          
         }
         
