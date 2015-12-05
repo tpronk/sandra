@@ -84,7 +84,7 @@ sandra$FileIO = function( pathScripts, pathOriginal, pathInterim ) {
     return( inputSet[ length( inputSet ) ] );
   }
   
-  addPostfix = function( filename, postfix ) {
+  addPostfix = function( filename, ... ) {
     # Returns filename, with .postfix appended (before the extension)
     # For example: "myfile.txt" will be converted to "myfile.postfix.txt".
     #
@@ -98,7 +98,7 @@ sandra$FileIO = function( pathScripts, pathOriginal, pathInterim ) {
     result = cutExtension( filename );
     return( paste(
       result,
-      postfix,
+      ...,
       getExtension( filename ),
       sep = "."
     ) );
