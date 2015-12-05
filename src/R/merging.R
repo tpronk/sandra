@@ -33,14 +33,14 @@ leftMerge = function( x, y, by_keys )
   # For every column shared by x and y, the values in x are replaced by the values of y if the values of y are not NA
   for( j in names_match )
   {
-    col_x = merged_out[ ,conc( j, ".x" ) ];
-    col_y = merged_out[ ,conc( j, ".y" ) ];
+    col_x = merged_out[ ,paste( j, "x", sep = "." ) ];
+    col_y = merged_out[ ,paste( j, "y", sep = "." ) ];
     col_x[ !is.na( col_y ) ] = col_y[ !is.na( col_y ) ];
     merged_out[ ,j ] = col_x;
     
     # Drop matching columns
-    merged_out = drop_column( merged_out, conc( j, ".x" ) );
-    merged_out = drop_column( merged_out, conc( j, ".y" ) );
+    merged_out = data.frame.dropVar( merged_out, paste( j, "x", sep = "." ) );
+    merged_out = data.frame.dropVar( merged_out, paste( j, "y", sep = "." ) );
   }
   
   return( merged_out );
@@ -76,8 +76,8 @@ niceMerge = function( x, y, by_keys, pick_x, ... )
   # For every column shared by x and y, the values in one  are replaced by the other, depending on pick_x
   for( j in names_match )
   {
-    col_x = merged_out[ ,conc( j, ".x" ) ];
-    col_y = merged_out[ ,conc( j, ".y" ) ];
+    col_x = merged_out[ ,paste( j, "x", sep = "." ) ];
+    col_y = merged_out[ ,paste( j, "y", sep = "." ) ];
     
     if( pick_x ) {
       col_from = col_x;
@@ -91,8 +91,8 @@ niceMerge = function( x, y, by_keys, pick_x, ... )
     merged_out[ ,j ] = col_to;
     
     # Drop matching columns
-    merged_out = drop_column( merged_out, conc( j, ".x" ) );
-    merged_out = drop_column( merged_out, conc( j, ".y" ) );
+    merged_out = data.frame.dropVar( merged_out, paste( j, "x", sep = "." ) );
+    merged_out = data.frame.dropVar( merged_out, paste( j, "y", sep = "." ) );
   }
   
   return( merged_out );
