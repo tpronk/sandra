@@ -586,7 +586,6 @@ sandra$decodeJasmin1 = function(
       # Setup output
       output = data.frame( matrix( nrow = 0, ncol = length( columns ) ) );
       names( output ) = columns;
-      print(output)
       
       # Setup event timer callback
       events= list();
@@ -673,7 +672,7 @@ sandra$decodeJasmin1 = function(
       report( conc( "parse_data_trialdone. trial_done not found" ) );
       continue = F;
     } else {
-      son       = evlogs[ trial_done, "value" ];
+      json       = evlogs[ trial_done, "value" ];
       val        = tryCatch( fromJSON( as.character( json ) ), error=function( e ){ return( NULL ); } )
       if( !is.null( val ) )
       {
@@ -927,7 +926,7 @@ sandra$decodeJasmin1 = function(
         output[ cur_row, "block" ] = val[1];
         output[ cur_row, "trial" ] = val[2];
         
-        report( conc( "parse_data_trialnext. block ", val[1], ", trial ", val[2] ) );
+        # report( conc( "parse_data_trialnext. block ", val[1], ", trial ", val[2] ) );
         
         # Decode trial
         json = as.character( from[ "value" ] );
@@ -1270,6 +1269,7 @@ sandra$decodeJasmin1 = function(
     
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
+    
     if( !is.na( metadata[ set_id, "lotus_says" ] ) && metadata[ set_id, "lotus_says" ] == "task_done" )
     {
       result = parse_data_evlogs( evlogs );
@@ -1285,7 +1285,7 @@ sandra$decodeJasmin1 = function(
         data_trialdone = NULL;
       }
       data_trialresp   = parse_data_trialresp( evlogs );
-      data_event       = parse_data_event( evlogs );
+      # data_event       = parse_data_event( evlogs );
       
       # *** Copy outside vars to inside
       data_outside = data_task
@@ -1309,15 +1309,15 @@ sandra$decodeJasmin1 = function(
       #   data_outside, 
       #   data_event,
       # );
-      
+
       # add data_outside to trialdata
       if( !( task_id %in% names( trialdata ) ) ) {
         trialdata[[ task_id ]] = data_outside;
       } else {
         # Check whether data_outside and trialdata contain same columns, else report warning
         if( !( 
-             length( trialdata[[ task_id ]] ) == length( data_outside ) 
-          && all( trialdata[[ task_id ]] == data_outside ) 
+             length( names( trialdata[[ task_id ]] ) ) == length( names( data_outside ) ) 
+          && all( names( trialdata[[ task_id ]] )      == names( data_outside ) )
         ) ) {
           print( conc(
             "sandra$decodeJasmin1. Warning: different columns in trialdata of ",
