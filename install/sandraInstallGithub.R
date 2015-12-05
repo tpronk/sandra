@@ -7,7 +7,7 @@ install_github( "tpronk/SANDRA/src" );
 library( "sandra" );
 
 # Install SANDRA Analysis Framework
-sandra$install(
+installAnalysisFramework(
   # Enter path to analysis folder here
   # For Windows: leave empty to get a folder picker
 );

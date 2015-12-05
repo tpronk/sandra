@@ -1,46 +1,36 @@
 # Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
 # All rights reserved. No warranty, explicit or implicit, provided.
 
-# ***************************************************
-# *** Handy wrappers for R's native 'by' function ***
-# ***************************************************
-
-# Create sandra namespace if not exists
-if( !exists( "sandra" ) ) { 
-  sandra = list();
-}
-
-# nice_by calls the function 'aggregation' for each unique combination of values of the the columns
-# 'factors' in the dataframe 'ds' 
-#
-# 'aggregation' is called with two arguments:
-# 1. results - A list of key-value pairs for the current values of factors. To add results of your aggregation
-#              function to the output, add these to results and return it.
-# 2. subset  - A data frame with rows of 'ds' for the current unique combination of values in 'factors'
-# Each call to aggregation should return an instance of results with the same set of names, if not, 
-# then parallel_by reports an error.
-#
-# parallel_by returns a data.frame with as columns the elements in results and as rows the results returned
-# by each call to aggregation. 
-sandra$niceBy = function(
+#' Wrapper for R's native by function
+#' 
+#' Calls the function 'aggregation' for each unique combination of values of the the columns factors in the dataframe ds.
+#' The aggregation function is called with two arguments: (1) (list) result list to add aggregation output to, and (2) (data.frame) subset of data selected by this combination of values for factors
+#'
+#' @param ds              (data.frame) Dataset to aggregate
+#' @param factors         (vector) Columns in dataset that serve as factors
+#' @param aggregation     (function) Aggregation 
+#' @param result_type     (character) Three possible values: "data.frame", "vector", any other is interpreted as "list
+#' @param verbose         (logical) If TRUE, then print debug output
+#' @param ...             Additional arguments passed to aggregation function
+#' @return (mixed) Aggregation result
+niceBy = function(
   ds,
   factors,
   aggregation,
-  apply_function = lapply,
-  debug = F,
   result_type = "data.frame",
+  verbose = F,
   ...
 ) {
   
   # *** Construct factors
-  if( debug ) { print( paste( Sys.time(), ", nice_by, construct factors", sep = "" ) ); }
+  if( verbose ) { print( paste( Sys.time(), ", nice_by, construct factors", sep = "" ) ); }
   indices = list();
   for( f in factors ) {
     indices[[ length( indices ) + 1 ]] = ds[ ,f ];
   }
   
   # *** Create a list with all the subsets
-  if( debug ) { print( paste( Sys.time(), ", nice_by, create subsets", sep = "" ) ); }
+  if( verbose ) { print( paste( Sys.time(), ", nice_by, create subsets", sep = "" ) ); }
   ds_list = by(
     ds,
     indices,
@@ -49,9 +39,9 @@ sandra$niceBy = function(
     }
   );
       
-  # *** Apply aggregation to each element of ds_list via apply_function (lapply or mclapply)
-  if( debug ) { print( paste( Sys.time(), ", nice_by, apply aggregations", sep = "" ) ); }  
-  result_raw = apply_function(
+  # *** Apply aggregation to each element of ds_list 
+  if( verbose ) { print( paste( Sys.time(), ", nice_by, apply aggregations", sep = "" ) ); }  
+  result_raw = lapply(
     ds_list,
     function( subset ) {
       # Fill result with levels of each factor
@@ -68,7 +58,7 @@ sandra$niceBy = function(
       return( result );
     }
   );
-  if( debug ) { print( paste( Sys.time(), ", nice_by, aggregations done", sep = "" ) ); }
+  if( verbose ) { print( paste( Sys.time(), ", nice_by, aggregations done", sep = "" ) ); }
   
   if( result_type == "data.frame" ) {
     # data.frame

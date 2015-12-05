@@ -1,2 +1,2 @@
 library( "sandra" );
-io  = sandra$FrameworkFileIO( "D:/wamp/www/sandra/trunk/tests" );
+io  = FrameworkFileIO( "D:/wamp/www/sandra/trunk/tests" );

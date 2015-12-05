@@ -1,14 +1,17 @@
 # Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
 # All rights reserved. No warranty, explicit or implicit, provided.
 
-# Requires: sandra$niceBy.R
-
-# Create sandra namespace if not exists
-if( !exists( "sandra" ) ) { 
-  sandra = list();
-}
-
-sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0, debug = F, ... ) {
+#' Calculates d-scores from trial data
+#'
+#' @param ds          (data.frame) Trial data
+#' @param settings    (list) D-score calculation settings
+#' @param splithalves (integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations
+#' @param what        (character) If "all", calculate over full task data, if "first_second" calculate 2 dscores; one for first and one for second halve. Only efffectie if splithalves == 0
+#' @param verbose     (logical) If TRUE, then print debug output
+#' @return (data.frame) Calculated d-scores
+#' @examples
+#' See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
+calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbose = F, ... ) {
 
   # ***********************
   # *** Inner Functions ***
@@ -243,17 +246,21 @@ sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0,
   # splithalves < 1? calculate dscore over full data, 
   # else calculate splithalve correlation splithalves times
   if( splithalves < 1 ) {
-    dscore_function = one_dscore;
-    if( what == "first_second" ) {
-      dscore_function = dscore_first_second;
-    }
-    # *** If no split_halve, calculate and return d-scores
-    return( sandra$niceBy(
+    # *** No split_halve, calculate and return a single (set of) d-scores
+    # What dscore function to use
+    dscore_function = switch(
+      what,
+      # Calculate one score over full task data
+      all = one_dscore,
+      # Calculate two scores: one for first and one for second halve of task
+      first_second = dscore_first_second
+    );
+    return( niceBy(
       ds,
       c( settings[[ "run_var" ]] ),
       dscore_function,
       settings = settings,
-      debug = debug,
+      verbose = verbose,
       ...
     ) );  
   } else {
@@ -262,12 +269,12 @@ sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0,
     cors = c();
     for( split_halve_i in 1 : splithalves ) {
       # Run split_halve
-      split_result = sandra$niceBy(
+      split_result = niceBy(
         ds,
         c( settings[[ "run_var" ]] ),
         one_dscore_split,
         settings = settings,
-        debug = debug,
+        verbose = verbose,
         ...
       );
       # Calculate correlation, add to list
@@ -276,7 +283,7 @@ sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0,
         suppressWarnings( as.numeric( split_result[ ,"dscore_2" ] ) )
       );
       cors = c( cors, split_cor );
-      if( debug ) { 
+      if( verbose ) { 
         print( paste( 
           Sys.time(), ", dscores, split ", 
           split_halve_i, "/", splithalves, ", r = ", split_cor,

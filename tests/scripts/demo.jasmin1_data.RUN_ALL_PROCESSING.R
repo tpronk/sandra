@@ -48,7 +48,7 @@ ds = io$readData(
 );
 
 # Decode 
-dsDecoded = sandra$decodeJasmin1(
+dsDecoded = decodeJasmin1(
   ds,
   participationID = c( "UserID" ),
   verbose = F
@@ -56,12 +56,12 @@ dsDecoded = sandra$decodeJasmin1(
 
 # Store metadata and trialdata for each task in interim folder
 io$writeData(
-  io$addPostfix( fileSource, "metadata" ),
+  addPostfix( fileSource, "metadata" ),
   dsDecoded$metadata
 );
 for( task in names( dsDecoded$trialdata ) ) {
   io$writeData(
-    io$addPostfix( fileSource, task, "trialdata" ),
+    addPostfix( fileSource, task, "trialdata" ),
     dsDecoded$trialdata[[ task ]]
   );
 }
@@ -69,19 +69,19 @@ for( task in names( dsDecoded$trialdata ) ) {
 # Calculate and merge per task
 for( task in names( scorings ) ) {
   # Calculate scores
-  dsScores = sandra$calculateDScores(
+  dsScores = calculateDScores(
     dsDecoded$trialdata[[ task ]],
     scorings[[ task ]]
   );
   
   # Store scores
   io$writeData(
-    io$addPostfix( fileSource, task, "scores" ),
+    addPostfix( fileSource, task, "scores" ),
     dsScores
   );
   
   # Merge
-  dsMerged = sandra$leftMerge(
+  dsMerged = leftMerge(
     dsScores,
     dsDecoded$metadata,
     c( "set_id" )
@@ -89,7 +89,7 @@ for( task in names( scorings ) ) {
   
   # Store data
   io$writeData(
-    io$addPostfix( fileSource, task, "merged" ),
+    addPostfix( fileSource, task, "merged" ),
     dsMerged
   );
 }

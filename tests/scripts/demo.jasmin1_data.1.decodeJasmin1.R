@@ -10,7 +10,7 @@ original   = TRUE; # If TRUE, data is in original folder, if not, in interim fol
 ds = io$readData( fileSource, original );
 
 # Decode data
-dsDecoded = sandra$decodeJasmin1(
+dsDecoded = decodeJasmin1(
   ds,
   participationID = c( "UserID" )
 );

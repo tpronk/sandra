@@ -46,7 +46,7 @@ settings = list(
 ds = io$readData( fileTrialdata, original );
 
 # Calculate scores
-scores = sandra$calculateDScores(
+scores = calculateDScores(
   ds,
   settings
 );

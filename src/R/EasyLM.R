@@ -1,23 +1,22 @@
 # Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
 # All rights reserved. No warranty, explicit or implicit, provided.
 
-# ***************************************************
-# *** Handy wrapper R's native 'lm' function      ***
-# ***************************************************
-
-# Create sandra namespace if not exists
-if( !exists( "sandra" ) ) { 
-  sandra = list();
-}
-
-sandra$EasyLM = function( 
+#' Wrapper for R's native lm function
+#' 
+#' Constructs an instance of EasyLM, which adds some arguments to the native lm function for specifying which variables are continuous or discrete 
+#'
+#' @param ds              (data.frame) Dataset to run regressions on
+#' @param varsContinuous  (vector) Converts corresponding columns in dataframe to numeric, then Z-transforms
+#' @param varsDiscrete    (vector) Converts corresponding columns in dataframe to factor
+#' @return (function) wrapped lm function, use as lm without specifying data argument
+EasyLM = function( 
   ds, 
   varsContinuous = c(), 
   varsDiscrete   = c()
 ) {
-  # Adds some arguments to lm function for specifying which variables are continuous or discrete 
-  # For continuous: converts corresponding columns in dataframe to numeric, then Z-transform
-  # For discrete:   converts corresponding columns in dataframe to factor
+  # 
+  # For continuous: 
+  # For discrete:   
   
   # Extracts variables from a formula
   formula_to_variables = function( formula ) {

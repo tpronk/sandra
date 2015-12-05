@@ -13,7 +13,7 @@ dsScores   = io$readData( fileScores );
 dsMetadata = io$readData( fileMetadata );
 
 # Merge
-dsMerged = sandra$leftMerge(
+dsMerged = leftMerge(
   dsScores,
   dsMetadata,
   c( "set_id" )

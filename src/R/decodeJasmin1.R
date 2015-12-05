@@ -1,21 +1,26 @@
-# *********************
-# *** SANDRA Jasmin1Decoder
+# Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
+# All rights reserved. No warranty, explicit or implicit, provided.
 
-# Decodes JASMIN1 data stored in a LOTUS results file into trial data
-
-# Create sandra namespace if not exists
-if( !exists( "sandra" ) ) { 
-  sandra = list();
-}
-
-sandra$decodeJasmin1 = function(
+#' Decodes JASMIN1 data stored in a LOTUS results file into trial data
+#'
+#' @param input           (data.frame) LOTUS results file 
+#' @param participationID (vector) Columns in input for which each unique combination of values defines one participation
+#' @param verbose         (logical) If TRUE, then print debug output
+#' @param set_id_from     (integer) Value of set_id to start processing task data with
+#' @param colRunID        (character) Name of LOTUS RunID column
+#' @param colName         (character) Name of LOTUS Name column
+#' @param colValue        (character) Name of LOTUS Value column
+#' @return (data.frame) Calculated d-scores
+#' @examples
+#' See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
+decodeJasmin1 = function(
   input, 
   participationID = c( "UserID" ),
   verbose   = FALSE,
+  set_id_from = 1,  
   colRunID  = "RunID",
   colName   = "Name",
-  colValue  = "Value",
-  set_id_from = 1
+  colValue  = "Value"
 ) {
   # Implements ADPT report function
   report = function( reportMe ) {
@@ -1130,7 +1135,7 @@ sandra$decodeJasmin1 = function(
   # (ADPT process_jasmin/process_lotus_multisession.R)
   
   # Construct colUserID = "participationID" as combination of column values in participationID
-  report( conc( "sandra$decodeJasmin1. Construct participationID" ) );    
+  report( conc( "decodeJasmin1. Construct participationID" ) );    
   colUserID = "participationID";
   input[ ,"participationID" ] = apply(
     input,
@@ -1144,7 +1149,7 @@ sandra$decodeJasmin1 = function(
   
   # Check if input was properly formatted
   if( length( names( input ) ) == 1 ) {
-    print( "sandra$Jasmin1Decoder$decode. Warning: I found one variable name at the first row. Are you sure the is tab (\\t) separated?")
+    print( "Jasmin1Decoder$decode. Warning: I found one variable name at the first row. Are you sure the is tab (\\t) separated?")
   }
   
   # cols_lotus are all columns except RunID, Name, and Value
@@ -1176,7 +1181,7 @@ sandra$decodeJasmin1 = function(
   indexes_task_done  = which( input[ ,colName ] == "task_start" | input[ ,colName ] == "task_done" | input[ ,colName ] == "task_error" )
   
   # Build up sets
-  report( conc( "sandra$decodeJasmin1. Construct sets" ) );    
+  report( conc( "decodeJasmin1. Construct sets" ) );    
   sets = list();
   # Find matching task_done for each task_start
   for( i in indexes_task_start )
@@ -1202,7 +1207,7 @@ sandra$decodeJasmin1 = function(
       sets[[ length( sets ) + 1 ]] = c( i, next_done );
     }
   }
-  report( conc( "sandra$decodeJasmin1. ", length( sets ), " sets found" ) );
+  report( conc( "decodeJasmin1. ", length( sets ), " sets found" ) );
   
   # *********
   # *** Convert sets and construct trialdata
@@ -1212,7 +1217,7 @@ sandra$decodeJasmin1 = function(
     sequence_report = c();
     nwarnings = length( warnings() );
     
-    report( conc( "sandra$decodeJasmin1. Processing set ", set_id, " of ", length( sets ) ) );
+    report( conc( "decodeJasmin1. Processing set ", set_id, " of ", length( sets ) ) );
     metadata[ set_id, "run_from"   ] = input[ sets[[set_id]][1], colRunID ];
     metadata[ set_id, "run_to"     ] = input[ sets[[set_id]][2], colRunID ];
     metadata[ set_id, "set_id"     ] = set_id;
@@ -1236,7 +1241,7 @@ sandra$decodeJasmin1 = function(
       }
     }
     
-    report( "sandra$decodeJasmin1. Preparing evlogs" );
+    report( "decodeJasmin1. Preparing evlogs" );
     
     # Prepare evlogs
     cols_evlogs = c( "source", "type", "name", "value", "time", "sequence_number" );
@@ -1267,8 +1272,8 @@ sandra$decodeJasmin1 = function(
     
     metadata[ set_id, "event_count" ] = nrow( evlogs );
     
-    report( conc( "sandra$decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
-    report( conc( "sandra$decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
+    report( conc( "decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
+    report( conc( "decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
     
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
@@ -1331,7 +1336,7 @@ sandra$decodeJasmin1 = function(
             && all( names( trialdata[[ task_id ]] )      == names( data_outside ) )
           ) ) {
             print( conc(
-              "sandra$decodeJasmin1. Warning: different columns in trialdata of ",
+              "decodeJasmin1. Warning: different columns in trialdata of ",
               task_id,
               " collected so far and trialdata in current set" 
             ) );
@@ -1358,7 +1363,7 @@ sandra$decodeJasmin1 = function(
     }
     
     if( length( warnings() ) > nwarnings ) {
-      print( paste( "sandra$decodeJasmin1. There were warnings at set_id ", set_id ) );
+      print( paste( "decodeJasmin1. There were warnings at set_id ", set_id ) );
     }
     
     metadata[ set_id, "sequence_report" ] = paste( sequence_report, collapse = "," );

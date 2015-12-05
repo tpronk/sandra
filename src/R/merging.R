@@ -1,25 +1,17 @@
 # Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
 # All rights reserved. No warranty, explicit or implicit, provided.
 
-# ******************************************************
-# *** Handy wrappers for R's native 'merge' function ***
-# ******************************************************
-
-# Create sandra namespace if not exists
-if( !exists( "sandra" ) ) { 
-  sandra = list();
-}
-
-# left_merge; performs a 'left join' between two tables
-# The LEFT JOIN kerightword returns all rows from the left table (left), 
-# with the matching rows in the right table (right). The result is NA
-# in the right side when there is no match.
-# See: http://www.programmerinterview.com/indeleft.php/database-sql/difference-between-a-left-outer-join-and-right-outer-join/
-# Tables are matched on the list column names provided in the third argument to the function
-# (bright), these columns should be present in both tables
-# NOTE - For every column shared by left and right (but not used to match the tables), 
-# the values in left are replaced by the values of right if the values of right are not NA
-sandra$leftMerge = function( x, y, by_keys )
+#' Wrapper for R's native merge function for jeft join
+#'
+#' Performs a 'left join' between two data frames, with some function to append or overwrite duplicate values
+#' Returns all rows from the left table (left), with the matching rows in the right table (right). The result is NA in the right side when there is no match.
+#' For every column shared by left and right (but not used to match the tables), the values in left are replaced by the values of right if the values of right are not NA.
+#' 
+#' @param x        (data.frame) Left data frame
+#' @param y        (data.frame) Right data frame
+#' @param by_keys  (vector) Keys to join both data frames on
+#' @return (data.frame) Left joined data frames
+leftMerge = function( x, y, by_keys )
 {
   # Left join x and y on exp and set_id
   merged_out = merge( 
@@ -54,9 +46,15 @@ sandra$leftMerge = function( x, y, by_keys )
   return( merged_out );
 }
 
-# Nice merge is like left_merge but supporting left, right, and outer join
-# If pick_x == TRUE, any columns shared by x and y get the value of x, otherwise y
-sandra$niceMerge = function( x, y, by_keys, pick_x, ... )
+#' Like leftMerge but supporting left, right, and outer join
+#' 
+#' @param x        (data.frame) Left data frame
+#' @param y        (data.frame) Right data frame
+#' @param by_keys  (vector) Keys to join both data frames on
+#' @param by_keys  (logical) If TRUE, then for duplicates pick left table; if not, then pick right
+#' @param ...      Arguments passed on to R's native merge function
+#' @return (data.frame) Joined data frames
+niceMerge = function( x, y, by_keys, pick_x, ... )
 {
   # Left join x and y on exp and set_id
   merged_out = merge( 

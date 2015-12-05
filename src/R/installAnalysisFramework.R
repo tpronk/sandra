@@ -1,35 +1,23 @@
-# *********************
-# *** SANDRA AnalysisFramework
+# Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
+# All rights reserved. No warranty, explicit or implicit, provided.
 
-# Installs or loads a SANDRA Analysis Framework
-# A SANDRA Analysis Framework is a folder containing the following:
-# - Load Analysis.R Loads SANDRA and sets up a FileIO for this AnalysisFramework
-# - scripts/        Analysis scripts
-# - original/       Original Data
-# - interim/        Interim Data
-
-# Create sandra namespace if not exists
-if( !exists( "sandra" ) ) { 
-  sandra = list();
-}
-
-sandra$install = function( pathAnalysis = NA ) {
-  # Installs SANDRA Analysis Framework:
-  # - Creates the required sub-folders, if not exist
-  # - Creates "loadFramework.R" in analysis folder, which loads Framework for this analysis folder
-  #
-  # Args:
-  #   pathAnalysis: (character) Path to analysis folder. If unspecified, a folder picker is presented. NB - folder picker only works on Windows!
-  #
-  # Returns:
-  #   NULL
-  
-  # *** Install packages
+#' Installs or loads a SANDRA Analysis Framework
+#' 
+#' A SANDRA Analysis Framework, which is a folder containing the following:
+#' - Load Analysis.R Loads SANDRA and sets up a FileIO for this AnalysisFramework
+#' - scripts/        Analysis scripts
+#' - original/       Original Data
+#' - interim/        Interim Data
+#'
+#' @param pathAnalasis  (character) Path to analysis directory
+#' @return NULL
+installAnalysisFramework = function( pathAnalysis = NA ) {
   # Install devtools package
   if( !( "devtools" %in% row.names( installed.packages() ) ) ) {
     install.packages( "devtools" );
   }
   library( "devtools" )
+  
   # Install SANDRA from github
   if( !( "sandra" %in% row.names( installed.packages() ) ) ) {
     install_github( "tpronk/SANDRA/package" );
@@ -64,7 +52,7 @@ sandra$install = function( pathAnalysis = NA ) {
     # Construct R statements for loading SANDRA Analysis Framework
     output = c(
       "library( \"sandra\" );",
-      paste( "io  = sandra$FrameworkFileIO( \"", pathAnalysis,  "\" );", sep = "" )
+      paste( "io  = FrameworkFileIO( \"", pathAnalysis,  "\" );", sep = "" )
     );
     # Write statements to "Load Analysis"
     write(
