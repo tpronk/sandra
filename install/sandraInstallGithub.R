@@ -3,8 +3,10 @@ install.packages( "devtools" );
 library( "devtools" )
 
 # Install & load package SANDRA
-install_github( "tpronk/SANDRA/package" );
+install_github( "tpronk/SANDRA/dist" );
 library( "sandra" );
 
 # Install SANDRA Analysis Framework
-sandra$install();
+sandra$install(
+  
+);
