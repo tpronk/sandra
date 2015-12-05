@@ -22,7 +22,7 @@ sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0,
     comp_var = settings[[ "comp_var" ]];
     resp_var = settings[[ "resp_var" ]];
     rt_var   = settings[[ "rt_var"   ]];
-    ds_subset[ ,rt_var ] = as.numeric( ds_subset[ ,rt_var ] );
+    ds_subset[ ,rt_var ] = suppressWarnings( as.numeric( ds_subset[ ,rt_var ] ) );
     
     # ***********
     # *** Reporting 
@@ -272,8 +272,8 @@ sandra$calculateDScores = function( ds, settings, what = "all", splithalves = 0,
       );
       # Calculate correlation, add to list
       split_cor = cor( 
-        as.numeric( split_result[ ,"dscore_1"] ), 
-        as.numeric( split_result[ ,"dscore_2" ] )
+        suppressWarnings( as.numeric( split_result[ ,"dscore_1"] ) ), 
+        suppressWarnings( as.numeric( split_result[ ,"dscore_2" ] ) )
       );
       cors = c( cors, split_cor );
       if( debug ) { 
