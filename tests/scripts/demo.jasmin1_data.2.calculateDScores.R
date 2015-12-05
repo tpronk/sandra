@@ -4,7 +4,7 @@
 # Which is produced by: scripts/demo.jasmin1_data.decodeJasmin1.R
 
 # *** Start of config
-fileTrialdata = "jasmin1_data.vpt.csv";
+fileTrialdata = "jasmin1_data.vpt.trialdata.csv";
 original   = FALSE; # If TRUE, data is in original folder, if not, in interim folder
 
 # d-score settings

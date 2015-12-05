@@ -22,7 +22,7 @@ io$writeData(
 );
 for( task in names( dsDecoded$trialdata ) ) {
   io$writeData(
-    io$addPostfix( fileSource, task ),
+    io$addPostfix( fileSource, task, "trialdata" ),
     dsDecoded$trialdata[[ task ]]
   );
 }
