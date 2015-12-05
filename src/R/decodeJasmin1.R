@@ -14,7 +14,8 @@ sandra$decodeJasmin1 = function(
   verbose   = FALSE,
   colRunID  = "RunID",
   colName   = "Name",
-  colValue  = "Value"
+  colValue  = "Value",
+  set_id_from = 1
 ) {
   # Implements ADPT report function
   report = function( reportMe ) {
@@ -680,8 +681,9 @@ sandra$decodeJasmin1 = function(
       }
     }	
     
-    if( continue )
-    {
+    if( !continue ) {
+      return( NULL );
+    } else {
       output = data.frame( matrix( nrow = 0, ncol = length( columns ) ) );
       names( output ) = columns;
       
@@ -1205,8 +1207,9 @@ sandra$decodeJasmin1 = function(
   # *********
   # *** Convert sets and construct trialdata
   trialdata = list();
-  for( set_id in 1:length( sets ) )
+  for( set_id in set_id_from : length( sets ) )
   {
+    sequence_report = c();
     nwarnings = length( warnings() );
     
     report( conc( "sandra$decodeJasmin1. Processing set ", set_id, " of ", length( sets ) ) );
@@ -1270,11 +1273,15 @@ sandra$decodeJasmin1 = function(
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
     
+    # DEBUGGING globals
+    g_evlogs   <<- evlogs;
+    g_metadata <<- metadata;
+    
     if( !is.na( metadata[ set_id, "lotus_says" ] ) && metadata[ set_id, "lotus_says" ] == "task_done" )
     {
       result = parse_data_evlogs( evlogs );
-      metadata[ set_id, "sequence_report" ] = result$sequence_report;
       evlogs = result$evlogs;
+      sequence_report = c( sequence_report, result$sequence_report );
       
       data_task        = parse_data_task( evlogs );
       data_block       = parse_data_block( evlogs );
@@ -1310,44 +1317,51 @@ sandra$decodeJasmin1 = function(
       #   data_event,
       # );
 
-      # add data_outside to trialdata
-      if( !( task_id %in% names( trialdata ) ) ) {
-        trialdata[[ task_id ]] = data_outside;
+      # If only one trial filled with NA, invalid data
+      if( nrow( data_outside ) == 1 && all( is.na( data_outside ) ) ) {
+        sequence_report = c( sequence_report, "invalid" );
       } else {
-        # Check whether data_outside and trialdata contain same columns, else report warning
-        if( !( 
-             length( names( trialdata[[ task_id ]] ) ) == length( names( data_outside ) ) 
-          && all( names( trialdata[[ task_id ]] )      == names( data_outside ) )
-        ) ) {
-          print( conc(
-            "sandra$decodeJasmin1. Warning: different columns in trialdata of ",
-            task_id,
-            " collected so far and trialdata in current set" 
-          ) );
-          print( conc(
-            "metadata: ",
-            paste( metadata[ set_id, ], collapse = ", " )
-          ) );
-          print( conc(
-            "existing trialdata columns: ",
-            paste( names( trialdata[[ task_id ]] ), collapse = ", " )
-          ) );
-          print( conc(
-            "current trialdata columns: ",
-            paste( names( data_outside ), collapse = ", " )
-          ) );          
-        }
-        
-        trialdata[[ task_id ]][
-            ( nrow( trialdata[[ task_id ]] ) + 1 ) 
-          : ( nrow( trialdata[[ task_id ]] ) + nrow( data_outside ) ), 
-        ] = data_outside;
-      }      
+        # add data_outside to trialdata
+        if( !( task_id %in% names( trialdata ) ) ) {
+          trialdata[[ task_id ]] = data_outside;
+        } else {
+          # Check whether data_outside and trialdata contain same columns, else report warning
+          if( !( 
+               length( names( trialdata[[ task_id ]] ) ) == length( names( data_outside ) ) 
+            && all( names( trialdata[[ task_id ]] )      == names( data_outside ) )
+          ) ) {
+            print( conc(
+              "sandra$decodeJasmin1. Warning: different columns in trialdata of ",
+              task_id,
+              " collected so far and trialdata in current set" 
+            ) );
+            print( conc(
+              "metadata: ",
+              paste( metadata[ set_id, ], collapse = ", " )
+            ) );
+            print( conc(
+              "existing trialdata columns: ",
+              paste( names( trialdata[[ task_id ]] ), collapse = ", " )
+            ) );
+            print( conc(
+              "current trialdata columns: ",
+              paste( names( data_outside ), collapse = ", " )
+            ) );          
+          }
+          
+          trialdata[[ task_id ]][
+              ( nrow( trialdata[[ task_id ]] ) + 1 ) 
+            : ( nrow( trialdata[[ task_id ]] ) + nrow( data_outside ) ), 
+          ] = data_outside;
+        }      
+      }
     }
     
     if( length( warnings() ) > nwarnings ) {
       print( paste( "sandra$decodeJasmin1. There were warnings at set_id ", set_id ) );
     }
+    
+    metadata[ set_id, "sequence_report" ] = paste( sequence_report, collapse = "," );
   }    
   return( list( 
     metadata  = metadata,
