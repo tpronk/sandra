@@ -1,8 +1,8 @@
-# What is SANDRA?
-SANDRA (Standardized AND Reproducible Analyses) is a library of R modules for processing data, with specialized features for decoding JASMIN and LOTUS datasets.
-
-# How this repo is organized
-* **dist.** Compressed packages
-* **install.** Installation scripts
-* **src.** SANDRA source code
-* **tests.** Tests (and demos) of SANDRA modules in the SANDRA Analysis Framework
+# Overview of SANDRA R-modules
+* **AnalysisFramework.R** Sets up a standard paths to script and data directories for an analysis
+* **calculateDScores.R** Calculates D-Scores out of trial data
+* **decodeJasmin1.R** Decodes JASMIN1 trial data that is encoded in a LOTUS results file
+* **EasyLM.R** (Prototype) Handy wrapper for lm
+* **FileIO.R** File input/output functions
+* **merging.R** Handy wrappers for merge
+* **niceBy.R** Handy wrappers for by
