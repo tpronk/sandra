@@ -1129,6 +1129,7 @@ sandra$decodeJasmin1 = function(
   # (ADPT process_jasmin/process_lotus_multisession.R)
   
   # Construct colUserID = "participationID" as combination of column values in participationID
+  report( conc( "sandra$decodeJasmin1. Construct participationID" ) );    
   colUserID = "participationID";
   input[ ,"participationID" ] = apply(
     input,
@@ -1174,6 +1175,7 @@ sandra$decodeJasmin1 = function(
   indexes_task_done  = which( input[ ,colName ] == "task_start" | input[ ,colName ] == "task_done" | input[ ,colName ] == "task_error" )
   
   # Build up sets
+  report( conc( "sandra$decodeJasmin1. Construct sets" ) );    
   sets = list();
   # Find matching task_done for each task_start
   for( i in indexes_task_start )
@@ -1199,8 +1201,7 @@ sandra$decodeJasmin1 = function(
       sets[[ length( sets ) + 1 ]] = c( i, next_done );
     }
   }
-
-  report( conc( "process_lotus. ", length( sets ), " sets found" ) );
+  report( conc( "sandra$decodeJasmin1. ", length( sets ), " sets found" ) );
   
   # *********
   # *** Convert sets and construct trialdata
@@ -1209,7 +1210,7 @@ sandra$decodeJasmin1 = function(
   {
     nwarnings = length( warnings() );
     
-    report( conc( "process_lotus. Processing set ", set_id, " of ", length( sets ) ) );
+    report( conc( "sandra$decodeJasmin1. Processing set ", set_id, " of ", length( sets ) ) );
     metadata[ set_id, "run_from"   ] = input[ sets[[set_id]][1], colRunID ];
     metadata[ set_id, "run_to"     ] = input[ sets[[set_id]][2], colRunID ];
     metadata[ set_id, "set_id"     ] = set_id;
@@ -1233,7 +1234,7 @@ sandra$decodeJasmin1 = function(
       }
     }
     
-    report( "process_lotus. Preparing evlogs" );
+    report( "sandra$decodeJasmin1. Preparing evlogs" );
     
     # Prepare evlogs
     cols_evlogs = c( "source", "type", "name", "value", "time", "sequence_number" );
@@ -1264,8 +1265,8 @@ sandra$decodeJasmin1 = function(
     
     metadata[ set_id, "event_count" ] = nrow( evlogs );
     
-    report( conc( "process_lotus. event_count: ", metadata[ set_id, "event_count" ] ) );
-    report( conc( "process_lotus. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
+    report( conc( "sandra$decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
+    report( conc( "sandra$decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
     
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
@@ -1319,7 +1320,7 @@ sandra$decodeJasmin1 = function(
           && all( trialdata[[ task_id ]] == data_outside ) 
         ) ) {
           print( conc(
-            "process_lotus. Warning: different columns in trialdata of ",
+            "sandra$decodeJasmin1. Warning: different columns in trialdata of ",
             task_id,
             " collected so far and trialdata in current set" 
           ) );
@@ -1345,7 +1346,7 @@ sandra$decodeJasmin1 = function(
     }
     
     if( length( warnings() ) > nwarnings ) {
-      print( paste( "process_lotus. There were warnings at set_id ", set_id ) );
+      print( paste( "sandra$decodeJasmin1. There were warnings at set_id ", set_id ) );
     }
   }    
   return( list( 
