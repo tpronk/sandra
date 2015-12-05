@@ -2,6 +2,7 @@
 SANDRA (Standardized AND Reproducible Analyses) is a library of R modules for processing data, with specialized features for decoding JASMIN and LOTUS datasets.
 
 # How this repo is organized
+folder | description
 ------ | -----------
 **dist/** | Compressed packages
 **install/** | Installation scripts
