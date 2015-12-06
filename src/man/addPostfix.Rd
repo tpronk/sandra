@@ -2,12 +2,12 @@
 % Please edit documentation in R/FileIO.R
 \name{addPostfix}
 \alias{addPostfix}
-\title{Returns filename, with postfixes appended, each separated by dots, followed by the filename extension}
+\title{Postfix filename}
 \usage{
 addPostfix(filename, ...)
 }
 \arguments{
-\item{...}{(character) Filename to append postfixes to}
+\item{filename}{(character) Filename to append postfixes to}
 
 \item{...}{(character) Postfixes to append to filename}
 }
@@ -20,5 +20,15 @@ Returns filename, with postfixes appended, each separated by dots, followed by t
 \examples{
 # Returns "data.a.b.c.csv"
 addPostfix( "data.csv", "a", "b", "c" );
+}
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{appendData}};
+  \code{\link{cutExtension}}; \code{\link{existsData}};
+  \code{\link{getExtension}}; \code{\link{path}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
 }
 

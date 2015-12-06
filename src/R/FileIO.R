@@ -10,7 +10,8 @@
 #'
 #' @param pathAnalysis  (character) Path to your analysis
 #' @return (list) FileIO instance
-#' @section FileIO
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Setup analysis for directory D:/analysis
 #' io = FrameworkFileIO( "D:/analysis" );
@@ -27,8 +28,8 @@ FrameworkFileIO = function( pathAnalysis ) {
 #' @param pathScripts  (character) Path to your analysis scripts
 #' @param pathOriginal (character) Path to your original unprocessed data files
 #' @param pathInterim  (character) Path to data files as produced by your analyses
-#' @section FileIO
-#' @return (list) FileIO instance
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -66,6 +67,8 @@ FileIO = function( pathScripts, pathOriginal, pathInterim ) {
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param original (logical) If TRUE, return path to original data; if not, return path to interim data
 #' @return (character) Path
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -84,11 +87,13 @@ resolvePath = function( this, original ) {
 #' @param filename (character) File to read
 #' @param original (logical) If TRUE, use path to original data; if not, use path to interim data
 #' @return (data.frame) Dataset
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 #' io$readSurveyTool( "answers.csv" );
-readSurveyTool = function( this, filename, original = F ) {
+readSurveyTool = function( this, filename, original = FALSE ) {
   pathData = this$resolvePath( original );
   
   # Read raw data
@@ -129,8 +134,11 @@ readSurveyTool = function( this, filename, original = F ) {
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to read
 #' @param original (logical) If TRUE, use path to original data; if not, use path to interim data
-#' @param remainder: Arguments passed to read.table with default values
+#' @inheritParams  utils::write.table
+#' @param ...      Remaining arguments passed to utils::read.table
 #' @return (data.frame) Dataset
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -139,7 +147,7 @@ readData = function(
   this,
   filename, 
   original= FALSE, 
-  sep = "\t", 
+  sep = "\t",   
   quote = "", 
   comment.char = "",
   header = TRUE,
@@ -166,8 +174,11 @@ readData = function(
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to write to
 #' @param output   (data.frame) Data to write to file
-#' @param remainder: Arguments passed to read.table with default values
+#' @inheritParams utils::write.table
+#' @param ...      Remaining arguments passed to utils::write.table
 #' @return NULL
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -176,21 +187,21 @@ writeData = function(
   this,
   filename, 
   output, 
-  append = F, 
+  append = FALSE, 
   sep = "\t",
-  quote = F, 
-  row.names = F, 
-  col.names = T, 
+  quote = FALSE, 
+  row.names = FALSE, 
+  col.names = TRUE, 
   ...
 )  {
   pathData = this$resolvePath( FALSE );
   write.table(
     output,
     path( pathData, filename ),
+    append    = append,    
+    sep       = sep,    
     quote     = quote,
-    sep       = sep,
     row.names = row.names,
-    append    = append,
     col.names = !append && col.names, # No column names if appending
     ...
   )
@@ -202,6 +213,8 @@ writeData = function(
 #' @param filename (character) File to check existance of
 #' @param original (logical) If TRUE, return path to original data; if not, return path to interim data
 #' @return TRUE if file exists; if not, FALSE
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -216,7 +229,10 @@ existsData = function ( this, filename, original = FALSE )  {
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to write to
 #' @param output   (data.frame) Data to write to file
+#' @param ...      Remaining arguments passed to sandra::writeData
 #' @return NULL
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -226,7 +242,8 @@ appendData = function( this, filename, output, ... ) {
   this$writeData(
     filename,
     output,
-    append
+    append,
+    ...
   );
 }
 
@@ -236,6 +253,8 @@ appendData = function( this, filename, output, ... ) {
 #' @param filename (character) File to read from
 #' @param original (logical) If TRUE, use path to original data; if not, use path to interim data
 #' @return (vector) Vector
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -255,6 +274,8 @@ readVector = function( this, filename, original ) {
 #' @param filename (character) File to write to
 #' @param output   (vector) Data to write to file
 #' @return NULL
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -276,6 +297,8 @@ writeVector = function( this, filename, output ) {
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param script   (character) File with script to run
 #' @return NULL
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -292,6 +315,7 @@ runScript = function( this, script ) {
 #
 #' @param ...      (character) Terms to join
 #' @return (character) joined terms
+#' @family sandra::file input & output
 #' @examples
 #' # Returns "a/b/c"
 #' path( "a", "b", "c" );
@@ -299,11 +323,14 @@ path = function( ... ) {
   return( paste( ..., sep="/" ) );
 }
 
+#' Postfix filename
+#' 
 #' Returns filename, with postfixes appended, each separated by dots, followed by the filename extension
 #
-#' @param ...      (character) Filename to append postfixes to
+#' @param filename (character) Filename to append postfixes to
 #' @param ...      (character) Postfixes to append to filename
 #' @return (character) postfixed filename
+#' @family sandra::file input & output
 #' @examples
 #' # Returns "data.a.b.c.csv"
 #' addPostfix( "data.csv", "a", "b", "c" );
@@ -321,6 +348,7 @@ addPostfix = function( filename, ... ) {
 #
 #' @param filename  (character) Filename to cut extension from
 #' @return (character) Filename without extension
+#' @family sandra::file input & output
 #' @examples
 #' # Returns "data"
 #' cutExtension( "data.csv" );
@@ -334,6 +362,7 @@ cutExtension = function( filename )  {
 #
 #' @param filename  (character) Filename to get extension from
 #' @return (character) Filename extension
+#' @family sandra::file input & output
 #' @examples
 #' # Returns "csv"
 #' getExtension( "data.csv" );

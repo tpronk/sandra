@@ -15,11 +15,25 @@ FrameworkFileIO(pathAnalysis)
 \description{
 Constructs a SANDRA FileIO instance, assuming standard analysis, original, and interim directories
 }
-\section{FileIO}{
-
-}
 \examples{
 # Setup analysis for directory D:/analysis
 io = FrameworkFileIO( "D:/analysis" );
+}
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{addPostfix}}; \code{\link{appendData}};
+  \code{\link{cutExtension}}; \code{\link{existsData}};
+  \code{\link{getExtension}}; \code{\link{path}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FileIO}};
+  \code{\link{appendData}}; \code{\link{existsData}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
 }
 

@@ -5,8 +5,8 @@
 \title{Decodes JASMIN1 data stored in a LOTUS results file into trial data}
 \usage{
 decodeJasmin1(input, participationID = c("UserID"), verbose = FALSE,
-  set_id_from = 1, colRunID = "RunID", colName = "Name",
-  colValue = "Value")
+  timeReportInterval = 60, set_id_from = 1, colRunID = "RunID",
+  colName = "Name", colValue = "Value")
 }
 \arguments{
 \item{input}{(data.frame) LOTUS results file}
@@ -14,6 +14,8 @@ decodeJasmin1(input, participationID = c("UserID"), verbose = FALSE,
 \item{participationID}{(vector) Columns in input for which each unique combination of values defines one participation}
 
 \item{verbose}{(logical) If TRUE, then print debug output}
+
+\item{timeReportInterval}{(integer) If 0, don't print time remaining. Else, during set conversion, print an estimate of time remaining every timeReportInterval seconds}
 
 \item{set_id_from}{(integer) Value of set_id to start processing task data with}
 

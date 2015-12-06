@@ -19,4 +19,14 @@ Returns the extension of the given filename; everything after the last dot
 # Returns "csv"
 getExtension( "data.csv" );
 }
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{appendData}}; \code{\link{cutExtension}};
+  \code{\link{existsData}}; \code{\link{path}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+}
 

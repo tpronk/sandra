@@ -12,6 +12,8 @@ appendData(this, filename, output, ...)
 \item{filename}{(character) File to write to}
 
 \item{output}{(data.frame) Data to write to file}
+
+\item{...}{Remaining arguments passed to sandra::writeData}
 }
 \description{
 Create file if exists, else append data to existing file
@@ -20,5 +22,22 @@ Create file if exists, else append data to existing file
 # Create FileIO instance with folders in root of D:
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 io$appendData( "data.csv", ds );
+}
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{cutExtension}}; \code{\link{existsData}};
+  \code{\link{getExtension}}; \code{\link{path}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{existsData}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
 }
 

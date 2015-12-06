@@ -4,7 +4,7 @@
 \alias{readSurveyTool}
 \title{Read a data.frame from a TOP Survey Tool answer file}
 \usage{
-readSurveyTool(this, filename, original = F)
+readSurveyTool(this, filename, original = FALSE)
 }
 \arguments{
 \item{this}{(sandra::FileIO) FileIO instance}
@@ -23,5 +23,22 @@ Read a data.frame from a TOP Survey Tool answer file
 # Create FileIO instance with folders in root of D:
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 io$readSurveyTool( "answers.csv" );
+}
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{appendData}}; \code{\link{cutExtension}};
+  \code{\link{existsData}}; \code{\link{getExtension}};
+  \code{\link{path}}; \code{\link{readData}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{appendData}};
+  \code{\link{existsData}}; \code{\link{readData}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
 }
 

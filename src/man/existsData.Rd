@@ -24,4 +24,21 @@ Check if a file exists in original or interim directory
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 io$existsData( "data.csv" );
 }
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{appendData}}; \code{\link{cutExtension}};
+  \code{\link{getExtension}}; \code{\link{path}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{appendData}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+}
 

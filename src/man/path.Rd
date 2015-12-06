@@ -19,4 +19,14 @@ Returns terms joined by "/" for constructing path names
 # Returns "a/b/c"
 path( "a", "b", "c" );
 }
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{appendData}}; \code{\link{cutExtension}};
+  \code{\link{existsData}}; \code{\link{getExtension}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+}
 

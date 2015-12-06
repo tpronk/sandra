@@ -8,4 +8,4 @@ Maintainer: Thomas Pronk <pronkthomas@gmail.com>
 Description: 2do: more complete description
 License: License undetermined
 Depends:
-    rjson
+    rjson, lubridate

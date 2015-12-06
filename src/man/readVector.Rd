@@ -24,4 +24,21 @@ Read a vector from a newline separated file
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 io$readVector( "data.csv" );
 }
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{appendData}}; \code{\link{cutExtension}};
+  \code{\link{existsData}}; \code{\link{getExtension}};
+  \code{\link{path}}; \code{\link{readData}};
+  \code{\link{readSurveyTool}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{appendData}};
+  \code{\link{existsData}}; \code{\link{readData}};
+  \code{\link{readSurveyTool}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+}
 

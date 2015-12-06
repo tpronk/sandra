@@ -15,7 +15,17 @@ readData(this, filename, original = FALSE, sep = "\\t", quote = "",
 
 \item{original}{(logical) If TRUE, use path to original data; if not, use path to interim data}
 
-\item{remainder:}{Arguments passed to read.table with default values}
+\item{sep}{the field separator string.  Values within each row of
+    \code{x} are separated by this string.}
+
+\item{quote}{a logical value (\code{TRUE} or \code{FALSE}) or a
+    numeric vector.  If \code{TRUE}, any character or factor columns
+    will be surrounded by double quotes.  If a numeric vector, its
+    elements are taken as the indices of columns to quote.  In both
+    cases, row and column names are quoted if they are written.  If
+    \code{FALSE}, nothing is quoted.}
+
+\item{...}{Remaining arguments passed to utils::read.table}
 }
 \value{
 (data.frame) Dataset
@@ -27,5 +37,22 @@ Read a tab separated file (with varnames at the top row)
 # Create FileIO instance with folders in root of D:
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 io$readData( "data.csv" );
+}
+\seealso{
+Other sandra::file input & output: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{addPostfix}};
+  \code{\link{appendData}}; \code{\link{cutExtension}};
+  \code{\link{existsData}}; \code{\link{getExtension}};
+  \code{\link{path}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FileIO}};
+  \code{\link{FrameworkFileIO}}; \code{\link{appendData}};
+  \code{\link{existsData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
 }
 

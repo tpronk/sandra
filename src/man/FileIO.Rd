@@ -13,17 +13,28 @@ FileIO(pathScripts, pathOriginal, pathInterim)
 
 \item{pathInterim}{(character) Path to data files as produced by your analyses}
 }
-\value{
-(list) FileIO instance
-}
 \description{
 Constructs a SANDRA FileIO instance
-}
-\section{FileIO}{
-
 }
 \examples{
 # Create FileIO instance with folders in root of D:
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
+}
+\seealso{
+Other sandra::file input & output: \code{\link{FrameworkFileIO}};
+  \code{\link{addPostfix}}; \code{\link{appendData}};
+  \code{\link{cutExtension}}; \code{\link{existsData}};
+  \code{\link{getExtension}}; \code{\link{path}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
+
+Other sandra::FileIO: \code{\link{FrameworkFileIO}};
+  \code{\link{appendData}}; \code{\link{existsData}};
+  \code{\link{readData}}; \code{\link{readSurveyTool}};
+  \code{\link{readVector}}; \code{\link{resolvePath}};
+  \code{\link{runScript}}; \code{\link{writeData}};
+  \code{\link{writeVector}}
 }
 
