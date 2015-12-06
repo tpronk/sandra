@@ -3,24 +3,26 @@
 
 #' Decodes JASMIN1 data stored in a LOTUS results file into trial data
 #'
-#' @param input           (data.frame) LOTUS results file 
-#' @param participationID (vector) Columns in input for which each unique combination of values defines one participation
-#' @param verbose         (logical) If TRUE, then print debug output
-#' @param set_id_from     (integer) Value of set_id to start processing task data with
-#' @param colRunID        (character) Name of LOTUS RunID column
-#' @param colName         (character) Name of LOTUS Name column
-#' @param colValue        (character) Name of LOTUS Value column
+#' @param input              (data.frame) LOTUS results file 
+#' @param participationID    (vector) Columns in input for which each unique combination of values defines one participation
+#' @param verbose            (logical) If TRUE, then print debug output
+#' @param timeReportInterval (integer) If 0, don't print time remaining. Else, during set conversion, print an estimate of time remaining every timeReportInterval seconds
+#' @param set_id_from        (integer) Value of set_id to start processing task data with
+#' @param colRunID           (character) Name of LOTUS RunID column
+#' @param colName            (character) Name of LOTUS Name column
+#' @param colValue           (character) Name of LOTUS Value column
 #' @return (data.frame) Calculated d-scores
 #' @examples
 #' See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
 decodeJasmin1 = function(
   input, 
   participationID = c( "UserID" ),
-  verbose   = FALSE,
+  verbose = FALSE,
+  timeReportInterval = 60,
   set_id_from = 1,  
-  colRunID  = "RunID",
-  colName   = "Name",
-  colValue  = "Value"
+  colRunID = "RunID",
+  colName = "Name",
+  colValue = "Value"
 ) {
   # Implements ADPT report function
   report = function( reportMe ) {
@@ -1134,8 +1136,12 @@ decodeJasmin1 = function(
   # *****************************************
   # (ADPT process_jasmin/process_lotus_multisession.R)
   
+  if( timeReportInterval > 0 ) {
+    print( "sandra::decodeJasmin1 started. For big datasets it can take a while before I start providing an estimate of time remaining." );
+  }
+  
   # Construct colUserID = "participationID" as combination of column values in participationID
-  report( conc( "decodeJasmin1. Construct participationID" ) );    
+  report( conc( "sandra::decodeJasmin1. Construct participationID" ) );    
   colUserID = "participationID";
   input[ ,"participationID" ] = apply(
     input,
@@ -1181,7 +1187,7 @@ decodeJasmin1 = function(
   indexes_task_done  = which( input[ ,colName ] == "task_start" | input[ ,colName ] == "task_done" | input[ ,colName ] == "task_error" )
   
   # Build up sets
-  report( conc( "decodeJasmin1. Construct sets" ) );    
+  report( conc( "sandra::decodeJasmin1. Construct sets" ) );    
   sets = list();
   # Find matching task_done for each task_start
   for( i in indexes_task_start )
@@ -1207,17 +1213,35 @@ decodeJasmin1 = function(
       sets[[ length( sets ) + 1 ]] = c( i, next_done );
     }
   }
-  report( conc( "decodeJasmin1. ", length( sets ), " sets found" ) );
+  report( conc( "sandra::decodeJasmin1. ", length( sets ), " sets found" ) );
   
   # *********
   # *** Convert sets and construct trialdata
   trialdata = list();
-  for( set_id in set_id_from : length( sets ) )
-  {
+  startTime = as.numeric( proc.time()[ "elapsed" ] );
+  lastTime = startTime;
+  for( set_id in set_id_from : length( sets ) ) {
+    # Report time remaining?
+    if( timeReportInterval > 0 ) {
+      # If time passed between last time report > 60 seconds, then re-estimate
+      # time remaining for set conversion and report.
+      curTime = as.numeric( proc.time()[ "elapsed" ] );
+      if( curTime - lastTime > timeReportInterval ) {
+        timePerSet = ( curTime - startTime ) / ( set_id - set_id_from );
+        timeRemaining = ( length( sets ) - set_id ) * timePerSet;
+        print( paste( 
+          "sandra::decodeJasmin1. Converting sets. Time remaining: ",
+          round( seconds_to_period( timeRemaining ) ),
+          sep = ""
+        ) );
+        lastTime = curTime;
+      }
+    }
+    
     sequence_report = c();
     nwarnings = length( warnings() );
     
-    report( conc( "decodeJasmin1. Processing set ", set_id, " of ", length( sets ) ) );
+    report( conc( "sandra::decodeJasmin1. Processing set ", set_id, " of ", length( sets ) ) );
     metadata[ set_id, "run_from"   ] = input[ sets[[set_id]][1], colRunID ];
     metadata[ set_id, "run_to"     ] = input[ sets[[set_id]][2], colRunID ];
     metadata[ set_id, "set_id"     ] = set_id;
@@ -1241,7 +1265,7 @@ decodeJasmin1 = function(
       }
     }
     
-    report( "decodeJasmin1. Preparing evlogs" );
+    report( "sandra::decodeJasmin1. Preparing evlogs" );
     
     # Prepare evlogs
     cols_evlogs = c( "source", "type", "name", "value", "time", "sequence_number" );
@@ -1272,8 +1296,8 @@ decodeJasmin1 = function(
     
     metadata[ set_id, "event_count" ] = nrow( evlogs );
     
-    report( conc( "decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
-    report( conc( "decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
+    report( conc( "sandra::decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
+    report( conc( "sandra::decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
     
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
@@ -1336,7 +1360,7 @@ decodeJasmin1 = function(
             && all( names( trialdata[[ task_id ]] )      == names( data_outside ) )
           ) ) {
             print( conc(
-              "decodeJasmin1. Warning: different columns in trialdata of ",
+              "sandra::decodeJasmin1. Warning: different columns in trialdata of ",
               task_id,
               " collected so far and trialdata in current set" 
             ) );
@@ -1363,7 +1387,7 @@ decodeJasmin1 = function(
     }
     
     if( length( warnings() ) > nwarnings ) {
-      print( paste( "decodeJasmin1. There were warnings at set_id ", set_id ) );
+      print( paste( "sandra::decodeJasmin1. There were warnings at set_id ", set_id ) );
     }
     
     metadata[ set_id, "sequence_report" ] = paste( sequence_report, collapse = "," );
