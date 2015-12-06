@@ -3,7 +3,7 @@
 
 #' Installs or loads a SANDRA Analysis Framework
 #' 
-#' A SANDRA Analysis Framework, which is a folder containing the following:
+#' A SANDRA Analysis Framework, which is a directory containing the following:
 #' - Load Analysis.R Loads SANDRA and sets up a FileIO for this AnalysisFramework
 #' - scripts/        Analysis scripts
 #' - original/       Original Data
@@ -12,15 +12,15 @@
 #' @param pathAnalasis  (character) Path to analysis directory
 #' @return NULL
 installAnalysisFramework = function( pathAnalysis = NA ) {
-  # *** Prepare Analysis folder
-  # Ask for Analysis folder
+  # *** Prepare Analysis directory
+  # Ask for Analysis directory
   if( is.na( pathAnalysis ) ) {
     pathAnalysis = choose.dir(
       caption = "Select directory to install SANDRA Analysis Framework in"
     );
   }
   
-  # Folder picker canceled? Abort installation
+  # directory picker canceled? Abort installation
   if( is.na( pathAnalysis ) ) {
     print( "sandra::installAnalysisFramework. No Analysis directory selected; installation of SANDRA Analysis Framework aborted")
     return();
@@ -38,20 +38,22 @@ installAnalysisFramework = function( pathAnalysis = NA ) {
     sep = ""
   ) );  
   
-  # *** Create sub-folders
+  # *** Create sub-directories
   subfolders = c( "scripts", "original", "interim" );
   for( subfolder in subfolders ) {
     subpath = paste( pathAnalysis, subfolder, sep = "/")
     report = c(
-      "sandra::installAnalysisFramework. Directory ",
-      subpath
+      "sandra::installAnalysisFramework. Directory '",
+      subpath,
+      "' "
     );
     if( !file.exists( subpath ) ) {
       dir.create( subpath );
-      report = c( report, " created");
+      report = c( report, "created");
     } else {
-      report = c( report, " already exists");
+      report = c( report, "already exists");
     }
+    print( paste( report, collapse = "" ) );
   }
   
   # *** Create "Load SANDRA.R" script
@@ -67,11 +69,13 @@ installAnalysisFramework = function( pathAnalysis = NA ) {
       output,
       loadAnalysisFile
     );
-    print( "sandra::installAnalysisFramework. \"Load SANDRA.R\" created" );
-    
-    # Run "Load Analysis.R"
-    source(
-      loadAnalysisFile
-    );
+    print( "sandra::installAnalysisFramework. File 'Load SANDRA.R' created" );
+  } else {
+    print( "sandra::installAnalysisFramework. File 'Load SANDRA.R' already exists" );
   }
+  
+  # Run "Load SANDRA.R"
+  source(
+    loadAnalysisFile
+  );
 }  
