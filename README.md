@@ -6,4 +6,4 @@ folder | description
 ------ | -----------
 build/ | Scripts for build and loading SANDRA package
 src/ | SANDRA source code
-tests/ | Tests (and demos) of SANDRA modules in the SANDRA Analysis Framework
+tests/ | A SANDRA Analysis Framework with demos (and tests)
