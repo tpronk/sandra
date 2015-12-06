@@ -9,18 +9,43 @@
 #' Constructs a SANDRA FileIO instance, assuming standard analysis, original, and interim directories
 #'
 #' @param pathAnalysis  (character) Path to your analysis
+#' @param verbose       (logical) If TRUE, check whether each expected subdirectory exists and print that io is loaded
 #' @return (list) FileIO instance
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
 #' @examples
 #' # Setup analysis for directory D:/analysis
 #' io = FrameworkFileIO( "D:/analysis" );
-FrameworkFileIO = function( pathAnalysis ) {
-  return( FileIO(
+FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
+  error = FALSE;
+  subdirectories = c(
     paste( pathAnalysis, "scripts",  sep = "/" ),
     paste( pathAnalysis, "original", sep = "/" ),
     paste( pathAnalysis, "interim",  sep = "/" )
-  ) );
+  );    
+  if( verbose ) {
+    for( subdirectory in subdirectories ) {
+      if( !file.exists( subdirectory ) ) {
+        error = TRUE;
+        print( paste(
+          "sandra::FrameworkFileIO. Could not find directory '",
+          subdirectory,
+          "'"
+        ) );
+      }
+    }
+  }
+  fileIO = FileIO(
+    paste( pathAnalysis, "scripts",  sep = "/" ),
+    paste( pathAnalysis, "original", sep = "/" ),
+    paste( pathAnalysis, "interim",  sep = "/" )
+  );
+  if( !error && verbose ) {
+    print( 
+      "sandra::FrameworkFileIO. Succesfully constructed FileIO",
+    );
+  }
+  return( fileIO );
 }
 
 #' Constructs a SANDRA FileIO instance
