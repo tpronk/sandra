@@ -8,6 +8,6 @@ library( "sandra" );
 
 # Install SANDRA Analysis Framework
 installAnalysisFramework(
-  # Enter path to analysis folder here
-  # For Windows: leave empty to get a folder picker
+  # Enter path to analysis folder here (without trailing slash)
+  # Only for Windows: leave empty to get a folder picker
 );
