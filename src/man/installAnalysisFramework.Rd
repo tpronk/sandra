@@ -10,7 +10,7 @@ installAnalysisFramework(pathAnalysis = NA)
 \item{pathAnalasis}{(character) Path to analysis directory}
 }
 \description{
-A SANDRA Analysis Framework, which is a folder containing the following:
+A SANDRA Analysis Framework, which is a directory containing the following:
 - Load Analysis.R Loads SANDRA and sets up a FileIO for this AnalysisFramework
 - scripts/        Analysis scripts
 - original/       Original Data

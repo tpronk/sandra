@@ -4,10 +4,12 @@
 \alias{FrameworkFileIO}
 \title{Constructs a SANDRA FileIO instance, assuming standard analysis, original, and interim directories}
 \usage{
-FrameworkFileIO(pathAnalysis)
+FrameworkFileIO(pathAnalysis, verbose = TRUE)
 }
 \arguments{
 \item{pathAnalysis}{(character) Path to your analysis}
+
+\item{verbose}{(logical) If TRUE, check whether each expected subdirectory exists and print that io is loaded}
 }
 \value{
 (list) FileIO instance

@@ -3,14 +3,51 @@
 
 #' Calculates d-scores from trial data
 #'
-#' @param ds          (data.frame) Trial data
-#' @param settings    (list) D-score calculation settings
-#' @param splithalves (integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations
-#' @param what        (character) If "all", calculate over full task data, if "first_second" calculate 2 dscores; one for first and one for second halve. Only efffectie if splithalves == 0
-#' @param verbose     (logical) If TRUE, then print debug output
-#' @return (data.frame) Calculated d-scores
+#' @param ds          (data.frame) Trial data.
+#' @param settings    (list) D-score calculation settings.
+#' @param splithalves (integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.
+#' @param what        (character) If "all", calculate over full task data, if "first_second" calculate 2 dscores; one for first and one for second halve. Only used if splithalves == 0.
+#' @param verbose     (logical) If TRUE, then print debug output.
+#' @param ...         Remaining arguments are passed to an internal scoring function. Not used at the moment.
+#' @return (data.frame) Calculated d-scores.
+#'
+#' @details 
+#' The table below shows an overview of elements in settings and their meaning.
+#' \tabular{lllll}{
+#'   \strong{Name} \tab \strong{Type} \tab \strong{Required?} \tab  \strong{Example Value} \tab \strong{Description} \cr
+#'   run_var \tab character \tab Yes \tab \code{"set_id"} \tab Variable in trialdata that identifies a participation. \cr
+#'   resp_var \tab character \tab Yes \tab \code{"response"} \tab Variable in trialdata that identifies responses (being correct, incorrect, etc.). \cr
+#'   rt_var \tab character \tab Yes \tab \code{"rt"} \tab Variable in trialdata that identifies response times. \cr
+#'   comp_var \tab character \tab Yes \tab \code{"appr"} \tab Variable in trialdata that identifies compatible/incompatible blocks. \cr
+#'   comp_levels \tab character \tab Yes \tab \code{c( "yes", "no" )} \tab Vector containing two elements, corresponding to the values of comp_var that identify compatible and incompatible blocks respectively. Bias score is calculated towards first element. \cr
+#'   fast_drop \tab integer \tab No \tab \code{300} \tab Drop all response times lower than this value. \cr
+#'   fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores. \cr
+#'   slow_drop \tab integer \tab No \tab \code{3000} \tab Drop all response times higher than this value. \cr
+#'   slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores. \cr
+#'   sd_drop \tab numeric \tab No \tab \code{1.5} \tab Drop all response times higher than mean response times of correct responses + sd_drop * SD, and those lower than mean - sd_drop * SD. \cr
+#'   sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD, in scores. \cr
+#'   resp_drop \tab vector \tab No \tab \code{c("NA",0,3,4)} \tab Drop all responses with these values. \cr
+#'   resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually). \cr
+#'   resp_correct \tab character \tab Yes \tab \code{1} \tab Value for correct responses. \cr
+#'   resp_penalty \tab vector \tab No \tab \code{c(2)} \tab Responses whose response times are to be replaced by a penalty RT. \cr
+#'   rt_penalty \tab character \tab No \tab \code{"2sd"} \tab Default = "2sd". Use "2sd" to replace RTs of incorrect responses with the mean + 2SD of correct responses for current block. Use "d600" to penalize with mean + 600. \cr
+#'   aux_report \tab vector \tab No \tab \code{c( "correct_n", "task_n" )} \tab Additional variables to report. See separate section covering aux_report. \cr
+#' }
+#'
+#' The table below shows an overview of elements in aux_report and their meaning.
+#' \tabular{lllll}{
+#'   \strong{Name} \tab \strong{Scope} \tab \strong{Description} \tab \cr
+#'   correct_n \tab block \tab Number of correct responses \cr
+#'   correct_mean \tab block \tab Mean or RT of correct responses \cr
+#'   correct_sd \tab block \tab SD of RT of correct responses \cr
+#'   penalty \tab block \tab RT penalty \cr
+#'   adjusted_mean \tab block \tab Mean RT after applying penalty \cr
+#'   inclusive_sd \tab task \tab SD of response times for compatible and incompatible blocks taken together \cr
+#'   task_n \tab task \tab Number of trials in task \cr
+#' }
+#'
 #' @examples
-#' See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
+#' See: SANDRA/framework_demos/scripts/processCbm.jasmin1_data.R
 calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbose = F, ... ) {
 
   # ***********************
