@@ -17,6 +17,10 @@ data.frame.affixNames(ds, prefix = NULL, postfix = NULL, not = c())
 }
 \value{
 (data.frame) Data with affixed column names
+# Create a new data frame
+ds = data.frame.new( vars = c( "id", "x", "y", "z" ) );
+# Prefix and postfix all names except "id"
+data.frame.affixNames( ds, prefix = "pre", postfix = "post", not = "id" );
 }
 \description{
 Affix column names in a data frame

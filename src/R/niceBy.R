@@ -23,14 +23,14 @@ niceBy = function(
 ) {
   
   # *** Construct factors
-  if( verbose ) { print( paste( Sys.time(), ", nice_by, construct factors", sep = "" ) ); }
+  if( verbose ) { print( paste( Sys.time(), ", niceBy, construct factors", sep = "" ) ); }
   indices = list();
   for( f in factors ) {
     indices[[ length( indices ) + 1 ]] = ds[ ,f ];
   }
   
   # *** Create a list with all the subsets
-  if( verbose ) { print( paste( Sys.time(), ", nice_by, create subsets", sep = "" ) ); }
+  if( verbose ) { print( paste( Sys.time(), ", niceBy, create subsets", sep = "" ) ); }
   ds_list = by(
     ds,
     indices,
@@ -38,9 +38,12 @@ niceBy = function(
       return( subset );
     }
   );
+  
+  # Remove NULL values in subsets
+  ds_list = ds_list[ which( !unlist( lapply( ds_list, is.null ) ) ) ];
       
   # *** Apply aggregation to each element of ds_list 
-  if( verbose ) { print( paste( Sys.time(), ", nice_by, apply aggregations", sep = "" ) ); }  
+  if( verbose ) { print( paste( Sys.time(), ", niceBy, apply aggregations", sep = "" ) ); }  
   result_raw = lapply(
     ds_list,
     function( subset ) {
@@ -58,7 +61,7 @@ niceBy = function(
       return( result );
     }
   );
-  if( verbose ) { print( paste( Sys.time(), ", nice_by, aggregations done", sep = "" ) ); }
+  if( verbose ) { print( paste( Sys.time(), ", niceBy, aggregations done", sep = "" ) ); }
   
   if( result_type == "data.frame" ) {
     # data.frame
