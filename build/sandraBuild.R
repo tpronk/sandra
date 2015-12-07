@@ -18,3 +18,5 @@ install( pathSandraSource );
 # *** Load it and show version number
 library( "sandra" );
 packageVersion( "sandra" )
+
+?calculateDScores
