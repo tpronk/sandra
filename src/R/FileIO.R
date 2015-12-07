@@ -329,7 +329,7 @@ writeVector = function( this, filename, output ) {
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 #' io$runScript( "myScript.R" );
 runScript = function( this, script ) {
-  source( path( pathScripts, script ) );
+  source( path( this$pathScripts, script ) );
 }  
 
 # ***************************
