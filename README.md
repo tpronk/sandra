@@ -5,5 +5,6 @@ SANDRA (Standardized AND Reproducible Analyses) is a library of R modules for pr
 folder | description
 ------ | -----------
 build/ | Scripts for build and loading SANDRA package
+framework_demos/ | A SANDRA Analysis Framework with demos (and tests)
 src/ | SANDRA source code
-tests/ | A SANDRA Analysis Framework with demos (and tests)
+tutorials/ | Tutorials for common SANDRA tasks
