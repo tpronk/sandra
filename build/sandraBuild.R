@@ -9,10 +9,10 @@ roxygen2::roxygenise( pathSandraSource )
 
 # Install package
 library( "devtools" )
-# build( 
-#   pkg  = pathSandraSource,
-#   path = pathSandraCompiled
-#   );
+build( 
+  pkg  = pathSandraSource,
+  path = pathSandraCompiled
+  );
 install( pathSandraSource );
 
 # *** Load it and show version number
