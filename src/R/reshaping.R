@@ -28,29 +28,29 @@ makeWide = function( data, idvars, timevars ) {
     rowCounts[ ,"n" ] = as.numeric( as.character( rowCounts[ ,"n" ] ) );
     rowCounts = rowCounts[ rowCounts[ ,"n" ] > 1, ];
     
-    if( nrow( rowCounts ) > 0 ) {
-      warning( paste(
-        "sandra::makeWide. Duplicate rows found for columns ",
-        paste( c( idvars, timevar_cur ), sep = ", ", collapse = ", " ),
-        " with values: ",
-        paste(
-          apply( rowCounts, 1, function( row ) { 
-            return( paste(
-              "[",
-              paste( 
-                as.character( unlist( row[ c( idvars, timevar_cur ) ] ) ),  
-                collapse = ",", 
-                sep = "," 
-              ),
-              "]",
-              sep = ""
-            ) )
-          } ),
-          collapse = ","
-        )
-      ) );
-    }
-    
+#     if( nrow( rowCounts ) > 0 ) {
+#       warning( paste(
+#         "sandra::makeWide. Duplicate rows found for columns ",
+#         paste( c( idvars, timevar_cur ), sep = ", ", collapse = ", " ),
+#         " with values: ",
+#         paste(
+#           apply( rowCounts, 1, function( row ) { 
+#             return( paste(
+#               "[",
+#               paste( 
+#                 as.character( unlist( row[ c( idvars, timevar_cur ) ] ) ),  
+#                 collapse = ",", 
+#                 sep = "," 
+#               ),
+#               "]",
+#               sep = ""
+#             ) )
+#           } ),
+#           collapse = ","
+#         )
+#       ) );
+#     }
+#     
     # Reshape data
     data = reshape(
       data,
