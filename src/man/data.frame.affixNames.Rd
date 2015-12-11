@@ -17,12 +17,38 @@ data.frame.affixNames(ds, prefix = NULL, postfix = NULL, not = c())
 }
 \value{
 (data.frame) Data with affixed column names
+}
+\description{
+Affix column names in a data frame
+}
+\examples{
 # Create a new data frame
 ds = data.frame.new( vars = c( "id", "x", "y", "z" ) );
 # Prefix and postfix all names except "id"
 data.frame.affixNames( ds, prefix = "pre", postfix = "post", not = "id" );
 }
-\description{
-Affix column names in a data frame
+\seealso{
+Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+  \code{\link{FrameworkFileIO}},
+  \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
+  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{data.frame.dropVar}},
+  \code{\link{data.frame.new}},
+  \code{\link{data.frame.renameVar}},
+  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
+  \code{\link{installAnalysisFramework}},
+  \code{\link{leftMerge}}, \code{\link{makeWide}},
+  \code{\link{niceBy}}, \code{\link{niceMerge}},
+  \code{\link{path}}, \code{\link{readData}},
+  \code{\link{readSurveyTool}}, \code{\link{readVector}},
+  \code{\link{reportProgress}}, \code{\link{resolvePath}},
+  \code{\link{runScript}}, \code{\link{timeRemaining}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
+
+Other sandra::dataFrames: \code{\link{data.frame.dropVar}},
+  \code{\link{data.frame.new}},
+  \code{\link{data.frame.renameVar}}
 }
 

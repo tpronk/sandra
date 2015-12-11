@@ -21,4 +21,27 @@ Performs a 'left join' between two data frames, with some function to append or 
 Returns all rows from the left table (left), with the matching rows in the right table (right). The result is NA in the right side when there is no match.
 For every column shared by left and right (but not used to match the tables), the values in left are replaced by the values of right if the values of right are not NA.
 }
+\seealso{
+Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+  \code{\link{FrameworkFileIO}},
+  \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
+  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{data.frame.affixNames}},
+  \code{\link{data.frame.dropVar}},
+  \code{\link{data.frame.new}},
+  \code{\link{data.frame.renameVar}},
+  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
+  \code{\link{installAnalysisFramework}},
+  \code{\link{makeWide}}, \code{\link{niceBy}},
+  \code{\link{niceMerge}}, \code{\link{path}},
+  \code{\link{readData}}, \code{\link{readSurveyTool}},
+  \code{\link{readVector}}, \code{\link{reportProgress}},
+  \code{\link{resolvePath}}, \code{\link{runScript}},
+  \code{\link{timeRemaining}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
+
+Other sandra::merging: \code{\link{niceMerge}}
+}
 

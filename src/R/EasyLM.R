@@ -8,6 +8,7 @@
 #' @param ds              (data.frame) Dataset to run regressions on
 #' @param varsContinuous  (vector) Converts corresponding columns in dataframe to numeric, then Z-transforms
 #' @param varsDiscrete    (vector) Converts corresponding columns in dataframe to factor
+#' @family SANDRA
 #' @return (function) wrapped lm function, use as lm without specifying data argument
 EasyLM = function( 
   ds, 

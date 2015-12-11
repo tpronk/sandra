@@ -11,6 +11,7 @@
 #'
 #' @param pathAnalasis  (character) Path to analysis directory
 #' @return NULL
+#' @family SANDRA
 installAnalysisFramework = function( pathAnalysis = NA ) {
   # *** Prepare Analysis directory
   # Ask for Analysis directory

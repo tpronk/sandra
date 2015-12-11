@@ -3,10 +3,6 @@ pathSandraSource   = "D:/wamp/www/sandra/trunk/src";
 pathSandraCompiled = "D:/wamp/www/sandra/trunk/dist";
 # End of Config
 
-# Generate man
-library( "roxygen2" )
-roxygen2::roxygenise( pathSandraSource )
-
 # Install package
 library( "devtools" )
 build( 
@@ -15,8 +11,10 @@ build(
   );
 install( pathSandraSource );
 
-# *** Load it and show version number
+# Generate man
 library( "sandra" );
-packageVersion( "sandra" )
+library( "roxygen2" )
+roxygen2::roxygenise( pathSandraSource )
 
+packageVersion( "sandra" )
 ?calculateDScores

@@ -11,6 +11,8 @@
 #' @param y        (data.frame) Right data frame
 #' @param by_keys  (vector) Keys to join both data frames on
 #' @return (data.frame) Left joined data frames
+#' @family sandra::merging
+#' @family SANDRA
 leftMerge = function( x, y, by_keys )
 {
   # Left join x and y on exp and set_id
@@ -54,6 +56,8 @@ leftMerge = function( x, y, by_keys )
 #' @param by_keys  (logical) If TRUE, then for duplicates pick left table; if not, then pick right
 #' @param ...      Arguments passed on to R's native merge function
 #' @return (data.frame) Joined data frames
+#' @family sandra::merging
+#' @family SANDRA
 niceMerge = function( x, y, by_keys, pick_x, ... )
 {
   # Left join x and y on exp and set_id

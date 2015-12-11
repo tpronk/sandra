@@ -13,6 +13,7 @@
 #' @return (list) FileIO instance
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Setup analysis for directory D:/analysis
 #' io = FrameworkFileIO( "D:/analysis" );
@@ -55,6 +56,7 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
 #' @param pathInterim  (character) Path to data files as produced by your analyses
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -94,6 +96,7 @@ FileIO = function( pathScripts, pathOriginal, pathInterim ) {
 #' @return (character) Path
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -114,6 +117,7 @@ resolvePath = function( this, original ) {
 #' @return (data.frame) Dataset
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -164,6 +168,7 @@ readSurveyTool = function( this, filename, original = FALSE ) {
 #' @return (data.frame) Dataset
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -204,6 +209,7 @@ readData = function(
 #' @return NULL
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -240,6 +246,7 @@ writeData = function(
 #' @return TRUE if file exists; if not, FALSE
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -258,6 +265,7 @@ existsData = function ( this, filename, original = FALSE )  {
 #' @return NULL
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -280,6 +288,7 @@ appendData = function( this, filename, output, ... ) {
 #' @return (vector) Vector
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -301,6 +310,7 @@ readVector = function( this, filename, original ) {
 #' @return NULL
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -324,6 +334,7 @@ writeVector = function( this, filename, output ) {
 #' @return NULL
 #' @family sandra::FileIO 
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
@@ -341,6 +352,7 @@ runScript = function( this, script ) {
 #' @param ...      (character) Terms to join
 #' @return (character) joined terms
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Returns "a/b/c"
 #' path( "a", "b", "c" );
@@ -356,6 +368,7 @@ path = function( ... ) {
 #' @param ...      (character) Postfixes to append to filename
 #' @return (character) postfixed filename
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Returns "data.a.b.c.csv"
 #' addPostfix( "data.csv", "a", "b", "c" );
@@ -374,6 +387,7 @@ addPostfix = function( filename, ... ) {
 #' @param filename  (character) Filename to cut extension from
 #' @return (character) Filename without extension
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Returns "data"
 #' cutExtension( "data.csv" );
@@ -388,6 +402,7 @@ cutExtension = function( filename )  {
 #' @param filename  (character) Filename to get extension from
 #' @return (character) Filename extension
 #' @family sandra::file input & output
+#' @family SANDRA
 #' @examples
 #' # Returns "csv"
 #' getExtension( "data.csv" );

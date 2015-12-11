@@ -46,6 +46,7 @@
 #'   task_n \tab task \tab Number of trials in task \cr
 #' }
 #'
+#' @family SANDRA
 #' @examples
 #' See: SANDRA/framework_demos/scripts/processCbm.jasmin1_data.R
 calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbose = F, ... ) {

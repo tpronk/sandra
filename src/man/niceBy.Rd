@@ -27,4 +27,25 @@ niceBy(ds, factors, aggregation, result_type = "data.frame", verbose = F,
 Calls the function 'aggregation' for each unique combination of values of the the columns factors in the dataframe ds.
 The aggregation function is called with two arguments: (1) (list) result list to add aggregation output to, and (2) (data.frame) subset of data selected by this combination of values for factors
 }
+\seealso{
+Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+  \code{\link{FrameworkFileIO}},
+  \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
+  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{data.frame.affixNames}},
+  \code{\link{data.frame.dropVar}},
+  \code{\link{data.frame.new}},
+  \code{\link{data.frame.renameVar}},
+  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
+  \code{\link{installAnalysisFramework}},
+  \code{\link{leftMerge}}, \code{\link{makeWide}},
+  \code{\link{niceMerge}}, \code{\link{path}},
+  \code{\link{readData}}, \code{\link{readSurveyTool}},
+  \code{\link{readVector}}, \code{\link{reportProgress}},
+  \code{\link{resolvePath}}, \code{\link{runScript}},
+  \code{\link{timeRemaining}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
+}
 

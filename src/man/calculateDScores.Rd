@@ -64,4 +64,25 @@ The table below shows an overview of elements in aux_report and their meaning.
 \examples{
 See: SANDRA/framework_demos/scripts/processCbm.jasmin1_data.R
 }
+\seealso{
+Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+  \code{\link{FrameworkFileIO}},
+  \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
+  \code{\link{appendData}}, \code{\link{close}},
+  \code{\link{cutExtension}},
+  \code{\link{data.frame.affixNames}},
+  \code{\link{data.frame.dropVar}},
+  \code{\link{data.frame.new}},
+  \code{\link{data.frame.renameVar}},
+  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
+  \code{\link{installAnalysisFramework}},
+  \code{\link{leftMerge}}, \code{\link{makeWide}},
+  \code{\link{niceBy}}, \code{\link{niceMerge}},
+  \code{\link{path}}, \code{\link{readData}},
+  \code{\link{readSurveyTool}}, \code{\link{readVector}},
+  \code{\link{reportProgress}}, \code{\link{resolvePath}},
+  \code{\link{runScript}}, \code{\link{timeRemaining}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
+}
 

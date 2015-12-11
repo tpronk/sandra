@@ -13,6 +13,7 @@
 #' @param verbose         (logical) If TRUE, then print debug output
 #' @param ...             Additional arguments passed to aggregation function
 #' @return (mixed) Aggregation result
+#' @family SANDRA
 niceBy = function(
   ds,
   factors,

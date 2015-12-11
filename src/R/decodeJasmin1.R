@@ -12,6 +12,7 @@
 #' @param colName            (character) Name of LOTUS Name column
 #' @param colValue           (character) Name of LOTUS Value column
 #' @return (data.frame) Calculated d-scores
+#' @family SANDRA
 #' @examples
 #' See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
 decodeJasmin1 = function(

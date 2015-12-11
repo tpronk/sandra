@@ -8,6 +8,9 @@
 #' @param postfix  (character) Postfix to add to column names (name becomes name.postfix)
 #' @param not      (vector) Column names that should NOT be changed (get no prefix or postfix)
 #' @return (data.frame) Data with affixed column names
+#' @family sandra::dataFrames
+#' @family SANDRA
+#' @examples
 #' # Create a new data frame
 #' ds = data.frame.new( vars = c( "id", "x", "y", "z" ) );
 #' # Prefix and postfix all names except "id"
@@ -38,6 +41,8 @@ data.frame.affixNames = function( ds, prefix = NULL, postfix = NULL, not = c() )
 #' @param ds       (data.frame) Data frame
 #' @param dropMe   (character) Variable to drop
 #' @return (data.frame) ds with variable dropped
+#' @family sandra::dataFrames
+#' @family SANDRA
 #' @examples
 #' # Create a new data frame
 #' ds = data.frame.new( vars = c( "id", "x", "y", "z" ) );
@@ -54,6 +59,8 @@ data.frame.dropVar = function( ds, dropMe ) {
 #' @param oldName  (character) Variable to rename
 #' @param newName  (character) New name of variable
 #' @return (data.frame) ds with variable renamed
+#' @family sandra::dataFrames
+#' @family SANDRA
 #' @examples
 #' # Create a new data frame
 #' ds = data.frame.new( vars = c( "id", "x", "y", "z" ) );
@@ -69,32 +76,12 @@ data.frame.renameVar = function( ds, oldName, newName ) {
 #'
 #' @param vars     (vector) Names of variables (columns) in data.frame
 #' @return (data.frame) 
+#' @family sandra::dataFrames
+#' @family SANDRA
 #' @examples
 #' # See sandra::data.frame.affixNames
 data.frame.new = function( vars = c() ) {
   output = data.frame( matrix( nrow = 0, ncol = length( vars ) ) );
   names( output ) = vars;
   return( output );
-}
-
-#' Wrapper for rbind
-#'
-#' Allows for NULL arguments and checks if names of both arguments match
-#'
-#' @param x  (data.frame) data frame to add to
-#' @param y  (data.frame) data frame added to x
-#' @return (data.frame) y added to x
-rbind.easy = function( x, y ) {
-  # If left or right are NULL, return one or the other
-  if( is.null( x ) ) {
-    if( is.null( y ) ) {
-      return( NULL );
-    } else {
-      return( y );
-    }
-  }
-  # Check names
-  
-  # rbind
-  return( rbind( x, y ) );
 }

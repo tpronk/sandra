@@ -21,6 +21,27 @@ Constructs a SANDRA FileIO instance
 io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 }
 \seealso{
+<<<<<<< .mine
+Other SANDRA: \code{\link{EasyLM}},
+  \code{\link{FrameworkFileIO}},
+  \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
+  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{data.frame.affixNames}},
+  \code{\link{data.frame.dropVar}},
+  \code{\link{data.frame.new}},
+  \code{\link{data.frame.renameVar}},
+  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
+  \code{\link{installAnalysisFramework}},
+  \code{\link{leftMerge}}, \code{\link{makeWide}},
+  \code{\link{niceBy}}, \code{\link{niceMerge}},
+  \code{\link{path}}, \code{\link{readData}},
+  \code{\link{readSurveyTool}}, \code{\link{readVector}},
+  \code{\link{reportProgress}}, \code{\link{resolvePath}},
+  \code{\link{runScript}}, \code{\link{timeRemaining}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
+
 Other sandra::file input & output: \code{\link{FrameworkFileIO}},
   \code{\link{addPostfix}}, \code{\link{appendData}},
   \code{\link{cutExtension}}, \code{\link{existsData}},
@@ -28,6 +49,15 @@ Other sandra::file input & output: \code{\link{FrameworkFileIO}},
   \code{\link{readData}}, \code{\link{readSurveyTool}},
   \code{\link{readVector}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{writeData}},
+=======
+Other sandra::file input & output: \code{\link{FrameworkFileIO}},
+  \code{\link{addPostfix}}, \code{\link{appendData}},
+  \code{\link{cutExtension}}, \code{\link{existsData}},
+  \code{\link{getExtension}}, \code{\link{path}},
+  \code{\link{readData}}, \code{\link{readSurveyTool}},
+  \code{\link{readVector}}, \code{\link{resolvePath}},
+  \code{\link{runScript}}, \code{\link{writeData}},
+>>>>>>> .r57
   \code{\link{writeVector}}
 
 Other sandra::FileIO: \code{\link{FrameworkFileIO}},
