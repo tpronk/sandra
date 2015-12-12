@@ -5,18 +5,18 @@
 \title{Constructs a SANDRA ProgressTimer}
 \usage{
 ProgressTimer(stepTotal, progressTitle = "Progress", stepStart = 1,
-  reportingInterval = 10, ...)
+  reportingInterval = 10, width = 500, ...)
 }
 \arguments{
 \item{stepTotal}{(integer) Total number of steps}
 
-\item{progressTitle}{(character) Title of progress bar. If NULL, no progress bar is displayed}
+\item{progressTitle}{(character) Title of progress bar.}
 
 \item{stepStart}{(integer) First step}
 
 \item{reportingInterval}{(integer) Number of seconds between updating progress bar}
 
-\item{...}{Remaining arguments passed on to tcltk::tkProgressBar}
+\item{width}{(integer) Width of progress bar in pixels}
 }
 \value{
 (ProgressTimer)
@@ -29,13 +29,13 @@ via a graphical progress bar
 Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{addPostfix}},
   \code{\link{appendData}}, \code{\link{calculateDScores}},
-  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
-  \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}}, \code{\link{done}},
+  \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},
@@ -45,7 +45,7 @@ Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
   \code{\link{writeData}}, \code{\link{writeVector}}
 
-Other sandra::ProgressTimer: \code{\link{close}},
+Other sandra::ProgressTimer: \code{\link{done}},
   \code{\link{reportProgress}}, \code{\link{timeRemaining}}
 }
 

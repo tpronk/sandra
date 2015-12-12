@@ -26,19 +26,24 @@ niceBy(ds, factors, aggregation, result_type = "data.frame", verbose = F,
 \description{
 Calls the function 'aggregation' for each unique combination of values of the the columns factors in the dataframe ds.
 The aggregation function is called with two arguments: (1) (list) result list to add aggregation output to, and (2) (data.frame) subset of data selected by this combination of values for factors
+If niceBy is set to return a data frame, then names of variables in this data frame 
+are are drawn from the names of the elements in the list returned by the aggregation
+funtion. The aggregation function can return a list of scalars if each call to 
+aggregation produces one row of output, or it can return a list of list of scalars
+if each call produces one or more rows of output.
 }
 \seealso{
 Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
   \code{\link{appendData}}, \code{\link{calculateDScores}},
-  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
-  \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}}, \code{\link{done}},
+  \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceMerge}}, \code{\link{path}},

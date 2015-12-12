@@ -48,18 +48,17 @@ io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 io$writeData( "data.csv", ds );
 }
 \seealso{
-<<<<<<< .mine
 Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
   \code{\link{appendData}}, \code{\link{calculateDScores}},
-  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
-  \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}}, \code{\link{done}},
+  \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},
@@ -67,18 +66,8 @@ Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-=======
-Other sandra::file input & output: \code{\link{FileIO}},
-  \code{\link{FrameworkFileIO}}, \code{\link{addPostfix}},
-  \code{\link{appendData}}, \code{\link{cutExtension}},
-  \code{\link{existsData}}, \code{\link{getExtension}},
-  \code{\link{path}}, \code{\link{readData}},
-  \code{\link{readSurveyTool}}, \code{\link{readVector}},
-  \code{\link{resolvePath}}, \code{\link{runScript}},
->>>>>>> .r57
   \code{\link{writeVector}}
 
-<<<<<<< .mine
 Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{addPostfix}},
   \code{\link{appendData}}, \code{\link{cutExtension}},
@@ -86,13 +75,6 @@ Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{path}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{resolvePath}}, \code{\link{runScript}},
-=======
-Other sandra::FileIO: \code{\link{FileIO}},
-  \code{\link{FrameworkFileIO}}, \code{\link{appendData}},
-  \code{\link{existsData}}, \code{\link{readData}},
-  \code{\link{readSurveyTool}}, \code{\link{readVector}},
-  \code{\link{resolvePath}}, \code{\link{runScript}},
->>>>>>> .r57
   \code{\link{writeVector}}
 
 Other sandra::FileIO: \code{\link{FileIO}},

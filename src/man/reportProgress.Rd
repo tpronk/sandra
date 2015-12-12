@@ -17,13 +17,13 @@ Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
   \code{\link{appendData}}, \code{\link{calculateDScores}},
-  \code{\link{close}}, \code{\link{cutExtension}},
+  \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{existsData}},
-  \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}}, \code{\link{done}},
+  \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},
@@ -34,6 +34,6 @@ Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{writeVector}}
 
 Other sandra::ProgressTimer: \code{\link{ProgressTimer}},
-  \code{\link{close}}, \code{\link{timeRemaining}}
+  \code{\link{done}}, \code{\link{timeRemaining}}
 }
 

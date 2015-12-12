@@ -1,20 +1,14 @@
 Package: sandra
 Type: Package
 Title: A framework for Standardized AND Reproducible Analyses (written in R)
-Version: 0.2.4
+Version: 0.2.5
 Date: 2015-12-11
 Author: Thomas Pronk
 Maintainer: Thomas Pronk <pronkthomas@gmail.com>
 Description: 2do: more complete description
 License: License undetermined
 Depends:
-<<<<<<< .mine
     rjson,
     lubridate,
     tcltk
 RoxygenNote: 5.0.1
-=======
-    rjson,
-    lubridate
-RoxygenNote: 5.0.1
->>>>>>> .r57
