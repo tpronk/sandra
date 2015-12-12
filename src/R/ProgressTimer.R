@@ -4,37 +4,26 @@
 #' via a graphical progress bar
 #'
 #' @param stepTotal         (integer) Total number of steps
-#' @param progressTitle     (character) Title of progress bar. If NULL, no progress bar is displayed
+#' @param progressTitle     (character) Title of progress bar. 
 #' @param stepStart         (integer) First step
 #' @param reportingInterval (integer) Number of seconds between updating progress bar
-#' @param ...               Remaining arguments passed on to tcltk::tkProgressBar
+#' @param width             (integer) Width of progress bar in pixels
 #' @return (ProgressTimer)
 #' @family sandra::ProgressTimer
 #' @family SANDRA
-ProgressTimer = function( stepTotal, progressTitle = "Progress", stepStart = 1, reportingInterval = 10, ... ) {
+ProgressTimer = function( stepTotal, progressTitle = "Progress", stepStart = 1, reportingInterval = 10, width = 500, ... ) {
   this = new.env();
   
   this$stepTotal = stepTotal;
   this$progressTitle = progressTitle;  
   this$stepStart = stepStart;
   this$reportingInterval = reportingInterval;
+  this$width = width;
   
-  if( !is.null( this$progressTitle ) ) {
-    this$progressBar = tkProgressBar(
-      title = "Estimating time remaining...",
-      label = this$progressTitle,
-      min   = this$stepStart, 
-      max   = this$stepTotal,
-      ...
-    );
-  }
-  
-  this$timeStart = as.numeric( proc.time()[ "elapsed" ] );
-  this$timeLast = this$timeStart;
   this$reportProgress = function( ... ) { reportProgress( this, ... ); };
   this$timeRemaining = function( ... ) { timeRemaining( this, ... ); };
   this$timeSpent = function( ... ) { timeSpent( this, ... ); };
-  this$close = function( ... ) { close( this, ... ); };
+  this$done = function( ... ) { done( this, ... ); };
   return( this );
 }
 
@@ -47,7 +36,21 @@ ProgressTimer = function( stepTotal, progressTitle = "Progress", stepStart = 1, 
 #' @family sandra::ProgressTimer
 #' @family SANDRA
 reportProgress = function( this, stepCurrent ) {
-  if( !is.null( this$progressTitle ) ) {
+  # First call? Setup timeStart and progress bar
+  if( is.null( this$timeStart ) ) {
+    this$timeStart = as.numeric( proc.time()[ "elapsed" ] );
+    this$timeLast = this$timeStart;
+    
+    if( !is.null( this$progressTitle ) ) {
+      this$progressBar = tkProgressBar(
+        title = "Estimating time remaining...",
+        label = this$progressTitle,
+        min   = this$stepStart, 
+        max   = this$stepTotal,
+        width = this$width
+      );
+    }
+  } else {
     timeCurrent = as.numeric( proc.time()[ "elapsed" ] );
     if( timeCurrent - this$timeLast > this$reportingInterval ) {
       left  = as.character( round( seconds_to_period( this$timeRemaining( stepCurrent ) ) ) );
@@ -101,6 +104,8 @@ timeSpent = function( this ) {
 #' @return NULL
 #' @family sandra::ProgressTimer
 #' @family SANDRA
-close = function() {
-  close( this$progressBar );
+done = function( this ) {
+  if( !is.null( this$progressBar ) ) {
+    close( this$progressBar );
+  }
 }
