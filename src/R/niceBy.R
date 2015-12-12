@@ -5,7 +5,12 @@
 #' 
 #' Calls the function 'aggregation' for each unique combination of values of the the columns factors in the dataframe ds.
 #' The aggregation function is called with two arguments: (1) (list) result list to add aggregation output to, and (2) (data.frame) subset of data selected by this combination of values for factors
-#'
+#' If niceBy is set to return a data frame, then names of variables in this data frame 
+#' are are drawn from the names of the elements in the list returned by the aggregation
+#' funtion. The aggregation function can return a list of scalars if each call to 
+#' aggregation produces one row of output, or it can return a list of list of scalars
+#' if each call produces one or more rows of output.
+#' 
 #' @param ds              (data.frame) Dataset to aggregate
 #' @param factors         (vector) Columns in dataset that serve as factors
 #' @param aggregation     (function) Aggregation 
@@ -56,8 +61,7 @@ niceBy = function(
       # Call aggregation with result and subset argument
       result = aggregation( 
         result,
-        subset,
-        ...
+        subset
       );
       return( result );
     }
@@ -66,13 +70,27 @@ niceBy = function(
   
   if( result_type == "data.frame" ) {
     # data.frame
-    ncol = length( result_raw[[1]] );
+    if( length( result_raw[[1]][[1]] ) > 1 ) {
+      result_names = names( result_raw[[1]][[1]] );
+      ncol = length( result_raw[[1]][[1]] );
+    } else {
+      result_names = names( result_raw[[1]] );
+      ncol = length( result_raw[[1]] );
+    }    
     result = data.frame( matrix(
       unlist( result_raw ),
       ncol = ncol,
       byrow = T
     ) );  
-    names( result ) = names( result_raw[[1]] );
+    names( result ) = result_names;
+    
+    # Get names from first element of result_raw (if it is a list), 
+    # or from first element of first element of list (if it is a list of lists)
+    if( length( result_raw[[1]][[1]] ) > 1 ) {
+      names( result ) = names( result_raw[[1]][[1]] );
+    } else {
+      names( result ) = names( result_raw[[1]] );
+    }
   } else if( result_type == "vector" ) {
     # vector
     result = unlist( result_raw );
