@@ -61,7 +61,8 @@ niceBy = function(
       # Call aggregation with result and subset argument
       result = aggregation( 
         result,
-        subset
+        subset,
+        ...
       );
       return( result );
     }

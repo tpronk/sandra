@@ -53,22 +53,39 @@ reportProgress = function( this, stepCurrent ) {
   } else {
     timeCurrent = as.numeric( proc.time()[ "elapsed" ] );
     if( timeCurrent - this$timeLast > this$reportingInterval ) {
-      left  = as.character( round( seconds_to_period( this$timeRemaining( stepCurrent ) ) ) );
-      spent = as.character( round( seconds_to_period( this$timeSpent() ) ) );
+      left  = seconds_to_period( this$timeRemaining( stepCurrent ) );
+      left  = paste(
+        hour( left ),
+        sprintf( "%02d", minute( left ) ),
+        sprintf( "%02d", round( second( left ) ) ),
+        sep = ":"
+      );
+      spent = seconds_to_period( this$timeSpent() );
+      spent = paste(
+        hour( spent ),
+        sprintf( "%02d", minute( spent ) ),
+        sprintf( "%02d", round( second( spent ) ) ),
+        sep = ":"
+      );      
+      
       setTkProgressBar(
         this$progressBar,
         value = stepCurrent,
         title = paste(
+          "Remaining ",
           left,
+          " Spent ",
           spent,
-          sep = ", "
+          sep = " "
         ),
         label = paste(
           this$progressTitle,
-          ". ",
-          "Remaining: ",
+          " ",
+          round( 100 * stepCurrent / ( this$stepTotal - this$stepStart ) ),
+          "% ",          
+          "Remaining ",
           left,
-          ". Spent: ",
+          " Spent ",
           spent,
           sep = ""
         )

@@ -154,6 +154,7 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
     # *** Apply penalty to RT and calculate means
     adjusted_means = list();
     for( comp_level in settings[[ "comp_levels" ]] ) {
+      adjusted_means[[ comp_level ]] = NA;
       ds_subset_current = ds_subset[
         ds_subset[ ,comp_var ] == comp_level &
         ds_subset[ ,resp_var ] == settings[[ "resp_correct" ]],
@@ -193,11 +194,14 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
         } else {
           resp_to_penalize = ds_subset[ ,resp_var ] == resp_penalty;
         }
-        ds_subset[
-          ds_subset[ ,comp_var ] == comp_level &
-          resp_to_penalize,
-          rt_var
-        ] = penalty;
+        g_resp_to_penalize <<- resp_to_penalize;
+        if( length( resp_to_penalize ) > 0 && !is.na( resp_to_penalize ) ) {
+          ds_subset[
+            ds_subset[ ,comp_var ] == comp_level &
+            resp_to_penalize,
+            rt_var
+          ] = penalty;
+        }
       }    
       
       # Calculate mean adjusted for penalty
@@ -218,7 +222,6 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
     if( "inclusive_sd" %in% settings[[ "aux_report" ]] ) {
       result[[ "inclusive_sd" ]] = inclusive_sd;
     }         
-  
     dscore = (
       adjusted_means[[ settings[[ "comp_levels"]][2] ]] -
       adjusted_means[[ settings[[ "comp_levels"]][1] ]] 

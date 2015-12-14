@@ -1219,26 +1219,10 @@ decodeJasmin1 = function(
   # *********
   # *** Convert sets and construct trialdata
   trialdata = list();
-  startTime = as.numeric( proc.time()[ "elapsed" ] );
-  lastTime = startTime;
+  timer = ProgressTimer( length( sets ), stepStart = set_id_from );
   for( set_id in set_id_from : length( sets ) ) {
-    # Report time remaining?
-    if( timeReportInterval > 0 ) {
-      # If time passed between last time report > 60 seconds, then re-estimate
-      # time remaining for set conversion and report.
-      curTime = as.numeric( proc.time()[ "elapsed" ] );
-      if( curTime - lastTime > timeReportInterval ) {
-        timePerSet = ( curTime - startTime ) / ( set_id - set_id_from );
-        timeRemaining = ( length( sets ) - set_id ) * timePerSet;
-        print( paste( 
-          "sandra::decodeJasmin1. Converting sets. Time remaining: ",
-          round( seconds_to_period( timeRemaining ) ),
-          sep = ""
-        ) );
-        lastTime = curTime;
-      }
-    }
-    
+    timer$reportProgress( set_id );
+
     sequence_report = c();
     nwarnings = length( warnings() );
     
@@ -1392,7 +1376,8 @@ decodeJasmin1 = function(
     }
     
     metadata[ set_id, "sequence_report" ] = paste( sequence_report, collapse = "," );
-  }    
+  }   
+  timer$done();
   return( list( 
     metadata  = metadata,
     trialdata = trialdata 

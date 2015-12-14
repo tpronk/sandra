@@ -316,14 +316,13 @@ readVector = function( this, filename, original ) {
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
 #' io$writeVector( "data.csv", v );
 writeVector = function( this, filename, output ) {
-  x = empty_dataframe( c( "colname" ) );
+  x = data.frame.new( c( "colname" ) );
   x[ 1 : length( output ), ] = output;
   
   this$writeData(
     filename,
     x,    
-    col.names = F,
-    sort_columns = F
+    col.names = F
   );
 }  
 

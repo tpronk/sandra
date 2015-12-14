@@ -38,17 +38,17 @@ EasyLM = function(
     return( result );
   }
   
-  # Converts columns in data.frame to numeric (for vars_continuous) and factor (vars_discrete)
+  # Converts columns in data.frame to numeric (for varsContinuous) and factor (varsDiscrete)
   convert_columns = function(
     ds,
-    vars_continuous = c(),
-    vars_discrete   = c()
+    varsContinuous = c(),
+    varsDiscrete   = c()
   ) {
     # Convert discrete to factor and continuous to numeric
-    for( var_discrete in vars_discrete ) {
+    for( var_discrete in varsDiscrete ) {
       ds[ ,var_discrete ] = as.factor( ds[ ,var_discrete ] );
     }
-    for( var_continuous in vars_continuous ) {
+    for( var_continuous in varsContinuous ) {
       ds[ ,var_continuous ] = scale( as.numeric( ds[ ,var_continuous ] ) );
     }
     return( ds );
@@ -68,7 +68,7 @@ EasyLM = function(
   
   # Return an lm function with some additional features
   presetLM = function( formula, histograms = F, ... ) {
-    ds = convert_columns( ds, vars_continuous, vars_discrete );
+    ds = convert_columns( ds, varsContinuous, varsDiscrete );
     current_vars = formula_to_variables( formula );
     
     # Show histograms?

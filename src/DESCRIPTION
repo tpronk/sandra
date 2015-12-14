@@ -1,7 +1,7 @@
 Package: sandra
 Type: Package
 Title: A framework for Standardized AND Reproducible Analyses (written in R)
-Version: 0.2.5
+Version: 0.2.6
 Date: 2015-12-11
 Author: Thomas Pronk
 Maintainer: Thomas Pronk <pronkthomas@gmail.com>
