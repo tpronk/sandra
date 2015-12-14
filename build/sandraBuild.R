@@ -5,10 +5,10 @@ pathSandraCompiled = "D:/wamp/www/sandra/trunk/dist";
 
 # Install package
 library( "devtools" )
-build( 
-  pkg  = pathSandraSource,
-  path = pathSandraCompiled
-);
+# build( 
+#   pkg  = pathSandraSource,
+#   path = pathSandraCompiled
+# );
 install( 
   pathSandraSource,
   local = FALSE,
