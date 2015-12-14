@@ -4,6 +4,7 @@
 #' Wrapper for R's native lm function
 #' 
 #' Constructs an instance of EasyLM, which adds some arguments to the native lm function for specifying which variables are continuous or discrete 
+#' *** NOTE *** This function is still in early development
 #'
 #' @param ds              (data.frame) Dataset to run regressions on
 #' @param varsContinuous  (vector) Converts corresponding columns in dataframe to numeric, then Z-transforms
@@ -45,11 +46,17 @@ EasyLM = function(
     varsDiscrete   = c()
   ) {
     # Convert discrete to factor and continuous to numeric
-    for( var_discrete in varsDiscrete ) {
-      ds[ ,var_discrete ] = as.factor( ds[ ,var_discrete ] );
+    for( varDiscrete in varsDiscrete ) {
+      ds[ ,varDiscrete ] = as.factor( ds[ ,varDiscrete ] );
+      # More than 2 levels? Use deviation coding
+      nLevels = length( unique( ds[ ,varDiscrete ] ) );
+      if( nLevels > 2 ) {
+       # contrasts( ds[ ,varDiscrete ] ) = contr.sum( nLevels );
+      }
     }
-    for( var_continuous in varsContinuous ) {
-      ds[ ,var_continuous ] = scale( as.numeric( ds[ ,var_continuous ] ) );
+    for( varContinuous in varsContinuous ) {
+      ds[ ,varContinuous ] = scale( as.numeric( ds[ ,varContinuous ] ) );
+      
     }
     return( ds );
   }
@@ -68,7 +75,6 @@ EasyLM = function(
   
   # Return an lm function with some additional features
   presetLM = function( formula, histograms = F, ... ) {
-    ds = convert_columns( ds, varsContinuous, varsDiscrete );
     current_vars = formula_to_variables( formula );
     
     # Show histograms?
@@ -95,8 +101,11 @@ EasyLM = function(
     return( fit );
   }
   
+  ds = convert_columns( ds, varsContinuous, varsDiscrete );
+  
   # Return exposed properties
   return( list(
+    ds                   = ds,
     formula_to_variables = formula_to_variables,
     convert_columns      = convert_columns,
     only_complete_rows   = only_complete_rows,
