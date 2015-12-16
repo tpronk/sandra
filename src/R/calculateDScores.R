@@ -79,7 +79,7 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
           sum( is.na( ds_subset[ ,resp_var ] ) );
       } else {
         result[[ paste( "resp", resp_report, "n", sep = "_" ) ]] =
-          sum( ds_subset[ ,resp_var ] == resp_report );
+          sum( ds_subset[ ,resp_var ] == resp_report, na.rm = TRUE );
       }
     }  
     # Drop responses
@@ -103,8 +103,8 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
     # Drop fast
     if( !is.null( settings[[ "fast_drop" ]] ) ) {
       ds_subset = ds_subset[ 
-          ds_subset[ ,"rt" ] >= settings[[ "fast_drop" ]] 
-        | is.na( ds_subset[ ,"rt" ] ),
+        !is.na( ds_subset[ ,"rt" ] ) &
+        ds_subset[ ,"rt" ] >= settings[[ "fast_drop" ]],
       ];
     }
       
@@ -116,10 +116,9 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
     # Drop slow
     if( !is.null( settings[[ "slow_drop" ]] ) ) {
       ds_subset = ds_subset[ 
-        ds_subset[ ,"rt" ] <= 
-            settings[[ "slow_drop" ]] 
-          | is.na( ds_subset[ ,"rt" ] ),
-        ];
+        !is.na( ds_subset[ ,"rt" ] ) &
+        ds_subset[ ,"rt" ] <= settings[[ "slow_drop" ]],
+      ];
     }  
     
     # Report SD
