@@ -3,6 +3,7 @@
 
 #' Affix column names in a data frame
 #'
+#' @export
 #' @param ds       (data.frame) Data frame
 #' @param prefix   (character) Prefix to add to column names (name becomes prefix.name)
 #' @param postfix  (character) Postfix to add to column names (name becomes name.postfix)
@@ -38,6 +39,7 @@ data.frame.affixNames = function( ds, prefix = NULL, postfix = NULL, not = c() )
 
 #' Drops a variable from a data frame
 #'
+#' @export
 #' @param ds       (data.frame) Data frame
 #' @param dropMe   (character) Variable to drop
 #' @return (data.frame) ds with variable dropped
@@ -55,6 +57,7 @@ data.frame.dropVar = function( ds, dropMe ) {
 
 #' Renames a variable of a data frame
 #'
+#' @export
 #' @param ds       (data.frame) Data frame
 #' @param oldName  (character) Variable to rename
 #' @param newName  (character) New name of variable
@@ -74,6 +77,7 @@ data.frame.renameVar = function( ds, oldName, newName ) {
 
 #' Creates a data frame with zero rows
 #'
+#' @export
 #' @param vars     (vector) Names of variables (columns) in data.frame
 #' @return (data.frame) 
 #' @family sandra::dataFrames

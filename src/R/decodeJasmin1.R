@@ -3,6 +3,7 @@
 
 #' Decodes JASMIN1 data stored in a LOTUS results file into trial data
 #'
+#' @export
 #' @param input              (data.frame) LOTUS results file 
 #' @param participationID    (vector) Columns in input for which each unique combination of values defines one participation
 #' @param verbose            (logical) If TRUE, then print debug output

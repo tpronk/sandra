@@ -9,6 +9,7 @@
 #' - original/       Original Data
 #' - interim/        Interim Data
 #'
+#'  @export
 #' @param pathAnalasis  (character) Path to analysis directory
 #' @return NULL
 #' @family SANDRA

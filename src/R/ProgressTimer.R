@@ -2,7 +2,8 @@
 #' 
 #' Times how long a series of steps takes, estimates time remaining, and can display this
 #' via a graphical progress bar
-#'
+#' 
+#' @export
 #' @param stepTotal         (integer) Total number of steps
 #' @param progressTitle     (character) Title of progress bar. 
 #' @param stepStart         (integer) First step
@@ -31,6 +32,7 @@ ProgressTimer = function( stepTotal, progressTitle = "Progress", stepStart = 1, 
 #' 
 #' If progress bar is displayed, and it is time to update it, then do so
 #'
+#' @export
 #' @param stepCurrent       (integer) Number of current step
 #' @return NULL
 #' @family sandra::ProgressTimer
@@ -97,6 +99,7 @@ reportProgress = function( this, stepCurrent ) {
 
 #' Estimate number of seconds remaining
 #' 
+#' @export
 #' @param stepCurrent       (integer) Number of current step
 #' @return (numeric)
 #' @family sandra::ProgressTimer
@@ -118,6 +121,7 @@ timeSpent = function( this ) {
 
 #' Close progress bar
 #' 
+#' @export
 #' @return NULL
 #' @family sandra::ProgressTimer
 #' @family SANDRA

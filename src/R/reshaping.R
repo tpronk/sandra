@@ -5,6 +5,7 @@
 #'
 #' This wrapper can handle multiple timevars (reshaped to columns dv.timevar1.timevar2)
 #' 
+#' @export
 #' @param data     (data.frame) Data to reshape
 #' @param idvars   (vector) Names of one or more variables in long format that identify multiple records from the same group/individual
 #' @param timevars (vector) Names of one or more variables in long format that differentiates multiple records from the same group or individual

@@ -8,6 +8,7 @@
 
 #' Constructs a SANDRA FileIO instance, assuming standard analysis, original, and interim directories
 #'
+#' @export
 #' @param pathAnalysis  (character) Path to your analysis
 #' @param verbose       (logical) If TRUE, check whether each expected subdirectory exists and print that io is loaded
 #' @return (list) FileIO instance
@@ -51,6 +52,7 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
 
 #' Constructs a SANDRA FileIO instance
 #'
+#' @export
 #' @param pathScripts  (character) Path to your analysis scripts
 #' @param pathOriginal (character) Path to your original unprocessed data files
 #' @param pathInterim  (character) Path to data files as produced by your analyses
@@ -91,6 +93,7 @@ FileIO = function( pathScripts, pathOriginal, pathInterim ) {
 
 #' Returns path to original or interim data
 #
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param original (logical) If TRUE, return path to original data; if not, return path to interim data
 #' @return (character) Path
@@ -110,7 +113,9 @@ resolvePath = function( this, original ) {
 }
 
 #' Read a data.frame from a TOP Survey Tool answer file
-#
+#'
+#' @export
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to read
 #' @param original (logical) If TRUE, use path to original data; if not, use path to interim data
@@ -159,7 +164,8 @@ readSurveyTool = function( this, filename, original = FALSE ) {
 }
 
 #' Read a tab separated file (with varnames at the top row)
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to read
 #' @param original (logical) If TRUE, use path to original data; if not, use path to interim data
@@ -200,7 +206,8 @@ readData = function(
 }
 
 #' Write a data frame to a tab separated file (with varnames at the top row)
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to write to
 #' @param output   (data.frame) Data to write to file
@@ -239,7 +246,8 @@ writeData = function(
 }
 
 #' Check if a file exists in original or interim directory
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to check existance of
 #' @param original (logical) If TRUE, return path to original data; if not, return path to interim data
@@ -257,7 +265,8 @@ existsData = function ( this, filename, original = FALSE )  {
 }
 
 #' Create file if exists, else append data to existing file
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to write to
 #' @param output   (data.frame) Data to write to file
@@ -281,7 +290,8 @@ appendData = function( this, filename, output, ... ) {
 }
 
 #' Read a vector from a newline separated file
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to read from
 #' @param original (logical) If TRUE, use path to original data; if not, use path to interim data
@@ -303,7 +313,8 @@ readVector = function( this, filename, original ) {
 }  
 
 #' Write a vector to a newline separated file
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param filename (character) File to write to
 #' @param output   (vector) Data to write to file
@@ -327,7 +338,8 @@ writeVector = function( this, filename, output ) {
 }  
 
 #' Run a script from a file in scripts directory
-#
+#'
+#' @export
 #' @param this     (sandra::FileIO) FileIO instance
 #' @param script   (character) File with script to run
 #' @return NULL
@@ -347,7 +359,8 @@ runScript = function( this, script ) {
 # ***************************
 
 #' Returns terms joined by "/" for constructing path names
-#
+#'
+#' @export
 #' @param ...      (character) Terms to join
 #' @return (character) joined terms
 #' @family sandra::file input & output
@@ -362,7 +375,8 @@ path = function( ... ) {
 #' Postfix filename
 #' 
 #' Returns filename, with postfixes appended, each separated by dots, followed by the filename extension
-#
+#'
+#' @export
 #' @param filename (character) Filename to append postfixes to
 #' @param ...      (character) Postfixes to append to filename
 #' @return (character) postfixed filename
@@ -382,7 +396,8 @@ addPostfix = function( filename, ... ) {
 }  
 
 #' Returns the filename without extension; everything up to the last dot
-#
+#'
+#' @export
 #' @param filename  (character) Filename to cut extension from
 #' @return (character) Filename without extension
 #' @family sandra::file input & output
@@ -397,7 +412,8 @@ cutExtension = function( filename )  {
 }
 
 #' Returns the extension of the given filename; everything after the last dot
-#
+#'
+#' @export
 #' @param filename  (character) Filename to get extension from
 #' @return (character) Filename extension
 #' @family sandra::file input & output

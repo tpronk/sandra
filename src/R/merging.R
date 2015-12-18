@@ -7,6 +7,7 @@
 #' Returns all rows from the left table (left), with the matching rows in the right table (right). The result is NA in the right side when there is no match.
 #' For every column shared by left and right (but not used to match the tables), the values in left are replaced by the values of right if the values of right are not NA.
 #' 
+#' @export
 #' @param x        (data.frame) Left data frame
 #' @param y        (data.frame) Right data frame
 #' @param by_keys  (vector) Keys to join both data frames on
@@ -50,6 +51,7 @@ leftMerge = function( x, y, by_keys )
 
 #' Like leftMerge but supporting left, right, and outer join
 #' 
+#' @export
 #' @param x        (data.frame) Left data frame
 #' @param y        (data.frame) Right data frame
 #' @param by_keys  (vector) Keys to join both data frames on

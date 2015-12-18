@@ -11,6 +11,7 @@
 #' aggregation produces one row of output, or it can return a list of list of scalars
 #' if each call produces one or more rows of output.
 #' 
+#' @export
 #' @param ds              (data.frame) Dataset to aggregate
 #' @param factors         (vector) Columns in dataset that serve as factors
 #' @param aggregation     (function) Aggregation 

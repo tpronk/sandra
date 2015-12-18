@@ -17,7 +17,8 @@ EasyLM(ds, varsContinuous = c(), varsDiscrete = c())
 (function) wrapped lm function, use as lm without specifying data argument
 }
 \description{
-Constructs an instance of EasyLM, which adds some arguments to the native lm function for specifying which variables are continuous or discrete
+Constructs an instance of EasyLM, which adds some arguments to the native lm function for specifying which variables are continuous or discrete 
+*** NOTE *** This function is still in early development
 }
 \seealso{
 Other SANDRA: \code{\link{FileIO}},

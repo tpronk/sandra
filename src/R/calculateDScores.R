@@ -3,6 +3,7 @@
 
 #' Calculates d-scores from trial data
 #'
+#' @export
 #' @param ds          (data.frame) Trial data.
 #' @param settings    (list) D-score calculation settings.
 #' @param splithalves (integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.
@@ -10,6 +11,7 @@
 #' @param verbose     (logical) If TRUE, then print debug output.
 #' @param ...         Remaining arguments are passed to an internal scoring function. Not used at the moment.
 #' @return (data.frame) Calculated d-scores.
+
 #'
 #' @details 
 #' The table below shows an overview of elements in settings and their meaning.

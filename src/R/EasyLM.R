@@ -6,6 +6,7 @@
 #' Constructs an instance of EasyLM, which adds some arguments to the native lm function for specifying which variables are continuous or discrete 
 #' *** NOTE *** This function is still in early development
 #'
+#' @export
 #' @param ds              (data.frame) Dataset to run regressions on
 #' @param varsContinuous  (vector) Converts corresponding columns in dataframe to numeric, then Z-transforms
 #' @param varsDiscrete    (vector) Converts corresponding columns in dataframe to factor
