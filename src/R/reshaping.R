@@ -18,17 +18,17 @@ makeWide = function( data, idvars, timevars ) {
     timevar_cur = timevars[  i ];
     timevars    = timevars[ -i ]; 
     
-    # Check whether each combination of idvars and timevar produces one row
-    rowCounts = niceBy( 
-      data,
-      c( idvars, timevar_cur ),
-      function( result, ds_sub ) {
-        result[[ "n" ]] = nrow( ds_sub );
-        return( result );
-      }
-    )
-    rowCounts[ ,"n" ] = as.numeric( as.character( rowCounts[ ,"n" ] ) );
-    rowCounts = rowCounts[ rowCounts[ ,"n" ] > 1, ];
+#     # Check whether each combination of idvars and timevar produces one row
+#     rowCounts = niceBy( 
+#       data,
+#       c( idvars, timevar_cur ),
+#       function( result, ds_sub ) {
+#         result[[ "n" ]] = nrow( ds_sub );
+#         return( result );
+#       }
+#     )
+#     rowCounts[ ,"n" ] = as.numeric( as.character( rowCounts[ ,"n" ] ) );
+#     rowCounts = rowCounts[ rowCounts[ ,"n" ] > 1, ];
     
 #     if( nrow( rowCounts ) > 0 ) {
 #       warning( paste(
