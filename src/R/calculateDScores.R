@@ -319,10 +319,13 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
         verbose = verbose,
         ...
       );
+      # DEBUG
+      g_split_result <<- split_result;
       # Calculate correlation, add to list
       split_cor = cor( 
-        suppressWarnings( as.numeric( split_result[ ,"dscore_1"] ) ), 
-        suppressWarnings( as.numeric( split_result[ ,"dscore_2" ] ) )
+        suppressWarnings( as.numeric( split_result[ ,"dscore_1" ] ) ), 
+        suppressWarnings( as.numeric( split_result[ ,"dscore_2" ] ) ),
+        use = "pairwise.complete.obs"
       );
       cors = c( cors, split_cor );
       if( verbose ) { 
@@ -333,6 +336,8 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
         ) ); 
       }
     }
+    # DEBUG
+    g_cors <<- cors;
     # Return mean of correlations
     return( mean( cors ) );
   }
