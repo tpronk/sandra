@@ -16,9 +16,6 @@ A SANDRA Analysis Framework, which is a directory containing the following:
 - original/       Original Data
 - interim/        Interim Data
 }
-\details{
-@export
-}
 \seealso{
 Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
