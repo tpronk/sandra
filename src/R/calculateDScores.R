@@ -196,6 +196,7 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
           resp_to_penalize = ds_subset[ ,resp_var ] == resp_penalty;
         }
         g_resp_to_penalize <<- resp_to_penalize;
+        # print( "penalize before" );
         if( length( resp_to_penalize ) > 0 && !is.na( resp_to_penalize ) ) {
           ds_subset[
             ds_subset[ ,comp_var ] == comp_level &
@@ -203,15 +204,18 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
             rt_var
           ] = penalty;
         }
+        # print( "penalize after" );
       }    
       
       # Calculate mean adjusted for penalty
+      # print( "adjusted before" );
       adjusted_means[[ comp_level ]] = mean(
         ds_subset[
           ds_subset[ ,comp_var ] == comp_level,
           rt_var
         ], na.rm = T    
       );
+      # print( "adjusted after" );
       if( "adjusted_mean" %in% settings[[ "aux_report" ]] ) {
         result[[ paste( "adjusted_mean", comp_level, sep = "." ) ]] = adjusted_means[[ comp_level ]];
       }        
@@ -254,13 +258,16 @@ calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbos
   
   # Calculates two d-scores; one on first halve, one on second halve of ds_subset
   dscore_first_second = function( result, ds_subset, settings = list() ) {
+    # g_ds_subset <<- ds_subset;
     comp_var = settings[[ "comp_var" ]];
     ds_subset[ ,"split" ] = NA;
     for( comp_level in settings[[ "comp_levels" ]] ) {
       n_split = sum( ds_subset[ ,comp_var ] == comp_level );
+      n_split_1 = ceiling( n_split / 2 );
+      n_split_2 = n_split - n_split_1;
       ds_subset[ ds_subset[ ,comp_var ] == comp_level, "split" ] = c(
-        rep( 1, ceiling( n_split / 2 ) ),
-        rep( 2, ceiling( n_split / 2 ) )
+        rep( 1, n_split_1 ),
+        rep( 2, n_split_2 )
       );
     }
     
