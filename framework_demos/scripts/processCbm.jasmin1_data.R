@@ -1,10 +1,23 @@
-# Config
+# *** START OF CONFIGURATION
+
+# Task data processing takes place in three steps:
+# 1. decode: converts raw JASMIN data to trial data (one file per task) and medata 
+# 2. score:  calculates task scores from trial data
+# 3. join:   joins task scores and metadata into one file
+# Via stepFrom and stepTo you can specify which processing steps to undertake
 stepFrom = "decode";
 stepTo   = "join";
-  
+
+# Here you can setup all kinds of stuff for the processing
 settings = list(
+  # Original JASMIN1 data filename (filenames for all processing output)
+  # is derived from this filename)
   fileSource = "jasmin1_data.csv",
+  # Combinations of values in these columns identify a participation in a task
   participationID = c( "UserID", "Session" ),
+  # Per task, settings for how to calculate task scores
+  # For a detailed description of scoring settings, see the calculateDScores(...) documentation:
+  # ?calculateDScores
   scorings = list(
     aat = list(
       run_var      = "set_id",
@@ -71,14 +84,17 @@ settings = list(
       )
     )
   ),
+  # Values in this column are used to make "joined" output data wide, so that you get columns like this:
+  # dscore.vpt.Session1, dscore.vpt.Session2, etc.
   sessionID = "Session",
+  # This function is used to remove artefacts produced by scoring (due to errors, test cases, etc.)
   prepareForJoin = function( dsScores ) {
     return( dsScores );
   }
 );
 
+# *** END OF CONFIGURATION
 
-# End of config
 io$runScript( "CbmLotusProcessor.R" );
 processor = CbmLotusProcessor( settings );
 result = processor$processCbm( "decode", "join" );
