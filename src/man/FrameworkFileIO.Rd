@@ -22,16 +22,20 @@ Constructs a SANDRA FileIO instance, assuming standard analysis, original, and i
 io = FrameworkFileIO( "D:/analysis" );
 }
 \seealso{
-Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
-  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{appendData}},
+  \code{\link{calculateAggregation}},
+  \code{\link{calculateDScores}},
+  \code{\link{calculateScores}},
   \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
   \code{\link{decodeJasmin1}}, \code{\link{done}},
-  \code{\link{existsData}}, \code{\link{getExtension}},
+  \code{\link{dropAndReport}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},

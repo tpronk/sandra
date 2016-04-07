@@ -4,8 +4,8 @@
 \alias{niceBy}
 \title{Wrapper for R's native by function}
 \usage{
-niceBy(ds, factors, aggregation, result_type = "data.frame", verbose = F,
-  ...)
+niceBy(ds, factors, aggregation, result_type = "list_to_data.frame",
+  verbose = F, ...)
 }
 \arguments{
 \item{ds}{(data.frame) Dataset to aggregate}
@@ -33,17 +33,21 @@ aggregation produces one row of output, or it can return a list of list of scala
 if each call produces one or more rows of output.
 }
 \seealso{
-Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
-  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{appendData}},
+  \code{\link{calculateAggregation}},
+  \code{\link{calculateDScores}},
+  \code{\link{calculateScores}},
   \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
   \code{\link{decodeJasmin1}}, \code{\link{done}},
-  \code{\link{existsData}}, \code{\link{getExtension}},
+  \code{\link{dropAndReport}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceMerge}}, \code{\link{path}},

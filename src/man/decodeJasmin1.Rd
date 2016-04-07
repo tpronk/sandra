@@ -35,16 +35,20 @@ Decodes JASMIN1 data stored in a LOTUS results file into trial data
 See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
 }
 \seealso{
-Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
-  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{appendData}},
+  \code{\link{calculateAggregation}},
+  \code{\link{calculateDScores}},
+  \code{\link{calculateScores}},
   \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}}, \code{\link{done}},
-  \code{\link{existsData}}, \code{\link{getExtension}},
+  \code{\link{dropAndReport}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},

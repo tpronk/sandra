@@ -24,7 +24,7 @@ niceBy = function(
   ds,
   factors,
   aggregation,
-  result_type = "data.frame",
+  result_type = "list_to_data.frame",
   verbose = F,
   ...
 ) {
@@ -70,17 +70,25 @@ niceBy = function(
   );
   if( verbose ) { print( paste( Sys.time(), ", niceBy, aggregations done", sep = "" ) ); }
   
-  if( result_type == "data.frame" ) {
-    # data.frame
+  if( result_type == "list_to_data.frame" ) {
+    # list of lists to data.frame
     if( length( result_raw[[1]][[1]] ) > 1 ) {
+      # List of lists
       result_names = names( result_raw[[1]][[1]] );
       ncol = length( result_raw[[1]][[1]] );
     } else {
       result_names = names( result_raw[[1]] );
       ncol = length( result_raw[[1]] );
     }    
+
+    # Sort names in list elements according to first element
+    sorted_result_raw = list();
+    for( i in 1 : length( result_raw ) ) {
+      sorted_result_raw[[i]] = result_raw[[i]][result_names];
+    }
+        
     result = data.frame( matrix(
-      unlist( result_raw ),
+      unlist( sorted_result_raw ),
       ncol = ncol,
       byrow = T
     ) );  
@@ -88,10 +96,18 @@ niceBy = function(
     
     # Get names from first element of result_raw (if it is a list), 
     # or from first element of first element of list (if it is a list of lists)
-    if( length( result_raw[[1]][[1]] ) > 1 ) {
-      names( result ) = names( result_raw[[1]][[1]] );
-    } else {
-      names( result ) = names( result_raw[[1]] );
+#     if( length( result_raw[[1]][[1]] ) > 1 ) {
+#       names( result ) = names( result_raw[[1]][[1]] );
+#     } else {
+#       names( result ) = names( result_raw[[1]] );
+#     }
+  } else if( result_type == "data.frame_to_data.frame" ) {
+    # data.frame to data.frame
+    result = result_raw[[1]];
+    if(length(result_raw) > 1) {
+      for(i in 2:length(result_raw)) {
+        result = rbind(result, result_raw[[i]]);
+      }
     }
   } else if( result_type == "vector" ) {
     # vector

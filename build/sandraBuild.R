@@ -1,6 +1,6 @@
 # Config
-pathSandraSource   = "D:/wamp/www/sandra/trunk/src";
-pathSandraCompiled = "D:/wamp/www/sandra/trunk/dist";
+pathSandraSource   = "D:/wamp/www/sandra/branches/tpronk_dev/src";
+pathSandraCompiled = "D:/wamp/www/sandra/branches/tpronk_dev/dist";
 # End of Config
 
 # Generate man pages
@@ -21,5 +21,4 @@ install(
 
 # Load it and report version
 library( "sandra" );
-packageVersion( "sandra" )
-calculateDScores
+packageVersion( "sandra" );

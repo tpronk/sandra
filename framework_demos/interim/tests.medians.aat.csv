@@ -1,0 +1,8 @@
+set_id	resp_1_n	fast_200	slow_2000	score	score.control.no	score.test.no	score.control.yes	score.test.yes
+all_OK	8	0	0	200	375	425	475	325
+incorrect_complex	4	1	0	NA	NA	450	475	NA
+incorrect_simple	6	0	0	200	375	450	475	350
+Organic_1	121	0	6	-39.5	738	813	731	845.5
+Organic_2	96	1	1	-1.5	626	617	631	623.5
+rt_na	7	0	0	175	375	425	475	350
+too_fast	8	2	0	200	375	450	475	350

@@ -17,23 +17,27 @@ A SANDRA Analysis Framework, which is a directory containing the following:
 - interim/        Interim Data
 }
 \seealso{
-Other SANDRA: \code{\link{EasyLM}}, \code{\link{FileIO}},
+Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}},
   \code{\link{ProgressTimer}}, \code{\link{addPostfix}},
-  \code{\link{appendData}}, \code{\link{calculateDScores}},
+  \code{\link{appendData}},
+  \code{\link{calculateAggregation}},
+  \code{\link{calculateDScores}},
+  \code{\link{calculateScores}},
   \code{\link{cutExtension}},
   \code{\link{data.frame.affixNames}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
   \code{\link{decodeJasmin1}}, \code{\link{done}},
-  \code{\link{existsData}}, \code{\link{getExtension}},
-  \code{\link{leftMerge}}, \code{\link{makeWide}},
-  \code{\link{niceBy}}, \code{\link{niceMerge}},
-  \code{\link{path}}, \code{\link{readData}},
-  \code{\link{readSurveyTool}}, \code{\link{readVector}},
-  \code{\link{reportProgress}}, \code{\link{resolvePath}},
-  \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{dropAndReport}}, \code{\link{existsData}},
+  \code{\link{getExtension}}, \code{\link{leftMerge}},
+  \code{\link{makeWide}}, \code{\link{niceBy}},
+  \code{\link{niceMerge}}, \code{\link{path}},
+  \code{\link{readData}}, \code{\link{readSurveyTool}},
+  \code{\link{readVector}}, \code{\link{reportProgress}},
+  \code{\link{resolvePath}}, \code{\link{runScript}},
+  \code{\link{timeRemaining}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 }
 
