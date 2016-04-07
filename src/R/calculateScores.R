@@ -154,8 +154,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
 #' @family SANDRA
 #' @examples
 #' See: SANDRA/framework_demos/scripts/0.t.2 Calculate Scores.R
-calculateDScores = function( ds, settings, splithalves = 0, what = "all", verbose = F, ... ) {
-
+calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = "all", ... ) {
   # ***********************
   # *** Inner Functions ***
   # ***********************

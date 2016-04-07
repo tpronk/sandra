@@ -8,6 +8,8 @@ fileSource = "jasmin1_data.csv";
 # Scoring settings; one per task
 scorings = list(
   vpt = list(
+    type         = "dscore",
+    
     run_var      = "set_id",
     resp_var     = "response",
     rt_var       = "rt",
@@ -53,9 +55,10 @@ for( task in names( scorings ) ) {
     addPostfix( fileSource, "trialdata", task )
   );
   
-  dsRawScores = calculateDScores(
+  dsRawScores = calculateScores(
     dsTrialdata,
-    scorings[[ task ]]
+    scorings[[ task ]],
+    scorings[[ task ]][[ "type" ]]
   );
   
   # Merge with metadata
