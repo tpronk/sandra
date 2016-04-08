@@ -13,13 +13,13 @@
 #' \tabular{lllll}{
 #'   \strong{Name} \tab \strong{Type} \tab \strong{Required?} \tab  \strong{Example Value} \tab \strong{Description} \cr
 #'   resp_drop \tab vector \tab No \tab \code{c("NA",0,3,4)} \tab Drop all responses with these values. \cr
-#'   resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually) as "n_resp_<value>". \cr
+#'   resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually) as "resp_<value>_n". \cr
 #'   fast_drop \tab integer \tab No \tab \code{300} \tab Drop all response times lower than this value. \cr
-#'   fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores as "n_outlier_fast". This occurs after dropping rows according to resp_drop. \cr
+#'   fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores as "outlier_fast_n". This occurs after dropping rows according to resp_drop. \cr
 #'   slow_drop \tab integer \tab No \tab \code{3000} \tab Drop all response times higher than this value. \cr
-#'   slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores as "n_outlier_slow". This occurs after dropping rows according to resp_drop.\cr
+#'   slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores as "outlier_slow_n". This occurs after dropping rows according to resp_drop.\cr
 #'   sd_drop \tab numeric \tab No \tab \code{1.5} \tab Drop all response times higher than mean response times of correct responses + sd_drop * SD, and those lower than mean - sd_drop * SD. \cr
-#'   sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD in scores as "n_outlier_sd". This occurs after dropping rows according to resp_drop, slow_drop, and fast_drop. \cr
+#'   sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD in scores as "outlier_sd_n". This occurs after dropping rows according to resp_drop, slow_drop, and fast_drop. \cr
 #' }
 #' @family SANDRA
 dropAndReport =  function( result, ds_subset, settings = list() ) {
@@ -57,7 +57,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   
   # Report fast
   if( !is.null( settings[[ "fast_report" ]] ) ) {
-    result[[ "n_outlier_fast" ]] =
+    result[[ "outlier_fast_n" ]] =
       sum( ds_subset[ ,"rt" ] < settings[[ "fast_report" ]] );
   }
   # Drop fast
@@ -70,7 +70,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   
   # Report slow
   if( !is.null( settings[[ "slow_report" ]] ) ) {
-    result[[ "n_outlier_slow" ]] =
+    result[[ "outlier_slow_n" ]] =
       sum( ds_subset[ ,"rt" ] > settings[[ "slow_report" ]] );
   }
   # Drop slow
@@ -88,7 +88,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
     cur_sd   = sd(   ds_subset[ ,"rt" ] );
     sd_fast  = cur_mean - sd_report * cur_sd;
     sd_slow  = cur_mean + sd_report * cur_sd;
-    result[[ "n_outlier_sd" ]] =
+    result[[ "outlier_sd_n" ]] =
       sum( 
         ds_subset[ ,"rt" ] > sd_slow
         | ds_subset[ ,"rt" ] < sd_fast
@@ -558,7 +558,7 @@ calculateAggregation = function( ds, settings, splithalves = 0, verbose = F, ...
 #' @examples
 #' See: SANDRA/framework_demos/scripts/0.t.2 Calculate Scores.R
 #' @export
-calculateScores = function( ds, settings, type, splithalves = 0, verbose = F, ... ) {
+calculateScores = function( type, ds, settings, splithalves = 0, verbose = F, ... ) {
   if( type == "dscore" ) {
     return( calculateDScores(
       ds, settings, splithalves, verbose, ...

@@ -4,7 +4,7 @@
 \alias{calculateScores}
 \title{Calculates scores from trial data}
 \usage{
-calculateScores(ds, settings, type, splithalves = 0, verbose = F, ...)
+calculateScores(type, ds, settings, splithalves = 0, verbose = F, ...)
 }
 \arguments{
 \item{ds}{(data.frame) Trial data.}
