@@ -1,4 +1,4 @@
-set_id	resp_1_n	fast_200	slow_2000	score	score.control.no	score.test.no	score.control.yes	score.test.yes
+set_id	resp_1_n	outlier_fast_n	outlier_slow_n	score	score.control.no	score.test.no	score.control.yes	score.test.yes
 all_OK	8	0	0	200	375	425	475	325
 incorrect_complex	4	1	0	NA	NA	450	475	NA
 incorrect_simple	6	0	0	200	375	450	475	350

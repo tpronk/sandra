@@ -43,6 +43,11 @@ scorings = list(
   )
 );
 
+# Only use task data returned by this function
+selectData = function( ds ) {
+  return( ds[ ds[ ,"type" ] == "assess", ] );
+}
+
 # ************************
 # *** END OF CONFIGURATION
 
@@ -54,11 +59,12 @@ for( task in names( scorings ) ) {
   dsTrialdata = io$readData(
     addPostfix( fileSource, "trialdata", task )
   );
+  dsTrialdata = selectData( dsTrialdata );
   
   dsRawScores = calculateScores(
+    scorings[[ task ]][[ "type" ]],
     dsTrialdata,
-    scorings[[ task ]],
-    scorings[[ task ]][[ "type" ]]
+    scorings[[ task ]]
   );
   
   # Merge with metadata

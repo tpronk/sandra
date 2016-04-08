@@ -1,4 +1,4 @@
-set_id	resp_1_n	fast_200	slow_2000	score	score.control.no	score.test.no	score.control.yes	score.test.yes
+set_id	resp_1_n	outlier_fast_n	outlier_slow_n	score	score.control.no	score.test.no	score.control.yes	score.test.yes
 all_OK	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE
 incorrect_complex	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE
 incorrect_simple	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE	TRUE
