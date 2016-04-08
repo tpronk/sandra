@@ -12,14 +12,14 @@
 #' The table below shows an overview of elements in settings and their` meaning.
 #' \tabular{lllll}{
 #'   \strong{Name} \tab \strong{Type} \tab \strong{Required?} \tab  \strong{Example Value} \tab \strong{Description} \cr
-#'   fast_drop \tab integer \tab No \tab \code{300} \tab Drop all response times lower than this value. \cr
-#'   fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores. \cr
-#'   slow_drop \tab integer \tab No \tab \code{3000} \tab Drop all response times higher than this value. \cr
-#'   slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores. \cr
-#'   sd_drop \tab numeric \tab No \tab \code{1.5} \tab Drop all response times higher than mean response times of correct responses + sd_drop * SD, and those lower than mean - sd_drop * SD. \cr
-#'   sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD, in scores. \cr
 #'   resp_drop \tab vector \tab No \tab \code{c("NA",0,3,4)} \tab Drop all responses with these values. \cr
-#'   resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually). \cr
+#'   resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually) as "n_resp_<value>". \cr
+#'   fast_drop \tab integer \tab No \tab \code{300} \tab Drop all response times lower than this value. \cr
+#'   fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores as "n_outlier_fast". This occurs after dropping rows according to resp_drop. \cr
+#'   slow_drop \tab integer \tab No \tab \code{3000} \tab Drop all response times higher than this value. \cr
+#'   slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores as "n_outlier_slow". This occurs after dropping rows according to resp_drop.\cr
+#'   sd_drop \tab numeric \tab No \tab \code{1.5} \tab Drop all response times higher than mean response times of correct responses + sd_drop * SD, and those lower than mean - sd_drop * SD. \cr
+#'   sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD in scores as "n_outlier_sd". This occurs after dropping rows according to resp_drop, slow_drop, and fast_drop. \cr
 #' }
 #' @family SANDRA
 dropAndReport =  function( result, ds_subset, settings = list() ) {
@@ -57,7 +57,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   
   # Report fast
   if( !is.null( settings[[ "fast_report" ]] ) ) {
-    result[[ paste( "fast", settings[[ "fast_report" ]], sep = "_" ) ]] =
+    result[[ "n_outlier_fast" ]] =
       sum( ds_subset[ ,"rt" ] < settings[[ "fast_report" ]] );
   }
   # Drop fast
@@ -70,7 +70,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   
   # Report slow
   if( !is.null( settings[[ "slow_report" ]] ) ) {
-    result[[ paste( "slow", settings[[ "slow_report" ]], sep = "_" ) ]] =
+    result[[ "n_outlier_slow" ]] =
       sum( ds_subset[ ,"rt" ] > settings[[ "slow_report" ]] );
   }
   # Drop slow
@@ -88,7 +88,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
     cur_sd   = sd(   ds_subset[ ,"rt" ] );
     sd_fast  = cur_mean - sd_report * cur_sd;
     sd_slow  = cur_mean + sd_report * cur_sd;
-    result[[ paste( "sd", settings[[ "sd_report" ]], sep = "_" ) ]] =
+    result[[ "n_outlier_sd" ]] =
       sum( 
         ds_subset[ ,"rt" ] > sd_slow
         | ds_subset[ ,"rt" ] < sd_fast
@@ -254,7 +254,7 @@ calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = 
       adjusted_means[[ settings[[ "comp_levels"]][2] ]] -
       adjusted_means[[ settings[[ "comp_levels"]][1] ]] 
     ) / inclusive_sd;
-    result[[ "dscore" ]] = dscore;
+    result[[ "score" ]] = dscore;
   
     return( result );
   }
@@ -273,7 +273,7 @@ calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = 
     for( split_i in 1:2 ) {
       ds_subset_split = ds_subset[ ds_subset[ ,"split" ] == split_i, ];
       result_split = one_dscore( result, ds_subset_split, settings );
-      result[[ paste( "dscore", split_i, sep = "_" ) ]] = result_split[[ "dscore" ]];
+      result[[ paste( "score", split_i, sep = "_" ) ]] = result_split[[ "score" ]];
     }
     
     return( result );
@@ -297,7 +297,7 @@ calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = 
     for( split_i in 1:2 ) {
       ds_subset_split = ds_subset[ ds_subset[ ,"split" ] == split_i, ];
       result_split = one_dscore( result, ds_subset_split, settings );
-      result[[ paste( "dscore", split_i, sep = "_" ) ]] = result_split[[ "dscore" ]];
+      result[[ paste( "score", split_i, sep = "_" ) ]] = result_split[[ "score" ]];
     }
     
     return( result );
@@ -353,8 +353,8 @@ calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = 
       g_split_result <<- split_result;
       # Calculate correlation, add to list
       split_cor = cor( 
-        suppressWarnings( as.numeric( split_result[ ,"dscore_1" ] ) ), 
-        suppressWarnings( as.numeric( split_result[ ,"dscore_2" ] ) ),
+        suppressWarnings( as.numeric( split_result[ ,"score_1" ] ) ), 
+        suppressWarnings( as.numeric( split_result[ ,"score_2" ] ) ),
         use = "pairwise.complete.obs"
       );
       cors = c( cors, split_cor );
