@@ -1,6 +1,6 @@
 # Config
-pathSandraSource   = "D:/wamp/www/sandra/branches/tpronk_dev/src";
-pathSandraCompiled = "D:/wamp/www/sandra/branches/tpronk_dev/dist";
+pathSandraSource   = "D:/wamp/www/sandra/trunk/src";
+pathSandraCompiled = "D:/wamp/www/sandra/trunk/dist";
 # End of Config
 
 # Generate man pages
