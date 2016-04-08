@@ -23,14 +23,14 @@ Drops rows and reports about rows in data based on response or rt
 The table below shows an overview of elements in settings and their` meaning.
 \tabular{lllll}{
   \strong{Name} \tab \strong{Type} \tab \strong{Required?} \tab  \strong{Example Value} \tab \strong{Description} \cr
-  fast_drop \tab integer \tab No \tab \code{300} \tab Drop all response times lower than this value. \cr
-  fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores. \cr
-  slow_drop \tab integer \tab No \tab \code{3000} \tab Drop all response times higher than this value. \cr
-  slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores. \cr
-  sd_drop \tab numeric \tab No \tab \code{1.5} \tab Drop all response times higher than mean response times of correct responses + sd_drop * SD, and those lower than mean - sd_drop * SD. \cr
-  sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD, in scores. \cr
   resp_drop \tab vector \tab No \tab \code{c("NA",0,3,4)} \tab Drop all responses with these values. \cr
-  resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually). \cr
+  resp_report \tab vector \tab No \tab \code{c(1)} \tab Report number of responses with these values (per value individually) as "n_resp_<value>". \cr
+  fast_drop \tab integer \tab No \tab \code{300} \tab Drop all response times lower than this value. \cr
+  fast_report \tab integer \tab No \tab \code{300} \tab Report number of response times lower than this value in scores as "n_outlier_fast". This occurs after dropping rows according to resp_drop. \cr
+  slow_drop \tab integer \tab No \tab \code{3000} \tab Drop all response times higher than this value. \cr
+  slow_report \tab integer \tab No \tab \code{3000} \tab Report number of response times higher than this value in scores as "n_outlier_slow". This occurs after dropping rows according to resp_drop.\cr
+  sd_drop \tab numeric \tab No \tab \code{1.5} \tab Drop all response times higher than mean response times of correct responses + sd_drop * SD, and those lower than mean - sd_drop * SD. \cr
+  sd_report \tab numeric \tab No \tab \code{1.5} \tab Report number of response times higher than mean response times of correct responses + sd_drop * SD, or those lower than mean - sd_drop * SD in scores as "n_outlier_sd". This occurs after dropping rows according to resp_drop, slow_drop, and fast_drop. \cr
 }
 }
 \seealso{

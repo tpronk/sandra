@@ -4,7 +4,7 @@
 \alias{calculateDScores}
 \title{Calculates d-scores from trial data}
 \usage{
-calculateDScores(ds, settings, splithalves = 0, what = "all", verbose = F,
+calculateDScores(ds, settings, splithalves = 0, verbose = F, what = "all",
   ...)
 }
 \arguments{
@@ -14,9 +14,9 @@ calculateDScores(ds, settings, splithalves = 0, what = "all", verbose = F,
 
 \item{splithalves}{(integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.}
 
-\item{what}{(character) If "all", calculate over full task data, if "first_second" calculate 2 dscores; one for first and one for second halve. Only used if splithalves == 0.}
-
 \item{verbose}{(logical) If TRUE, then print debug output.}
+
+\item{what}{(character) If "all", calculate over full task data, if "first_second" calculate 2 dscores; one for first and one for second halve. Only used if splithalves == 0.}
 
 \item{...}{Remaining arguments are passed to an internal scoring function. Not used at the moment.}
 }
