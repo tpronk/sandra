@@ -7,7 +7,7 @@ README.md | This README file
 scripts/t.1.a Decode JASMIN1.R | Decodes JASMIN1 data encoded in a LOTUS results file into metadata and trialdata.
 scripts/t.2.a Calculate D-Scores.R | Calculates d-scores from trial data.
 scripts/t.2.b Calculate Difference of Medians.R | Calculates difference of medians from trial data.
-t.2.c Calculate Difference of Medians Reliability.R | Calculates split-halve reliability of medians from trial data.
+scripts/t.2.c Calculate Difference of Medians Reliability.R | Calculates split-halve reliability of medians from trial data.
 scripts/t.3 Join and Widen.R | Joins scores together into one file (with one row per participant)
 scripts/z. Difference of Medians Unit Tests.R | A unit test of difference of medians scoring
 original/jasmin1_data.csv | JASMIN1 encoded data of one participation in a Visual Probe Task
