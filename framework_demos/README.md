@@ -1,7 +1,6 @@
 # Overview of SANDRA Analysis Framework demo Files
 File | description
 ------ | -----------
-
 Install SANDRA (from GitHub).R | Installs SANDRA (run this once when setting up a new analysis framework)
 Load SANDRA.R | Loads SANDRA (run this every time you want to use an existing analysis framework)
 README.md | This README file
