@@ -61,21 +61,22 @@ installAnalysisFramework = function( pathAnalysis = NA ) {
   # *** Create "Load SANDRA.R" script
   loadAnalysisFile = paste( pathAnalysis, "Load SANDRA.R", sep = "/" );
   if( !file.exists( loadAnalysisFile ) ) {
-    # Construct R statements for loading SANDRA Analysis Framework
-    output = c(
-      "library( \"sandra\" );",
-      paste( "io  = FrameworkFileIO( \"", pathAnalysis,  "\" );", sep = "" )
-    );
-    # Write statements to "Load SANDRA"
-    write(
-      output,
-      loadAnalysisFile
-    );
     print( "sandra::installAnalysisFramework. File 'Load SANDRA.R' created" );
   } else {
-    print( "sandra::installAnalysisFramework. File 'Load SANDRA.R' already exists" );
+    print( "sandra::installAnalysisFramework. File 'Load SANDRA.R' already exists; overwritten" );
   }
   
+  # Construct R statements for loading SANDRA Analysis Framework
+  output = c(
+    "library( \"sandra\" );",
+    paste( "io  = FrameworkFileIO( \"", pathAnalysis,  "\" );", sep = "" )
+  );
+  # Write statements to "Load SANDRA"
+  write(
+    output,
+    loadAnalysisFile
+  );
+
   # Run "Load SANDRA.R"
   source(
     loadAnalysisFile
