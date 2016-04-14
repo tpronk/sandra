@@ -154,7 +154,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
 #' @family SANDRA
 #' @examples
 #' See: SANDRA/framework_demos/scripts/0.t.2 Calculate Scores.R
-calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = "all", ... ) {
+calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "pearson", verbose = F, what = "all", ... ) {
   # ***********************
   # *** Inner Functions ***
   # ***********************
@@ -355,7 +355,8 @@ calculateDScores = function( ds, settings, splithalves = 0, verbose = F, what = 
       split_cor = cor( 
         suppressWarnings( as.numeric( split_result[ ,"score_1" ] ) ), 
         suppressWarnings( as.numeric( split_result[ ,"score_2" ] ) ),
-        use = "pairwise.complete.obs"
+        use = "pairwise.complete.obs",
+        method = splithalf_method
       );
       cors = c( cors, split_cor );
       if( verbose ) { 
@@ -478,7 +479,7 @@ oneScoreSplit = function( result, ds_subset, settings, verbose = F ) {
 #' @examples
 #' See: SANDRA/framework_demos/scripts/0.t.2 Calculate Scores.R
 #' @export
-calculateAggregation = function( ds, settings, splithalves = 0, verbose = F, ... ) {
+calculateAggregation = function( ds, settings, splithalves = 0, splithalf_method = "pearson", verbose = F, ... ) {
   # splithalves < 1? calculate scores over full data, 
   # else calculate splithalve correlation splithalves times
   if( splithalves < 1 ) {
@@ -509,7 +510,8 @@ calculateAggregation = function( ds, settings, splithalves = 0, verbose = F, ...
       split_cor = cor( 
         suppressWarnings( as.numeric( as.character( split_result[ ,"score_1" ] ) ) ), 
         suppressWarnings( as.numeric( as.character( split_result[ ,"score_2" ] ) ) ),
-        use = "pairwise.complete.obs"
+        use = "pairwise.complete.obs",
+        method = splithalf_method
       );
       cors = c( cors, split_cor );
       if( verbose ) { 
@@ -535,6 +537,7 @@ calculateAggregation = function( ds, settings, splithalves = 0, verbose = F, ...
 #' @param settings    (list) D-score calculation settings.
 #' @param what        (character) If "dscore", calculate d-scores, else, use the 'aggregation' approach (like for difference of medians etc.)
 #' @param splithalves (integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.
+#' @param splithalf_method (character) Type of correlation calculated for splithalf reliability. Valid values: "pearson", "kendall", or "spearman".
 #' @param verbose     (logical) If TRUE, then print debug output.
 #' @param ...         Remaining arguments are passed to an internal scoring function. Not used at the moment.
 #' @return (data.frame) Calculated d-scores.
@@ -558,14 +561,14 @@ calculateAggregation = function( ds, settings, splithalves = 0, verbose = F, ...
 #' @examples
 #' See: SANDRA/framework_demos/scripts/0.t.2 Calculate Scores.R
 #' @export
-calculateScores = function( type, ds, settings, splithalves = 0, verbose = F, ... ) {
+calculateScores = function( type, ds, settings, splithalves = 0, splithalf_method = "pearson", verbose = F, ... ) {
   if( type == "dscore" ) {
     return( calculateDScores(
-      ds, settings, splithalves, verbose, ...
+      ds, settings, splithalves, splithalf_method, verbose, ...
     ) );
   } else {
     return( calculateAggregation(
-      ds, settings, splithalves, verbose, ...
+      ds, settings, splithalves, splithalf_method, verbose, ...
     ) );
   }
 }
