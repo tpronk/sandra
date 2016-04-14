@@ -1234,8 +1234,29 @@ decodeJasmin1 = function(
     metadata[ set_id, cols_lotus   ] = input[ sets[[set_id]][1], cols_lotus ];
     metadata[ set_id, "lotus_says" ] = input[ sets[[set_id]][2], colName ];
     
+    # DEBUG
+#     g_input   <<- input;
+#     g_sets    <<- sets;
+#     g_set_id  <<- set_id;
+#     g_trialdata <<- trialdata;
+#     
+#     input = g_input;
+#     sets  = g_sets;
+#     set_id = g_set_id;
+#     colValue = "Value";
+    
     # custom data
-    value = fromJSON( input[ sets[[set_id]][1], colValue ] );
+    value = tryCatch(
+      fromJSON( input[ sets[[set_id]][1], colValue ] ),
+      error = function(cond) {
+        stop( paste(
+          "sandra::decodeJasmin1 failed at row",
+          sets[[set_id]][1],
+          "error message was",
+          cond
+        ) );
+      }
+    );
     
     for( j in names( value ) )
     {
@@ -1287,10 +1308,6 @@ decodeJasmin1 = function(
     
     # Run conversions (if task_done)
     metadata[ set_id, "sequence_report" ] = "";
-    
-    # DEBUGGING globals
-    g_evlogs   <<- evlogs;
-    g_metadata <<- metadata;
     
     if( !is.na( metadata[ set_id, "lotus_says" ] ) && metadata[ set_id, "lotus_says" ] == "task_done" )
     {
