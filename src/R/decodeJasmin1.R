@@ -15,7 +15,7 @@
 #' @return (data.frame) Calculated d-scores
 #' @family SANDRA
 #' @examples
-#' See: SANDRA/tests/scripts/demo.jasmin1_data.2.calculateDScores.R
+#' See: SANDRA/framework_demos/scripts/t.1.a Decode JASMIN1.R
 decodeJasmin1 = function(
   input, 
   participationID = c( "UserID" ),
