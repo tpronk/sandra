@@ -1,7 +1,7 @@
 # Copyright (c) 2015 Thomas Pronk <pronkthomas@gmail.com>
 # All rights reserved. No warranty, explicit or implicit, provided.
 
-#' Decodes JASMIN1 data stored in a LOTUS results file into trial data
+#' Decodes JASMIN1 data stored in a LOTUS results file into trialdata and metadata
 #'
 #' @export
 #' @param input              (data.frame) LOTUS results file 
@@ -12,10 +12,11 @@
 #' @param colRunID           (character) Name of LOTUS RunID column
 #' @param colName            (character) Name of LOTUS Name column
 #' @param colValue           (character) Name of LOTUS Value column
-#' @return (data.frame) Calculated d-scores
+#' @return  (list) Decoded trialdata and metadata
 #' @family SANDRA
 #' @examples
-#' See: SANDRA/framework_demos/scripts/t.1.a Decode JASMIN1.R
+#' See: SANDRA/framework_demos/scripts/t.1.a Decode JASMIN1 in LOTUS.R
+#' See: SANDRA/tutorials/2. Decoding Trial Data, Scoring Tasks, and Widening.docx
 decodeJasmin1 = function(
   input, 
   participationID = c( "UserID" ),
@@ -1162,7 +1163,7 @@ decodeJasmin1 = function(
   
   # cols_lotus are all columns except RunID, Name, and Value
   cols_lotus = names( input );
-  for( i in c( colRunID, colName, colValue ) )
+  for( i in c( colName, colValue ) )
   {
     col_drop = which( cols_lotus == i );
     if( length( col_drop ) > 0 )
@@ -1393,7 +1394,11 @@ decodeJasmin1 = function(
       print( paste( "sandra::decodeJasmin1. There were warnings at set_id ", set_id ) );
     }
     
-    metadata[ set_id, "sequence_report" ] = paste( sequence_report, collapse = "," );
+    if( length( sequence_report ) > 0 ) {
+      metadata[ set_id, "sequence_report" ] = paste( sequence_report, collapse = "," );
+    } else {
+      metadata[ set_id, "sequence_report" ] = "";
+    }
   }   
   timer$done();
   return( list( 
