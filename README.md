@@ -12,4 +12,4 @@ tutorials/ | Tutorials for common SANDRA tasks
 # Getting Started
 An easy way to get started with SANDRA is by going through the tutorials. Presently, two tutorials are available:
 * [1. Installing SANDRA](https://github.com/tpronk/sandra/blob/master/tutorials/1.%20Installing%20SANDRA.docx?raw=true)
-* [2. Processing JASMIN1 Data from a LOTUS Results File](https://github.com/tpronk/sandra/blob/master/tutorials/2.%20Processing%20JASMIN1%20Data%20from%20a%20LOTUS%20Results%20File.docx?raw=true)
+* [2. Decoding Trial Data, Scoring Tasks, and Widening File](https://github.com/tpronk/sandra/blob/master/tutorials/2.%20Decoding%20Trial%20Data,%20Scoring%20Tasks,%20and%20Widening.docx?raw=true)
