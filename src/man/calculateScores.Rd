@@ -4,7 +4,8 @@
 \alias{calculateScores}
 \title{Calculates scores from trial data}
 \usage{
-calculateScores(type, ds, settings, splithalves = 0, verbose = F, ...)
+calculateScores(type, ds, settings, splithalves = 0,
+  splithalf_method = "pearson", verbose = F, ...)
 }
 \arguments{
 \item{ds}{(data.frame) Trial data.}
@@ -12,6 +13,8 @@ calculateScores(type, ds, settings, splithalves = 0, verbose = F, ...)
 \item{settings}{(list) D-score calculation settings.}
 
 \item{splithalves}{(integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.}
+
+\item{splithalf_method}{(character) Type of correlation calculated for splithalf reliability. Valid values: "pearson", "kendall", or "spearman".}
 
 \item{verbose}{(logical) If TRUE, then print debug output.}
 
@@ -58,9 +61,9 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{done}},
-  \code{\link{dropAndReport}}, \code{\link{existsData}},
-  \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}}, \code{\link{decodeSprif1}},
+  \code{\link{done}}, \code{\link{dropAndReport}},
+  \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},

@@ -4,7 +4,8 @@
 \alias{calculateAggregation}
 \title{Calculates scores from trial data using the 'aggregation' approach}
 \usage{
-calculateAggregation(ds, settings, splithalves = 0, verbose = F, ...)
+calculateAggregation(ds, settings, splithalves = 0,
+  splithalf_method = "pearson", verbose = F, ...)
 }
 \arguments{
 \item{ds}{(data.frame) Trial data.}
@@ -49,9 +50,9 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{done}},
-  \code{\link{dropAndReport}}, \code{\link{existsData}},
-  \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}}, \code{\link{decodeSprif1}},
+  \code{\link{done}}, \code{\link{dropAndReport}},
+  \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},
