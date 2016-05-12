@@ -173,7 +173,42 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
     temp = dropAndReport( result, ds_subset, settings );
     result = temp[["result"]];
     ds_subset = temp[["ds_subset"]];
-
+    
+    
+    if( !("split_var" %in% names( scorings[[task]] ) ) ) {
+      result = merge(
+        result,
+        single_dscore( result, ds_subset, settings )
+      );
+    } else {
+      g_settings <<-settings;
+      g_ds_subset <<- ds_subset;
+      g_result <<- result;
+      settings = g_settings;
+      ds_subset = g_ds_subset;
+      result = g_result;      
+      
+      splitVar    = settings[["split_var"]];
+      splitLevels = unique( ds_subset[ ,splitVar ] );
+      scores      = c();
+      for( splitLevel in splitLevels ) {
+        ds_subset_split = ds_subset[ ds_subset[,splitVar] == splitLevel, ];
+        new_result = single_dscore( list(), ds_subset_split, settings );
+        scores = c( scores, new_result[["score"]]  )
+        new_result = data.frame.affixNames( new_result, NULL, splitLevel );
+        result = merge( result, new_result );
+      }
+      result[["score"]] = mean(scores);
+    }
+    return(result);
+  }      
+    
+  single_dscore = function( result, ds_subset, settings = list() ) {
+    # These settings are used often
+    comp_var = settings[[ "comp_var" ]];
+    resp_var = settings[[ "resp_var" ]];
+    rt_var   = settings[[ "rt_var"   ]];
+    
     # ***********
     # *** Apply penalty to RT and calculate means
     adjusted_means = list();
