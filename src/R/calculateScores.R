@@ -597,7 +597,7 @@ calculateAggregation = function( ds, settings, splithalves = 0, splithalf_method
 #' See: SANDRA/framework_demos/scripts/0.t.2 Calculate Scores.R
 #' @export
 calculateScores = function( type, ds, settings, splithalves = 0, splithalf_method = "pearson", verbose = F, ... ) {
-  if( type == "dscore" ) {
+  if( type == "dscore" ) { 
     return( calculateDScores(
       ds, settings, splithalves, splithalf_method, verbose, ...
     ) );
