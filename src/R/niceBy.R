@@ -57,7 +57,7 @@ niceBy = function(
       # Fill result with levels of each factor
       result = list();
       for( f in factors ) {
-        result[[ f ]] = subset[ 1, f ];
+        result[[ f ]] = as.character(subset[ 1, f ]);
       }
       # Call aggregation with result and subset argument
       result = aggregation( 
@@ -86,9 +86,24 @@ niceBy = function(
     for( i in 1 : length( result_raw ) ) {
       sorted_result_raw[[i]] = result_raw[[i]][result_names];
     }
-        
+    
+    # Convert each element to character
+    converted_result_raw = lapply( 
+      g_sorted, 
+      function(x) { 
+        return(
+          lapply(
+            x,
+            function(y) {
+              return(as.character(y[[1]]))          
+            }
+          )
+        )
+      }
+    );
+    
     result = data.frame( matrix(
-      unlist( sorted_result_raw ),
+      unlist( converted_result_raw ),
       ncol = ncol,
       byrow = T
     ) );  
