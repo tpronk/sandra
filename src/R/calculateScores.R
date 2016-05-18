@@ -161,8 +161,6 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
   
   # Calculate one dscore from a ds_subset of dataset (for one run of a task)
   one_dscore = function( result, ds_subset, settings = list() ) {
-    # g_ds_subset <<- ds_subset;
-    
     # These settings are used often
     comp_var = settings[[ "comp_var" ]];
     resp_var = settings[[ "resp_var" ]];
@@ -175,15 +173,12 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
     ds_subset = temp[["ds_subset"]];
     
     
-    if( !("split_var" %in% names( scorings[[task]] ) ) ) {
+    if( !("split_var" %in% names( settings ) ) ) {
       result = merge(
         result,
         single_dscore( result, ds_subset, settings )
       );
     } else {
-      g_settings <<-settings;
-      g_ds_subset <<- ds_subset;
-      g_result <<- result;
       settings = g_settings;
       ds_subset = g_ds_subset;
       result = g_result;      
@@ -253,7 +248,6 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
         } else {
           resp_to_penalize = ds_subset[ ,resp_var ] == resp_penalty;
         }
-        g_resp_to_penalize <<- resp_to_penalize;
         # print( "penalize before" );
         if( length( resp_to_penalize ) > 0 && !is.na( resp_to_penalize ) ) {
           ds_subset[
@@ -290,7 +284,7 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
       adjusted_means[[ settings[[ "comp_levels"]][1] ]] 
     ) / inclusive_sd;
     result[[ "score" ]] = dscore;
-  
+    
     return( result );
   }
   
@@ -316,7 +310,6 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
   
   # Calculates two d-scores; one on first halve, one on second halve of ds_subset
   dscore_first_second = function( result, ds_subset, settings = list() ) {
-    # g_ds_subset <<- ds_subset;
     comp_var = settings[[ "comp_var" ]];
     ds_subset[ ,"split" ] = NA;
     for( comp_level in settings[[ "comp_levels" ]] ) {
@@ -362,14 +355,14 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
       # Calculate two scores: one for first and one for second halve of task
       first_second = dscore_first_second
     );
-    return( niceBy(
+    result = niceBy(
       ds,
       c( settings[[ "run_var" ]] ),
       dscore_function,
       settings = settings,
       verbose = verbose,
       ...
-    ) );  
+    );  
   } else {
     # *** Else, calculate splithalves split_halve times
     # Correlations to average
@@ -384,8 +377,6 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
         verbose = verbose,
         ...
       );
-      # DEBUG
-      g_split_result <<- split_result;
       # Calculate correlation, add to list
       split_cor = cor( 
         suppressWarnings( as.numeric( split_result[ ,"score_1" ] ) ), 
@@ -402,8 +393,6 @@ calculateDScores = function( ds, settings, splithalves = 0, splithalf_method = "
         ) ); 
       }
     }
-    # DEBUG
-    # g_cors <<- cors;
     # Return mean of correlations
     return( mean( cors ) );
   }
@@ -465,12 +454,10 @@ oneScore = function( result, ds_subset, settings ) {
 
 # Calculates two d-scores; one on each split halve of ds_subset
 oneScoreSplit = function( result, ds_subset, settings, verbose = F ) {
-  ds_debug <<- ds_subset;
   ds_subset = niceBy(
     ds_subset,
     settings[["aggregation_factors"]],
     function( result, ds_subset ) {
-      debug_ds<<-ds_subset;
       ds_subset[ ,"split" ] = sample( 
         rep( 1:2, ceiling( nrow(ds_subset) / 2 ) )
       )[ 1 : nrow(ds_subset) ];      
@@ -539,8 +526,6 @@ calculateAggregation = function( ds, settings, splithalves = 0, splithalf_method
         settings = settings,       
         ...
       );
-      # DEBUG
-      g_split_result <<- split_result;
       # Calculate correlation, add to list
       split_cor = cor( 
         suppressWarnings( as.numeric( as.character( split_result[ ,"score_1" ] ) ) ), 
@@ -557,8 +542,6 @@ calculateAggregation = function( ds, settings, splithalves = 0, splithalf_method
         ) ); 
       }
     }
-    # DEBUG
-    g_cors <<- cors;
     # Return mean of correlations
     return( mean( cors ) );
   }    
