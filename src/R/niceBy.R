@@ -72,21 +72,26 @@ niceBy = function(
   
   if( result_type == "list_to_data.frame" ) {
     # list of lists to data.frame
+    sorted_result_raw = list();
     if( length( result_raw[[1]][[1]] ) > 1 ) {
       # List of lists
       result_names = names( result_raw[[1]][[1]] );
       ncol = length( result_raw[[1]][[1]] );
+      for( i in 1 : length( result_raw ) ) {
+        for( j in 1 : length( result_raw[[i]] ) ) {
+          sorted_result_raw[[length(sorted_result_raw) + 1]] = 
+            result_raw[[i]][[j]][result_names];
+        }
+      }      
     } else {
       result_names = names( result_raw[[1]] );
       ncol = length( result_raw[[1]] );
+      for( i in 1 : length( result_raw ) ) {
+        sorted_result_raw[[length(sorted_result_raw) + 1]] = 
+          result_raw[[i]][result_names];
+      }      
     }    
 
-    # Sort names in list elements according to first element
-    sorted_result_raw = list();
-    for( i in 1 : length( result_raw ) ) {
-      sorted_result_raw[[i]] = result_raw[[i]][result_names];
-    }
-    
     # Convert each element to character
     converted_result_raw = lapply( 
       sorted_result_raw, 

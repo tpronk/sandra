@@ -119,7 +119,6 @@ decodeJasmin2 = function (ds, verbose=FALSE) {
         return( results );
       }
     );
-    
     return( result );
   }
 
