@@ -32,8 +32,6 @@ decodeJasmin2 = function (ds, verbose=FALSE) {
       ds_current,
       c( "set" ),
       function( result, subdata ) {
-        cur_result <<- result;
-        cur_row <<- subdata;
         if( nrow( subdata ) > 1 ) {
           print( "decode_task_start WARNING" );
         }
@@ -81,8 +79,6 @@ decodeJasmin2 = function (ds, verbose=FALSE) {
       ds_current,
       c( "row_counter" ),
       function( result, ds_subset ) {
-        g_ds_subset <<- ds_subset;
-        
         timer$reportProgress( ds_subset[ 1, "row_counter" ] );
         # json encoded data
         value_json = ds_subset[ 1, "Value" ];
