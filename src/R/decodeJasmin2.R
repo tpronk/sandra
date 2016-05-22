@@ -31,8 +31,8 @@ decodeJasmin2 = function (ds, verbose=FALSE) {
     result = niceBy(
       ds_current,
       c( "set" ),
-      function( result, subdata ) {
-        if( nrow( subdata ) > 1 ) {
+      function( result, cur_row ) {
+        if( nrow( cur_row ) > 1 ) {
           print( "decode_task_start WARNING" );
         }
         # json encoded data
