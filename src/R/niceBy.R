@@ -89,7 +89,7 @@ niceBy = function(
     
     # Convert each element to character
     converted_result_raw = lapply( 
-      g_sorted, 
+      sorted_result_raw, 
       function(x) { 
         return(
           lapply(
