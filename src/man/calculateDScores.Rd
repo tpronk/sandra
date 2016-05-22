@@ -34,7 +34,7 @@ The table below shows an overview of elements in settings and their meaning.
   comp_levels \tab character \tab Yes \tab \code{c( "yes", "no" )} \tab Vector containing two elements, corresponding to the values of comp_var that identify compatible and incompatible blocks respectively. Bias score is calculated towards first element. \cr
   resp_correct \tab character \tab Yes \tab \code{1} \tab Value for correct responses. \cr
   resp_penalty \tab vector \tab No \tab \code{c(2)} \tab Responses whose response times are to be replaced by a penalty RT. \cr
-  rt_penalty \tab character \tab No \tab \code{"2sd"} \tab Default = "2sd". Use "2sd" to replace RTs of incorrect responses with the mean + 2SD of correct responses for current block. Use "d600" to penalize with mean + 600. \cr
+  rt_penalty \tab character/numeric \tab No \tab \code{"2sd"} \tab Default = "2sd". Use "2sd" to replace RTs of incorrect responses with the mean + 2SD of correct responses for current block. Use any other number to penalize with that number. For example: 600 penalizes with mean + 600. \cr
   aux_report \tab vector \tab No \tab \code{c( "correct_n", "task_n" )} \tab Additional variables to report. See separate section covering aux_report. \cr
 }
 
