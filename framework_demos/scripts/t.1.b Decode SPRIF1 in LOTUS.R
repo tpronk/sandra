@@ -4,10 +4,6 @@
 # This file contains SPRIF encoded data and is located in the "original" subdirectory
 fileSource = "sprif1_data.csv"; 
 
-# Type of task; trialdata filex gets postfixes with this text
-task = "ibt";
-
-
 # ************************
 # *** END OF CONFIGURATION
 
@@ -33,6 +29,6 @@ io$writeData(
 );
 
 io$writeData(
-  addPostfix( fileSource, "trialdata", task ),
+  addPostfix( fileSource, "trialdata" ),
   dsDecoded[[ "trialdata" ]]
 );
