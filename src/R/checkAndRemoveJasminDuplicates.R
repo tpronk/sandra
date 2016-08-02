@@ -92,7 +92,7 @@ checkAndRemoveJasminDuplicates = function( evlogs ) {
   
   sequence_report = paste( sequence_report, collapse = " " );
   
-  report( "*** parse_data_evlogs done" );
+  print( "*** parse_data_evlogs done" );
   if (!is.null(duplicates_to_remove)) {
     evlogs = evlogs[-duplicates_to_remove,];
   }
