@@ -53,6 +53,7 @@ correctScores = io$readData( "tests_dscores.scores.iat.csv", original = T );
 
 # Matrix with TRUE  for each matching score, and FALSE if not
 matches = data.frame.new();
+mismatches = 0;
 for( i in 1 : nrow(correctScores) ) {
   correctRow = correctScores[i,];
   calculatedRow = calculatedScores[calculatedScores[,"set_id"] == correctRow[,"set_id"],];
@@ -71,6 +72,7 @@ for( i in 1 : nrow(correctScores) ) {
           "calculated =", calculatedRow[,j]
         ) );
         matches[i,j] = FALSE;
+        mismatches = mismatches + 1;
       } else {
         matches[i,j] = TRUE;
       }
@@ -80,5 +82,9 @@ for( i in 1 : nrow(correctScores) ) {
   }
   matches[i,"set_id"] = correctRow[,"set_id"];  
 }
+if (mismatches == 0) {
+  print("All tests passed!");
+}
+
 
 io$writeData( "tests_medians.scores.matches.aat.csv", matches );
