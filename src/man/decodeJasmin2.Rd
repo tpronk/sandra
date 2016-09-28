@@ -4,7 +4,7 @@
 \alias{decodeJasmin2}
 \title{Decodes JASMIN2 data stored in a LOTUS results file}
 \usage{
-decodeJasmin2(ds, verbose = FALSE)
+decodeJasmin2(ds, tables, verbose = FALSE)
 }
 \arguments{
 \item{ds}{(data.frame) LOTUS results file}
@@ -35,9 +35,11 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{data.frame.dropVar}},
   \code{\link{data.frame.new}},
   \code{\link{data.frame.renameVar}},
-  \code{\link{decodeJasmin1}}, \code{\link{decodeSprif1}},
-  \code{\link{done}}, \code{\link{dropAndReport}},
-  \code{\link{existsData}}, \code{\link{getExtension}},
+  \code{\link{decodeJasmin1}},
+  \code{\link{decodeJasmin2Legacy}},
+  \code{\link{decodeSprif1}}, \code{\link{done}},
+  \code{\link{dropAndReport}}, \code{\link{existsData}},
+  \code{\link{getExtension}},
   \code{\link{installAnalysisFramework}},
   \code{\link{leftMerge}}, \code{\link{makeWide}},
   \code{\link{niceBy}}, \code{\link{niceMerge}},
