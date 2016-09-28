@@ -1,4 +1,8 @@
-set	userID	userAgent	UserID	RunID
-52327_2468489	52327	Mozilla\/5.0 (Windows NT 10.0; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/46.0.2490.86 Safari\/537.36	UserID	RunID
-52328_2468522	52328	Mozilla\/5.0 (Windows NT 6.1; WOW64; rv:42.0) Gecko\/20100101 Firefox\/42.0	UserID	RunID
-52330_2468568	52330	Mozilla\/5.0 (Windows NT 10.0; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/46.0.2490.86 Safari\/537.36	UserID	RunID
+set	userID	userAgent	taskType	task_name	participation_id	Timetamp	UserID	Session	Task	RunID	Name
+115159_6593390	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	sciat	sciat_valence	6593390	2016-09-05 15:16:28	115159	Post task2	Assessment Task 2	6593390	task_start
+115159_6593434	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	sciat	sciat_approach	6593434	2016-09-05 15:22:04	115159	Post task3	Assessment Task 3	6593434	task_start
+115159_6593438	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	aat		6593438	2016-09-05 15:26:04	115159	training9 task1	Training Task 1	6593438	task_start
+115159_6593442	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	gonogo		6593442	2016-09-05 15:26:44	115159	training9 task2	Training Task 2	6593442	task_start
+115159_6594118	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	aat		6594118	2016-09-06 04:20:47	115159	booster1 task1	Booster Task 1	6594118	task_start
+115159_6594126	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	gonogo		6594126	2016-09-06 04:22:29	115159	booster1 task2	Booster Task 2	6594126	task_start
+115159_6594156	115159	Mozilla\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/51.0.2704.106 Safari\/537.36	gonogo		6594156	2016-09-06 04:25:41	115159	booster8 task2	Booster Task 2	6594156	task_start

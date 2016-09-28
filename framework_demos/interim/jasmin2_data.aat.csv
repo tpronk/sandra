@@ -1,0 +1,7 @@
+approach_left	block_type	cat	stim	trial_type	response	rt	id	modality	label	sust	final_response	fb_response	fb_rt	fb_id	block	trial	attempt	time_start	time_fix	time_stimulus_show	time_response	time_release	time_extend_incorrect	time_log	sn	logger_sn	logger_time	participation_id	UserID	RunID	rel_time	sequence_report
+FALSE	practice	practice	practice	approach	2	576.065	38	keydown	up_down	TRUE	2	NA	NA	NA	0	0	0	10144.44	11115.845	11914.91	12507.735	12914.18	12956.105	13513.86	NA	0	13514.225	6594118	115159	6594121	0	
+FALSE	practice	practice	practice	approach	1	362.92	40	keydown	down_down	TRUE	1	NA	NA	NA	0	0	1	13514.265	14013.52	14645.68	15025.25	15428.895	12956.105	15460.41	NA	1	15460.515	6594118	115159	6594121	1946.29	
+FALSE	practice	practice	practice	approach	1	705.44	40	keydown	down_down	TRUE	1	NA	NA	NA	0	1	0	15461.02	16396.03	16975.135	17697.22	18109.855	NA	18132.865	NA	2	18133.085	6594118	115159	6594122	4618.86	
+FALSE	practice	practice	practice	avoid	1	478.65	38	keydown	up_down	TRUE	1	NA	NA	NA	0	2	0	18133.335	18858.925	19841.725	20337.035	20740.6	NA	20772.195	NA	3	20772.28	6594118	115159	6594122	7258.055	
+FALSE	practice	practice	practice	avoid	1	589.035	38	keydown	up_down	TRUE	1	NA	NA	NA	0	3	0	20772.54	21306.86	21938.585	22544.235	22955.35	NA	22960.9	NA	4	22960.98	6594118	115159	6594123	9446.755	
+FALSE	practice	practice	practice	avoid	1	594.15	38	keydown	up_down	TRUE	1	NA	NA	NA	0	4	0	22961.185	23854.57	24751.535	25362.335	25769.54	NA	25771.99	NA	5	25772.075	6594118	115159	6594124	12257.85	

@@ -7,10 +7,10 @@ fileSource = "jasmin1_data.csv";
 
 # Scoring settings; one per task
 scorings = list(
-  vpt = list(
+  sciat = list(
     type         = "dscore",
     
-    run_var      = "set_id",
+    run_var      = "set_id", # set_id for JASMIN1 data, participation_id for JASMIN2 data
     resp_var     = "response",
     rt_var       = "rt",
     comp_var     = "patt",

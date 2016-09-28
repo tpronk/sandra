@@ -13,14 +13,19 @@ dsEncoded = io$readData(
   encoding = "UTF-8"
 );
 
-dsDecoded = decodeJasmin2(dsEncoded);
+dsDecoded = decodeJasmin2(
+  dsEncoded, 
+  c("task_start", "aat", "sciat", "gonogo", "slideshow", "screen"),  
+  verbose = F
+);
 
+# Store decoded tables
 for (curTable in names(dsDecoded)) {
-  if (curTable == "task") {
-    # Hack for removing duplicates from task data
+  # Construct sequence reports and remove duplicates
+  if (curTable != "task_start") {
     dsDecoded[[curTable]] = niceBy(
       dsDecoded[[curTable]],
-      c("UserID"),
+      c("participation_id"),
       function (results, subset) {
         deduplicated = checkAndRemoveJasminDuplicates(subset);
         results = deduplicated[["evlogs"]];
@@ -28,9 +33,9 @@ for (curTable in names(dsDecoded)) {
         return(results)
       },
       result_type = "data.frame_to_data.frame"
-    )
-    
+    );
   }
+  
   io$writeData(
     addPostfix(fileSource, curTable),
     dsDecoded[[curTable]]
