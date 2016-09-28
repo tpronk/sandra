@@ -11,7 +11,7 @@
 #' @examples
 #' See: SANDRA/framework_demos/scripts/t.1.c Decode JASMIN2 in LOTUS.R
 #' See: SANDRA/tutorials/2. Decoding Trial Data, Scoring Tasks, and Widening.docx
-decodeJasmin2 = function (ds, verbose=FALSE) {
+decodeJasmin2Legacy = function (ds, verbose=FALSE) {
   decode_task_start = function( ds_current ) {
     # json encoded data
     value_json = ds_current[ 1, "Value" ];
