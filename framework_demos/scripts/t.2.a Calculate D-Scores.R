@@ -1,20 +1,32 @@
 # ************************** 
 # *** START OF CONFIGURATION
 
-# This file contains the original JASMIN1 encoded data, but the scoring algorithms will only use
-# derived files such as "jasmin1_data.metadata.csv" located in the "interim" subdirectory
-fileSource = "jasmin1_data.csv"; 
+# This file contains the original JASMIN1/JASMIN2/SPRIF1 encoded data, but the scoring 
+# algorithms will only use derived files such as "jasmin2_data.sciat.csv" located in the
+# "interim" folder
+fileSource = "jasmin2_data.csv"; 
+
+# This suffix  identifies a "metadata" file. This suffix is appended to fileSource to 
+# identify the metadata file, for example: jasmin2_data.task_start.csv
+#   - "metadata" for JASMIN1 and SPRIF1 data
+#   - "task_start" for SPRIF1 data
+suffixMetadata = "task_start";
+
+# This Variable identifies a participation: 
+#   - "set_id" for JASMIN1 and SPRIF1 data
+#   - "participation_id" for JASMIN2 data
+run_var = "participation_id";
 
 # Scoring settings; one per task
 scorings = list(
   sciat = list(
     type         = "dscore",
     
-    run_var      = "set_id", # set_id for JASMIN1 data, participation_id for JASMIN2 data
+    run_var      = run_var,
     resp_var     = "response",
     rt_var       = "rt",
-    comp_var     = "patt",
-    comp_levels  = c( "yes", "no" ), # Bias calculated towards first element
+    comp_var     = "block_type",
+    comp_levels  = c( "tar1att1_2", "tar1att2_2" ), # Bias calculated towards first element
     
     fast_drop    = 300,
     fast_report  = 300,
@@ -26,7 +38,7 @@ scorings = list(
     sd_report    = 1.5,  
     
     resp_drop    = c( "NA", 0, 3, 4 ),
-    resp_report  = c( 1 ),
+    resp_report  = c( 1, 3 ),
     
     resp_correct = 1,  
     resp_penalty = c( 2 ),
@@ -45,19 +57,19 @@ scorings = list(
 
 # Only use task data returned by this function
 selectData = function( ds ) {
-  return( ds[ ds[ ,"type" ] == "assess", ] );
+  return(ds);
 }
 
 # ************************
 # *** END OF CONFIGURATION
 
 dsMetadata = io$readData(
-  addPostfix( fileSource, "metadata" )
+  addPostfix( fileSource, suffixMetadata )
 );
 
 for( task in names( scorings ) ) {
   dsTrialdata = io$readData(
-    addPostfix( fileSource, "trialdata", task )
+    addPostfix( fileSource, task )
   );
   dsTrialdata = selectData( dsTrialdata );
   
