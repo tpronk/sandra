@@ -52,7 +52,35 @@ scorings = list(
       # Across task
       "task_n"
     )
-  )
+  ),
+  aat = list(
+    type = "aggregation",
+    
+    run_var = run_var,
+    resp_var = "response",
+    rt_var = "rt",
+    
+    fast_drop = 200,
+    slow_drop = 2000,
+    fast_report = 200,
+    slow_report = 2000,
+    resp_report = c(1),
+    resp_drop = c(2,3,4,NA),
+    
+    aux_report = c("factor_scores"),
+    
+    # For each participation calculate scores for trial_type == approach and trial_type == avoid
+    aggregation_factors = c( "trial_type" ),
+    # Scores are calculated as median RTs
+    aggregation_factor_function = function( rts ) {
+      return( median( rts ) )
+    },
+    # For each participation, calculate difference between approach and avoid scores
+    aggregation_run_function = function( wide ) {
+      score = wide["score.avoid"] - wide["score.approach"];
+      return(score);
+    }
+  )  
 );
 
 # Only use task data returned by this function
@@ -81,9 +109,9 @@ for( task in names( scorings ) ) {
   
   # Merge with metadata
   dsScores = leftMerge(
+    dsRawScores,    
     dsMetadata,
-    dsRawScores,
-    c( "set_id" )
+    c( run_var )
   )
   
   io$writeData(
