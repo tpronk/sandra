@@ -5,8 +5,8 @@ Install SANDRA (from GitHub).R | Installs SANDRA (run this once when setting up 
 Load SANDRA.R | Loads SANDRA (run this every time you want to use an existing analysis framework)
 README.md | This README file
 scripts/t.1.a Decode JASMIN1 in LOTUS.R | Script for decoding JASMIN1 data embedded in a LOTUS results file into different output tables for trial, slideshow, and screen data.
-scripts/t.1.a Decode JASMIN2 in LOTUS.R | Script for decoding JASMIN2 data embedded in a LOTUS results file into different output tables for trial, slideshow, and screen data.
-scripts/t.1.b Decode SPRIF1 in LOTUS.R | Script for decoding SPRIF data embedded in a LOTUS results file into metadata and trialdata.
+scripts/t.1.b Decode JASMIN2 in LOTUS.R | Script for decoding JASMIN2 data embedded in a LOTUS results file into different output tables for trial, slideshow, and screen data.
+scripts/t.1.c Decode SPRIF1 in LOTUS.R | Script for decoding SPRIF data embedded in a LOTUS results file into metadata and trialdata.
 scripts/t.2.a Calculate Scores.R | Calculates d-scores and difference-of-medians from trial data.
 scripts/t.2.c Calculate Difference of Medians Reliability.R | Calculates randomized repeated split-halve reliability of d-scores and difference-of-medians
 scripts/t.3 Join and Widen.R | Joins scores together into one file (with one row per participant)

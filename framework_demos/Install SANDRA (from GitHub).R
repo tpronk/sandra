@@ -6,7 +6,7 @@ library( "devtools" )
 install_github( "tpronk/SANDRA/src", force = TRUE );
 library( "sandra" );
 
-# Install SANDRA Analysis Framework
+# Install SANDRA Framework
 installAnalysisFramework(
   # Enter path to analysis folder here (without trailing slash)
   # Only for Windows: leave empty to get a folder picker
