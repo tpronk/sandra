@@ -7,7 +7,7 @@
 #' @param evlogs                 (data.frame) JASMIN1 or JASMIN2 trial data
 #' @return  (list) Element "evlogs" contains deduplicated data; Element "sequence_report" contains a report about whether anything suspicious was found. See "2. Decoding Trial Data, Scoring Tasks, and Widening" for information about the sequence_report
 #' @family SANDRA
-checkAndRemoveJasminDuplicates = function( metadata, evlogs, snVar = "logger_sn", timeVar = "logger_time" ) {
+checkAndRemoveJasminDuplicates = function( evlogs, snVar = "logger_sn", timeVar = "logger_time" ) {
   # sequence_report: short list of strange things in sequence numbers
   sequence_report = c();
   
