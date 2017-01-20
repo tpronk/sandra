@@ -1174,7 +1174,18 @@ decodeJasmin1 = function(
   
   # Custom data encoded in task_start event
   i = which( input[ ,colName ] == "task_start" )[1];
-  value = fromJSON( input[ i, colValue ] );
+  value = tryCatch ( 
+    fromJSON( input[ i, colValue ] ), 
+    error = function( e ){ 
+      return( NULL );
+    }
+  );
+  if (is.null(value)) {
+    print(paste("decodeJasmin1.R 1184. Invalid JSON found."));
+    print(input[ i, colValue ]);
+  }
+  
+  #value = fromJSON( input[ i, colValue ] );
   cols_custom = names( value );
   
   # default columns in metadata
@@ -1236,15 +1247,14 @@ decodeJasmin1 = function(
     metadata[ set_id, "lotus_says" ] = input[ sets[[set_id]][2], colName ];
     
     # DEBUG
-#     g_input   <<- input;
-#     g_sets    <<- sets;
-#     g_set_id  <<- set_id;
-#     g_trialdata <<- trialdata;
-#     
-#     input = g_input;
-#     sets  = g_sets;
-#     set_id = g_set_id;
-#     colValue = "Value";
+    # g_input   <<- input;
+    # g_sets    <<- sets;
+    # g_set_id  <<- set_id;
+    # g_trialdata <<- trialdata;
+    # input = g_input;
+    # sets  = g_sets;
+    # set_id = g_set_id;
+    # colValue = "Value";
     
     # custom data
     value = tryCatch(
@@ -1259,6 +1269,7 @@ decodeJasmin1 = function(
       }
     );
     
+    task_id = NULL;
     for( j in names( value ) )
     {
       custom_value = value[[ j ]];
@@ -1271,6 +1282,21 @@ decodeJasmin1 = function(
       {
         task_id = custom_value;
       }
+    }
+    
+    # No taskName found? try to guess it from "config"
+    if (is.null(task_id) && "config" %in% names(value)) {
+      taskCandidates = c("aat", "vpt");
+      for (taskCandidate in taskCandidates) {
+        if (length(grep(taskCandidate, value[["config"]], fixed = TRUE)) > 0) {
+          task_id = taskCandidate;
+        }
+      }
+    }
+    
+    # Still no task_id? report warning
+    if (is.null(taskCandidate)) {
+      stop("No task_id found");
     }
     
     report( "sandra::decodeJasmin1. Preparing evlogs" );
