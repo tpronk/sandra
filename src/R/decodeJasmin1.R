@@ -1295,7 +1295,7 @@ decodeJasmin1 = function(
     }
     
     # Still no task_id? report warning
-    if (is.null(taskCandidate)) {
+    if (is.null(task_id)) {
       stop("No task_id found");
     }
     
@@ -1426,6 +1426,29 @@ decodeJasmin1 = function(
       metadata[ set_id, "sequence_report" ] = "";
     }
   }   
+  for (task_id in names(trialdata)) {
+    ds = trialdata[[task_id]];
+    
+    # Remove duplicate trials
+    ds = ds[
+      order(
+        ds[,"set_id"],
+        ds[,"from_seq"]
+      ),
+      ];
+    g_trial = -1;
+    duplicate = apply(
+      ds,
+      1,
+      function(dsr) {
+        result = dsr["trial"] == g_trial;
+        g_trial <<- dsr["trial"];
+        return(result);
+      }
+    );
+    ds = ds[!duplicate,];  
+    trialdata[[task_id]] = ds;
+  }
   timer$done();
   return( list( 
     metadata  = metadata,
