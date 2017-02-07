@@ -1,4 +1,4 @@
-# Overview of SANDRA Analysis Framework demo Files
+# Overview of SANDRA Analysis Framework templates
 File | description
 ------ | -----------
 Install SANDRA (from GitHub).R | Installs SANDRA (run this once when setting up a new analysis framework)
@@ -10,19 +10,9 @@ scripts/t.1.c Decode SPRIF1 in LOTUS.R | Script for decoding SPRIF data embedded
 scripts/t.2.a Calculate Scores.R | Calculates d-scores and difference-of-medians from trial data.
 scripts/t.2.c Calculate Difference of Medians Reliability.R | Calculates randomized repeated split-halve reliability of d-scores and difference-of-medians
 scripts/t.3 Join and Widen.R | Joins scores together into one file (with one row per participant)
-scripts/z. Unit Tests Difference of Medians.R | Unit test of difference-of-medians scoring against pre-calculated scores
-scripts/z. Unit Tests D-Scores.R | Unit test of d-scoring against pre-calculated scores
 original/jasmin1_data.csv | JASMIN1 encoded data of one participation in a Visual Probe Task (VPT)
 original/jasmin2_data.csv | JASMIN2 encoded data of Approach Avoidance Task (AAT), Valence and Approach/Avoidance Single Category Implicit Association Task (SCIATs), and Go/Nogo of one participant across two sessions 
-original/tests_dscores.scores.iat.csv | Manually calculated scores, used for for d-score unit tests
-original/tests_dscores.trialdata.iat.csv | Trial data used for d-score unit tests
-original/tests_medians.scores.aat.csv | Manually calculated scores, used for difference-of-medians unit tests
-original/tests_medians.trialdata.aat.csv | Trial data used for difference-of-medians unit tests
-meta/splithalve\_is\_1.trialdata.vpt.xlsx | Spreadsheet used to generate test data with a perfect split halve reliability
-meta/tests_dscores.scores.iat.xlsx | Spreadsheet containing manually calculated scores
-meta/tests_dscores.trialdata.iat.xlsx | Spreadsheet containing manually calculated scores
-meta/tests_medians.scores.aat.xlsx | Spreadsheet containing manually calculated scores
-meta/tests_medians.trialdata.aat.xlsx | Spreadsheet used to generate test data
+sprif1_data.csv | SPRIF1 encoded data of an Interpretation Bias Task (IBT)
 
 # Script prefix scheme
 The data processing scripts are prefixed as follows: <prefix1>.<prefix2>.<prefix3>

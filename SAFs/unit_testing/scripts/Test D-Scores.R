@@ -87,4 +87,4 @@ if (mismatches == 0) {
 }
 
 
-io$writeData( "tests_medians.scores.matches.aat.csv", matches );
+io$writeData( "tests_medians.scores.matches.iat.csv", matches );
