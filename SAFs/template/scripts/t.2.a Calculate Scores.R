@@ -44,6 +44,15 @@ scorings = list(
     resp_penalty = c( 2 ),
     rt_penalty   = "2sd",
     
+    select_data = function (ds) {
+      # If data contains one row per attempt, then only use first attempt at each trial
+      if ("attempt" %in% names(ds)) {
+        ds = ds[ds[,"attempt"] == 0,];
+      }
+      # NB - Filter on assessments blocks etc. here
+      return(ds);
+    },
+    
     aux_report   = c( 
       # For each compatible and incompatible block
       "correct_n", "correct_mean", "correct_sd", "penalty", "adjusted_mean",
@@ -66,8 +75,18 @@ scorings = list(
     slow_report = 2000,
     resp_report = c(1),
     resp_drop = c(2,3,4,NA),
+
+    select_data = function (ds) {
+      # If data contains one row per attempt, then only use first attempt at each trial
+      if ("attempt" %in% names(ds)) {
+        ds = ds[ds[,"attempt"] == 0,];
+      }
+      # NB - Filter on assessments blocks etc. here
+      return(ds);
+    },
     
-    aux_report = c("factor_scores"),
+    
+    aux_report = c("factor_scores", "task_n"),
     
     # For each participation calculate scores for trial_type == approach and trial_type == avoid
     aggregation_factors = c( "trial_type" ),
@@ -83,11 +102,6 @@ scorings = list(
   )  
 );
 
-# Only use task data returned by this function
-selectData = function( ds ) {
-  return(ds);
-}
-
 # ************************
 # *** END OF CONFIGURATION
 
@@ -99,7 +113,7 @@ for( task in names( scorings ) ) {
   dsTrialdata = io$readData(
     addPostfix( fileSource, task )
   );
-  dsTrialdata = selectData( dsTrialdata );
+  dsTrialdata = scorings[[task]][["select_data"]]( dsTrialdata );
   
   dsRawScores = calculateScores(
     scorings[[ task ]][[ "type" ]],
