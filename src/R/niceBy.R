@@ -28,6 +28,7 @@ niceBy = function(
   verbose = F,
   ...
 ) {
+  # BUG HERE; what if ds has no rows?
   
   # *** Construct factors
   if( verbose ) { print( paste( Sys.time(), ", niceBy, construct factors", sep = "" ) ); }
