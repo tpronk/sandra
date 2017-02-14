@@ -1,5 +1,5 @@
 # Load sandra R scripts from a local directory
-pathSandra = "D:/wamp/www/sandra/branches/tpronk_dev/src/R";
+pathSandra = "D:/wamp/www/sandra/trunk/src/R";
 library( "rjson" )
 library( "lubridate" )
 library( "tcltk" )
