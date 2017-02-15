@@ -38,6 +38,9 @@ scorings = list(
       score = wide["score.no"] - wide["score.yes"];
       return(score);
     },
+    # Additional variables to report
+    aux_report = c("factor_scores", "task_n"),
+    
     
     # Function for filtering and/or recoding trial data before it's fed into the scoring algorithm
     select_data = function (ds) {
@@ -49,10 +52,7 @@ scorings = list(
       ds = ds[ds[,"block_type"] == "assess",];
       
       return(ds);
-    },
-    
-    # Additional variables to report
-    aux_report = c("factor_scores", "task_n")
+    }
   )
 );
   

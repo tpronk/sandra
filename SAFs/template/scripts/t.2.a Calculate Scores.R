@@ -28,10 +28,11 @@ scorings = list(
     # *** D-Score specific settings
     type         = "dscore", # Type of scoring; dscore or aggregation    
     comp_var     = "block_type", # Identifies congruent and incongruent blocks
-    comp_levels  = c( "tar1att1_2", "tar1att2_2" ), # A positive score is 'towards' first element of comp_levels
+    comp_levels  = c("tar1att1_2", "tar1att2_2"), # A positive score is 'towards' first element of comp_levels
     resp_correct = 1, # Value of resp_var that identifies correct responses
-    resp_penalty = c( 2 ), # Value of resp_var that identifies responses whose RT should be penalized
+    resp_penalty = c(2), # Value of resp_var that identifies responses whose RT should be penalized
     rt_penalty   = "2sd", # Type of RT penalty
+    aux_report   = c("task_n", "correct_n", "correct_mean", "correct_sd", "penalty", "adjusted_mean", "inclusive_sd"), # Additional variables to report
     
     # Function for filtering and/or recoding trial data before it's fed into the scoring algorithm
     select_data = function (ds) {
@@ -41,17 +42,7 @@ scorings = list(
       }
       # NB - Filter on assessments blocks etc. here
       return(ds);
-    },
-    
-    # Additional variables to report
-    aux_report   = c( 
-      # For each compatible and incompatible block
-      "correct_n", "correct_mean", "correct_sd", "penalty", "adjusted_mean",
-      # Across compatible and incompatible
-      "inclusive_sd",
-      # Across task
-      "task_n"
-    )
+    }
   ),
   aat.medians = list(
     # *** General scoring settings
@@ -73,14 +64,16 @@ scorings = list(
     # For each participation calculate scores for trial_type == approach and trial_type == avoid
     aggregation_factors = c( "trial_type" ),
     # Scores are calculated as median RTs
-    aggregation_factor_function = function( rts ) {
-      return( median( rts ) )
+    aggregation_factor_function = function (rts) {
+      return(median(rts) )
     },
     # For each participation, calculate difference between approach and avoid scores
-    aggregation_run_function = function( wide ) {
+    aggregation_run_function = function (wide) {
       score = wide["score.avoid"] - wide["score.approach"];
       return(score);
     },
+    # Additional variables to report
+    aux_report = c("factor_scores", "task_n"),    
     
     # Function for filtering and/or recoding trial data before it's fed into the scoring algorithm
     select_data = function (ds) {
@@ -91,15 +84,10 @@ scorings = list(
       # NB - Filter on assessments blocks etc. here
       ds = ds[ds[,"block_type"] == "train",];
       return(ds);
-    },
-    
-    # Additional variables to report
-    aux_report = c("factor_scores", "task_n")
+    }
   )
 );
   
-  
-
 # ************************
 # *** END OF CONFIGURATION
 
