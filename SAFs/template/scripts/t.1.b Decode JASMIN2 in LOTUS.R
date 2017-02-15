@@ -36,16 +36,16 @@ for (curTable in names(dsDecoded)) {
         results = deduplicated[["evlogs"]];
         if(deduplicated[["sequence_report"]] != "") {
           dsDecoded[["task_start"]][
-            as.character(dsDecoded[["task_start"]][,"participation_id"]) == 
-              as.character(results[1,"participation_id"]),
-            "sequence_report"] <<- paste(
-              paste(curTable,":",deduplicated[["sequence_report"]], sep = ""),            
-              dsDecoded[["task_start"]][
-                as.character(dsDecoded[["task_start"]][,"participation_id"]) == 
-                as.character(results[1,"participation_id"]), "sequence_report"
-              ],
-              sep = ","
-            );
+            as.character(dsDecoded[["task_start"]][,"participation_id"]) == as.character(results[1,"participation_id"]),
+            "sequence_report"
+          ] <<- paste(
+            paste(curTable,":",deduplicated[["sequence_report"]], sep = ""),            
+            dsDecoded[["task_start"]][
+              as.character(dsDecoded[["task_start"]][,"participation_id"]) == 
+              as.character(results[1,"participation_id"]), "sequence_report"
+            ],
+            sep = ","
+          );
         }
         return(results)
       },
@@ -60,6 +60,6 @@ for (curTable in names(dsDecoded)) {
 
 # Store task_start (with sequence_report);
 io$writeData(
-  addPostfix(fileSource, "task_start"),
+  addPostfix(fileSource, "metadata"),
   dsDecoded[["task_start"]]
 )

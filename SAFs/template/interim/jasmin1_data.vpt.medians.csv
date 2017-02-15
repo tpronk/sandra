@@ -1,0 +1,2 @@
+participation_id	task_n	resp_1_n	resp_3_n	outlier_fast_n	outlier_slow_n	outlier_sd_n	score	score.no	score.yes	Timestamp	UserID	username	Session	RunID	participationID	trainingNr	taskType	task_name	userID	userAgent	run_from	run_to	lotus_says	event_count	sequence_report
+2	128	121	1	0	0	4	16	527	511	2014-01-27 14:51:16	4809	Leone_test_2	14-Training-AAT-VPT-2	621789	4809_14-Training-AAT-VPT-2	14	training	vpt	4809	Mozilla\/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko\/20100101 Firefox\/26.0	621789	621901	task_done	1034	NA

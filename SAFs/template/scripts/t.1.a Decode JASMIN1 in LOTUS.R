@@ -22,14 +22,35 @@ dsDecoded = decodeJasmin1(
   verbose = FALSE
 );
 
-io$writeData(
-  addPostfix( fileSource, "metadata" ),
-  dsDecoded[[ "metadata" ]]
+dsDecoded[["metadata"]] = data.frame.renameVar(
+  dsDecoded[["metadata"]], 
+  "set_id", 
+  "participation_id"
+);
+dsDecoded[["metadata"]] = data.frame.renameVar(
+  dsDecoded[["metadata"]], 
+  "taskName", 
+  "task_name"
 );
 
-for( task in names( dsDecoded[["trialdata"]] ) ) {
+io$writeData(
+  addPostfix(fileSource, "metadata"),
+  dsDecoded[["metadata"]]
+);
+
+for (task in names(dsDecoded[["trialdata"]])) {
+  dsDecoded[["trialdata"]][[task]] = data.frame.renameVar(
+    dsDecoded[["trialdata"]][[task]], 
+    "set_id", 
+    "participation_id"
+  );
+  dsDecoded[["trialdata"]][[task]] = data.frame.renameVar(
+    dsDecoded[["trialdata"]][[task]], 
+    "type", 
+    "block_type"
+  );  
   io$writeData(
-    addPostfix( fileSource, "trialdata", task ),
-    dsDecoded[[ "trialdata" ]][[ task ]]
+    addPostfix(fileSource, task),
+    dsDecoded[["trialdata"]][[task]]
   );
 }

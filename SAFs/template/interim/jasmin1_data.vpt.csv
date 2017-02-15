@@ -1,4 +1,4 @@
-from_seq	to_seq	event	block	trial	patt	reps	phor	stim	keep	thor	image	pdir	response	rt	set_id	type	placebo
+from_seq	to_seq	event	block	trial	patt	reps	phor	stim	keep	thor	image	pdir	response	rt	participation_id	block_type	placebo
 12	13	trial	0	0	yes	0	right	practice	no	right	practice_right	up	1	603	2	practice	TRUE
 15	16	trial	0	1	yes	0	right	practice	yes	right	practice_right	down	1	533	2	practice	TRUE
 18	19	trial	0	2	yes	0	left	practice	no	left	practice_left	up	1	596	2	practice	TRUE
