@@ -23,7 +23,8 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
   subdirectories = c(
     paste( pathAnalysis, "scripts",  sep = "/" ),
     paste( pathAnalysis, "original", sep = "/" ),
-    paste( pathAnalysis, "interim",  sep = "/" )
+    paste( pathAnalysis, "interim",  sep = "/" ),
+    paste( pathAnalysis, "checksums",  sep = "/" )
   );    
   if( verbose ) {
     for( subdirectory in subdirectories ) {
@@ -38,9 +39,11 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
     }
   }
   fileIO = FileIO(
+    pathAnalysis,
     paste( pathAnalysis, "scripts",  sep = "/" ),
     paste( pathAnalysis, "original", sep = "/" ),
-    paste( pathAnalysis, "interim",  sep = "/" )
+    paste( pathAnalysis, "interim",  sep = "/" ),
+    paste( pathAnalysis, "checksums",  sep = "/" )
   );
   if( !error && verbose ) {
     print( 
@@ -62,18 +65,23 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
-FileIO = function( pathScripts, pathOriginal, pathInterim ) {
+FileIO = function(pathAnalysis, pathScripts, pathOriginal, pathInterim, pathChecksums) {
+  pathAnalysis = pathAnalysis;
   pathScripts  = pathScripts;
   pathOriginal = pathOriginal;
   pathInterim  = pathInterim;
+  pathChecksums = pathChecksums;
   
   this = list(
     # Values
+    pathAnalysis   = pathAnalysis,
     pathScripts    = pathScripts,
     pathOriginal   = pathOriginal,
     pathInterim    = pathInterim,
+    pathChecksums  = pathChecksums,
   
     # Main Functions
+    updateChecksum = function( ... ) { updateChecksum( this, ... ); },
     resolvePath    = function( ... ) { resolvePath( this, ... ); },
     readSurveyTool = function( ... ) { readSurveyTool( this, ... ); },
     readData       = function( ... ) { readData( this, ... ); },
@@ -90,6 +98,50 @@ FileIO = function( pathScripts, pathOriginal, pathInterim ) {
 # ***************************
 # *** FileIO methods      ***
 # ***************************
+
+#' Checks and updates a checksum
+#
+#' @export
+#' @param this      (sandra::FileIO) FileIO instance
+#' @param operation (character) String to denote operation to be added in log (read/write)
+#' @param curFile   (character) File to check
+#' @return NULL
+#' @family sandra::FileIO 
+#' @family sandra::file input & output
+#' @family SANDRA
+updateChecksum = function(this, operation, curFile) {
+  # Read or construct checksums
+  if (this$existsData("../checksums/checksums.csv")) {
+    allChecksums = this$readData("../checksums/checksums.csv", checksum = FALSE);
+  } else {
+    allChecksums = data.frame.new(c("date", "version", "file", "operation", "checksum"));
+  }
+  
+  # Calculate current checksum
+  curChecksum = as.character(md5sum(curFile));
+    
+  # Decide if we should add a new checkSum
+  checksums = allChecksums[allChecksums[,"file"] == curFile,];
+  addChecksum = nrow(checksums) == 0;
+  if (!addChecksum) {
+    oldChecksum = checksums[order(checksums[,"date"], decreasing = TRUE)[1], "checksum"];
+    addChecksum = oldChecksum != curChecksum; 
+  }
+  if (addChecksum) {
+    allChecksums[nrow(allChecksums) + 1,] = c(
+      format(now(),'%Y-%m-%d %H:%M:%S'),
+      packageVersion("sandra"),
+      curFile,
+      operation,
+      curChecksum
+    );
+    this$writeData(
+      "../checksums/checksums.csv",
+      allChecksums,
+      checksum = FALSE
+    );
+  }
+}
 
 #' Returns path to original or interim data
 #
@@ -129,7 +181,7 @@ resolvePath = function( this, original ) {
 #' io$readSurveyTool( "answers.csv" );
 readSurveyTool = function( this, filename, original = FALSE ) {
   pathData = this$resolvePath( original );
-  
+
   # Read raw data
   stData = read.table(
     path( pathData, filename ),
@@ -137,6 +189,7 @@ readSurveyTool = function( this, filename, original = FALSE ) {
     header = FALSE,
     fill   = TRUE
   );
+  this$updateChecksum("read", path(pathData, filename));  
   
   stData = as.matrix( stData );
   
@@ -182,7 +235,8 @@ readSurveyTool = function( this, filename, original = FALSE ) {
 readData = function( 
   this,
   filename, 
-  original= FALSE, 
+  checksum = TRUE,
+  original = FALSE, 
   sep = "\t",   
   quote = "", 
   comment.char = "",
@@ -202,6 +256,9 @@ readData = function(
     stringsAsFactors = stringsAsFactors,
     ...
   );
+  if (checksum) {
+    this$updateChecksum("read", path(pathData, filename));
+  }
   return( data );
 }
 
@@ -225,6 +282,7 @@ writeData = function(
   this,
   filename, 
   output, 
+  checksum = TRUE,
   append = FALSE, 
   sep = "\t",
   quote = FALSE, 
@@ -243,6 +301,9 @@ writeData = function(
     col.names = !append && col.names, # No column names if appending
     ...
   )
+  if (checksum) {
+    this$updateChecksum("write", path(pathData, filename));
+  }
 }
 
 #' Check if a file exists in original or interim directory

@@ -41,7 +41,7 @@ installAnalysisFramework = function( pathAnalysis = NA ) {
   ) );  
   
   # *** Create sub-directories
-  subfolders = c( "scripts", "original", "interim" );
+  subfolders = c( "scripts", "original", "interim", "checksums" );
   for( subfolder in subfolders ) {
     subpath = paste( pathAnalysis, subfolder, sep = "/")
     report = c(
