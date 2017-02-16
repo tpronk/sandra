@@ -10,5 +10,6 @@ License: License undetermined
 Depends:
     rjson,
     lubridate,
-    tcltk
+    tcltk,
+    tools
 RoxygenNote: 5.0.1

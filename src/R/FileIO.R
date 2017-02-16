@@ -18,7 +18,7 @@
 #' @examples
 #' # Setup analysis for directory D:/analysis
 #' io = FrameworkFileIO( "D:/analysis" );
-FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
+FrameworkFileIO = function(pathAnalysis, safVersion, verbose = TRUE ) {
   error = FALSE;
   subdirectories = c(
     paste( pathAnalysis, "scripts",  sep = "/" ),
@@ -39,6 +39,7 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
     }
   }
   fileIO = FileIO(
+    safVersion,
     pathAnalysis,
     paste( pathAnalysis, "scripts",  sep = "/" ),
     paste( pathAnalysis, "original", sep = "/" ),
@@ -65,7 +66,8 @@ FrameworkFileIO = function( pathAnalysis, verbose = TRUE ) {
 #' @examples
 #' # Create FileIO instance with folders in root of D:
 #' io = FileIO( "D:/scripts", "D:/original", "D:/interim" );
-FileIO = function(pathAnalysis, pathScripts, pathOriginal, pathInterim, pathChecksums) {
+FileIO = function(safVersion, pathAnalysis, pathScripts, pathOriginal, pathInterim, pathChecksums) {
+  safVersion = safVersion;
   pathAnalysis = pathAnalysis;
   pathScripts  = pathScripts;
   pathOriginal = pathOriginal;
@@ -74,6 +76,7 @@ FileIO = function(pathAnalysis, pathScripts, pathOriginal, pathInterim, pathChec
   
   this = list(
     # Values
+    safVersion = safVersion,
     pathAnalysis   = pathAnalysis,
     pathScripts    = pathScripts,
     pathOriginal   = pathOriginal,
@@ -114,7 +117,7 @@ updateChecksum = function(this, operation, curFile) {
   if (this$existsData("../checksums/checksums.csv")) {
     allChecksums = this$readData("../checksums/checksums.csv", checksum = FALSE);
   } else {
-    allChecksums = data.frame.new(c("date", "version", "file", "operation", "checksum"));
+    allChecksums = data.frame.new(c("date", "sandra", "saf", "file", "operation", "checksum"));
   }
   
   # Calculate current checksum
@@ -131,6 +134,7 @@ updateChecksum = function(this, operation, curFile) {
     allChecksums[nrow(allChecksums) + 1,] = c(
       format(now(),'%Y-%m-%d %H:%M:%S'),
       packageVersion("sandra"),
+      this$safVersion,
       curFile,
       operation,
       curChecksum

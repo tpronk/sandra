@@ -13,7 +13,7 @@
 #' @param pathAnalasis  (character) Path to analysis directory
 #' @return NULL
 #' @family SANDRA
-installAnalysisFramework = function( pathAnalysis = NA ) {
+installAnalysisFramework = function(safVersion = "NA", pathAnalysis = NA ) {
   # *** Prepare Analysis directory
   # Ask for Analysis directory
   if( is.na( pathAnalysis ) ) {
@@ -69,7 +69,7 @@ installAnalysisFramework = function( pathAnalysis = NA ) {
   # Construct R statements for loading SANDRA Analysis Framework
   output = c(
     "library( \"sandra\" );",
-    paste( "io  = FrameworkFileIO( \"", pathAnalysis,  "\" );", sep = "" )
+    paste( "io  = FrameworkFileIO(\"", pathAnalysis,  "\", \"", safVersion, "\");", sep = "" )
   );
   # Write statements to "Load SANDRA"
   write(
