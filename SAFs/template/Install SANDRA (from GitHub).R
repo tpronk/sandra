@@ -7,7 +7,7 @@ install_github( "tpronk/SANDRA/src", force = TRUE );
 library( "sandra" );
 
 # SAF Version
-safVersion = "1.00";
+safVersion = 1.01;
 
 # Install SANDRA Framework
 installAnalysisFramework(

@@ -1,0 +1,4 @@
+date	sandra	saf	file	operation	checksum
+2017-02-16 14:45:36	0.3.7	1.01	D:/wamp/www/sandra/trunk/SAFs/template/original/jasmin1_data.csv	read	195cf9de5560b7309cc2f00b499557ec
+2017-02-16 14:45:38	0.3.7	1.01	D:/wamp/www/sandra/trunk/SAFs/template/interim/jasmin1_data.metadata.csv	write	580c6eddbc5b0aaacf4163522950371e
+2017-02-16 14:45:38	0.3.7	1.01	D:/wamp/www/sandra/trunk/SAFs/template/interim/jasmin1_data.vpt.csv	write	2b1dd529db9557e2f98c2d280880e7f1

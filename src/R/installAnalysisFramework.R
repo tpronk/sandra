@@ -69,7 +69,7 @@ installAnalysisFramework = function(safVersion = "NA", pathAnalysis = NA ) {
   # Construct R statements for loading SANDRA Analysis Framework
   output = c(
     "library( \"sandra\" );",
-    paste( "io  = FrameworkFileIO(\"", pathAnalysis,  "\", \"", safVersion, "\");", sep = "" )
+    paste( "io  = FrameworkFileIO(\"", pathAnalysis,  "\", ", safVersion, ");", sep = "" )
   );
   # Write statements to "Load SANDRA"
   write(

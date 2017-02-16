@@ -131,9 +131,9 @@ updateChecksum = function(this, operation, curFile) {
     addChecksum = oldChecksum != curChecksum; 
   }
   if (addChecksum) {
-    allChecksums[nrow(allChecksums) + 1,] = c(
+    allChecksums[nrow(allChecksums) + 1,1:ncol(allChecksums)] = c(
       format(now(),'%Y-%m-%d %H:%M:%S'),
-      packageVersion("sandra"),
+      as.character(packageVersion("sandra")),
       this$safVersion,
       curFile,
       operation,
