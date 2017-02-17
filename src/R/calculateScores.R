@@ -405,6 +405,7 @@ applyAggregation = function( result, ds_subset, settings ) {
     ds_subset,
     settings[["aggregation_factors"]],
     function( result, ds_subset ) {
+      result[["n"]] = nrow(ds_subset);
       result[["score"]] = settings[["aggregation_factor_function"]](
         ds_subset[,settings[["rt_var"]]]
       );
@@ -428,10 +429,14 @@ applyAggregation = function( result, ds_subset, settings ) {
   result[["score"]] = settings[["aggregation_run_function"]](wide);
   
   # If aux_report features "factor_scores" report aggregation_factor_function output
-  if("factor_scores" %in% settings[["aux_report"]]) {
+  if("factor_scores" %in% names(settings)) {
     wide = data.frame.dropVar(wide,"dummy_id");
-    for(i in names(wide)) {
-      result[[i]] = wide[1,i];
+    for(i in settings[["factor_scores"]]) {
+      if (i %in% names(wide)) {
+        result[[i]] = wide[1,i];
+      } else {
+        result[[i]] = NA;
+      }
     }
   }
   
