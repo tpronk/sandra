@@ -28,7 +28,6 @@ niceBy = function(
   verbose = F,
   ...
 ) {
-  # BUG HERE; what if ds has no rows?
   
   # *** Construct factors
   if( verbose ) { print( paste( Sys.time(), ", niceBy, construct factors", sep = "" ) ); }
@@ -49,7 +48,7 @@ niceBy = function(
   
   # Remove NULL values in subsets
   ds_list = ds_list[ which( !unlist( lapply( ds_list, is.null ) ) ) ];
-      
+  
   # *** Apply aggregation to each element of ds_list 
   if( verbose ) { print( paste( Sys.time(), ", niceBy, apply aggregations", sep = "" ) ); }  
   result_raw = lapply(
@@ -91,8 +90,7 @@ niceBy = function(
         sorted_result_raw[[length(sorted_result_raw) + 1]] = 
           result_raw[[i]][result_names];
       }      
-    }    
-
+    }
     # Convert each element to character
     converted_result_raw = lapply( 
       sorted_result_raw, 
@@ -117,11 +115,11 @@ niceBy = function(
     
     # Get names from first element of result_raw (if it is a list), 
     # or from first element of first element of list (if it is a list of lists)
-#     if( length( result_raw[[1]][[1]] ) > 1 ) {
-#       names( result ) = names( result_raw[[1]][[1]] );
-#     } else {
-#       names( result ) = names( result_raw[[1]] );
-#     }
+    #     if( length( result_raw[[1]][[1]] ) > 1 ) {
+    #       names( result ) = names( result_raw[[1]][[1]] );
+    #     } else {
+    #       names( result ) = names( result_raw[[1]] );
+    #     }
   } else if( result_type == "data.frame_to_data.frame" ) {
     # data.frame to data.frame
     result = result_raw[[1]];
