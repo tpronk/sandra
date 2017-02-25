@@ -28,10 +28,8 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   rt_var   = settings[[ "rt_var"   ]];
 
   # Report no. of trials
-  if( "task_n" %in% settings[[ "aux_report" ]] ) {
-    result[[ "task_n" ]] = nrow( ds_subset );
-  }
-  
+  result[[ "task_n" ]] = nrow( ds_subset );
+
   # Report responses
   for( resp_report in settings[[ "resp_report" ]] ) {
     if( resp_report == "NA" ) {
@@ -139,13 +137,13 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
 #' The table below shows an overview of elements in aux_report and their meaning.
 #' \tabular{lllll}{
 #'   \strong{Name} \tab \strong{Scope} \tab \strong{Description} \tab \cr
+#'   task_n \tab task \tab Number of trials in task \cr
 #'   correct_n \tab block \tab Number of correct responses \cr
 #'   correct_mean \tab block \tab Mean or RT of correct responses \cr
 #'   correct_sd \tab block \tab SD of RT of correct responses \cr
 #'   penalty \tab block \tab RT penalty \cr
 #'   adjusted_mean \tab block \tab Mean RT after applying penalty \cr
 #'   inclusive_sd \tab task \tab SD of response times for compatible and incompatible blocks taken together \cr
-#'   task_n \tab task \tab Number of trials in task \cr
 #' }
 #'
 #' @seealso \code{\link[sandra]{dropAndReport}} for additional settings that can be used for 
@@ -405,7 +403,11 @@ applyAggregation = function( result, ds_subset, settings ) {
     ds_subset,
     settings[["aggregation_factors"]],
     function( result, ds_subset ) {
-      result[["n"]] = nrow(ds_subset);
+      if ("factor_filter" %in% names(settings)) {
+        temp = dropAndReport(result, ds_subset, settings[["factor_filter"]]);
+        result = temp[["result"]];
+        ds_subset = temp[["ds_subset"]];
+      }
       result[["score"]] = settings[["aggregation_factor_function"]](
         ds_subset[,settings[["rt_var"]]]
       );
@@ -429,9 +431,9 @@ applyAggregation = function( result, ds_subset, settings ) {
   result[["score"]] = settings[["aggregation_run_function"]](wide);
   
   # If aux_report features "factor_scores" report aggregation_factor_function output
-  if("factor_scores" %in% names(settings)) {
+  if("factor_report" %in% names(settings)) {
     wide = data.frame.dropVar(wide,"dummy_id");
-    for(i in settings[["factor_scores"]]) {
+    for(i in settings[["factor_report"]]) {
       if (i %in% names(wide)) {
         result[[i]] = wide[1,i];
       } else {
@@ -498,7 +500,16 @@ oneScoreSplit = function( result, ds_subset, settings, verbose = F ) {
 #'   aggregation_factors \tab character \tab Yes \tab \code{} \tab Apply aggregation_factor_function to each subset of ds formed by unique combinations of values for these variables \cr
 #'   aggregation_factor_function \tab character \tab Yes \tab \code{} \tab Function applied to calculate aggregated scores (e.g. 'median rt for correct responses') \cr
 #'   aggregation_run_function \tab character \tab Yes \tab \code{} \tab Function applied to output of aggregation_factor_function (e.g. difference of medians between red and blue conditions) \cr
+#'   factor_filter \tab list \tab No \tab \code{} \tab If specified, applies dropAndReport to each combination of aggregation_factors using the settings provided in this list \cr
+#'   factor_report \tab list \tab No \tab \code{} \tab Variables reported via factor_filter and aggregation_factor_function that are to be added to the output
 #' }
+#' 
+#' The table below shows an overview of elements in aux_report and their meaning.
+#' \tabular{lllll}{
+#'   \strong{Name} \tab \strong{Scope} \tab \strong{Description} \tab \cr
+#'   task_n \tab task \tab Number of trials in task \cr
+#' }
+#' 
 #' @seealso \code{\link[sandra]{dropAndReport}} for additional settings that can be used for 
 #' dropping and reporting responses and response times before scores are calculated.
 #' 
