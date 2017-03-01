@@ -69,6 +69,8 @@ decodeJasmin2 = function (ds, tables, verbose=FALSE) {
     }
     # json encoded data
     value_json = ds_current[ 1, "Value" ];
+    # remove duplicate backslashes
+    value_json = gsub("\\\\", "\\", value_json, fixed = TRUE);
     # decode to list
     value_list = fromJSON( value_json );
     # init result, if needed
