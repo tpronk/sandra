@@ -20,7 +20,9 @@ checkAndRemoveJasminDuplicates = function( evlogs, snVar = "logger_sn", timeVar 
   
   # Sort sequence
   seq_sorted = sort( evlogs[ ,snVar ] );
+  evlogs = evlogs[order(evlogs[,snVar]),]
   
+  #order(evlogs[,snVar])
   # Check for duplicates or missing via lagged difference
   seq_diff = diff( seq_sorted );
   
