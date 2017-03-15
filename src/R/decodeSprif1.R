@@ -90,58 +90,62 @@ decodeSprif1 = function(
 				"rows in eop data" 
 			) ); }
 
-			# Convert to matrix
-			sprifMatrix = matrix(
-				sprifVector,
-				byrow = TRUE,
-				ncol  = length( sprifVars ) + 1
-			);
-		
-			# If not only sprifRowSep in first column, report in sequence_report
-			if( sum( sprifMatrix[ ,1 ] == sprifRowSep ) < length( sprifMatrix[ ,1 ] ) ) {
-			  sequence_report = c( sequence_report, "norowsep");
-			  if( verbose ) {
-  				oneErrorRow = which( sprifMatrix[ ,1 ] != sprifRowSep )[1];
-  				print( paste( 
-  					"norowsep. The row below shows row no. ",
-  					oneErrorRow,
-  					" of sprifData. The first element of this row was expected to be an sprifRowSep.\n",
-  					paste( sprifMatrix[ oneErrorRow, ], collapse = sprifColSep ),
-  					sep = ""
-  				) );
-			  }
-			}
-		
-			# If any sprifRowSep columns outside of first column, report in sequence_report
-			if( sum( sprifMatrix[ ,2 : ncol( sprifMatrix ) ] == sprifRowSep ) > 0 ) {
-			  sequence_report = c( sequence_report, "rowsepinvar");
-			  if( verbose ) {
-  				oneErrorRow = which( 
-  					sprifMatrix[ ,2 : ncol( sprifMatrix ) ] == sprifRowSep,
-  					arr.ind = TRUE
-  				 )[ 1, "row" ];
-  	
-  				print( paste( 
-  					"rowsepinvar. The row below shows row no. ",
-  					oneErrorRow,
-  					" of sprifData. This row contains sprifRowSeps in other columns than the first.\n",
-  					paste(sprifMatrix[ oneErrorRow, ], collapse = sprifColSep ),
-  					sep = ""
-  				) );
-			  }
-			}
-			
-			# Construct data frame
-			sprifDataframe = data.frame( sprifMatrix[,-1] );
-		  names( sprifDataframe ) = sprifVars;
-			sprifDataframe[ ,"set_id" ] = i;
-			
-			# add to trialdata
-			if( is.null( trialdata ) ) {
-			  trialdata = sprifDataframe;
-			} else {
-			  trialdata = rbind( trialdata, sprifDataframe )
-			}
+      if (sprifRowCount == 1 ) {
+        print("Only 1 row; skipped");
+      } else {
+  			# Convert to matrix
+  			sprifMatrix = matrix(
+  				sprifVector,
+  				byrow = TRUE,
+  				ncol  = length( sprifVars ) + 1
+  			);
+  		
+  			# If not only sprifRowSep in first column, report in sequence_report
+  			if( sum( sprifMatrix[ ,1 ] == sprifRowSep ) < length( sprifMatrix[ ,1 ] ) ) {
+  			  sequence_report = c( sequence_report, "norowsep");
+  			  if( verbose ) {
+    				oneErrorRow = which( sprifMatrix[ ,1 ] != sprifRowSep )[1];
+    				print( paste( 
+    					"norowsep. The row below shows row no. ",
+    					oneErrorRow,
+    					" of sprifData. The first element of this row was expected to be an sprifRowSep.\n",
+    					paste( sprifMatrix[ oneErrorRow, ], collapse = sprifColSep ),
+    					sep = ""
+    				) );
+  			  }
+  			}
+  		
+  			# If any sprifRowSep columns outside of first column, report in sequence_report
+  			if( sum( sprifMatrix[ ,2 : ncol( sprifMatrix ) ] == sprifRowSep ) > 0 ) {
+  			  sequence_report = c( sequence_report, "rowsepinvar");
+  			  if( verbose ) {
+    				oneErrorRow = which( 
+    					sprifMatrix[ ,2 : ncol( sprifMatrix ) ] == sprifRowSep,
+    					arr.ind = TRUE
+    				 )[ 1, "row" ];
+    	
+    				print( paste( 
+    					"rowsepinvar. The row below shows row no. ",
+    					oneErrorRow,
+    					" of sprifData. This row contains sprifRowSeps in other columns than the first.\n",
+    					paste(sprifMatrix[ oneErrorRow, ], collapse = sprifColSep ),
+    					sep = ""
+    				) );
+  			  }
+  			}
+  			
+  			# Construct data frame
+  			sprifDataframe = data.frame( sprifMatrix[,-1] );
+  		  names( sprifDataframe ) = sprifVars;
+  			sprifDataframe[ ,"set_id" ] = i;
+  			
+  			# add to trialdata
+  			if( is.null( trialdata ) ) {
+  			  trialdata = sprifDataframe;
+  			} else {
+  			  trialdata = rbind( trialdata, sprifDataframe )
+  			}
+  		}
 		} else {
 			# Report invalid row
 		  sequence_report = c( sequence_report, "invalid" );
