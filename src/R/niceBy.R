@@ -94,7 +94,9 @@ niceBy = function(
           result_raw[[i]][result_names];
       }      
     }
-    print(paste(Sys.time(), ", niceBy, sorting done", sep = "")); 
+    if( verbose ) {
+      print(paste(Sys.time(), ", niceBy, sorting done", sep = "")); 
+    }
     # Convert each element to character
     converted_result_raw = lapply( 
       sorted_result_raw, 
@@ -109,14 +111,18 @@ niceBy = function(
         )
       }
     );
-    print(paste(Sys.time(), ", niceBy, conversion done", sep = ""));     
+    if( verbose ) {
+      print(paste(Sys.time(), ", niceBy, conversion done", sep = ""));     
+    }
     result = data.frame( matrix(
       unlist( converted_result_raw ),
       ncol = ncol,
       byrow = T
     ) );  
     names( result ) = result_names;
-    print(paste(Sys.time(), ", niceBy, result ready", sep = ""));     
+    if( verbose ) {
+      print(paste(Sys.time(), ", niceBy, result ready", sep = ""));     
+    }
     # Get names from first element of result_raw (if it is a list), 
     # or from first element of first element of list (if it is a list of lists)
     #     if( length( result_raw[[1]][[1]] ) > 1 ) {
