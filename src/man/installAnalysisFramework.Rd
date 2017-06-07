@@ -4,7 +4,7 @@
 \alias{installAnalysisFramework}
 \title{Installs or loads a SANDRA Analysis Framework}
 \usage{
-installAnalysisFramework(pathAnalysis = NA)
+installAnalysisFramework(safVersion = "NA", pathAnalysis = NA)
 }
 \arguments{
 \item{pathAnalasis}{(character) Path to analysis directory}
@@ -41,6 +41,7 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 }
 

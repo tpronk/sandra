@@ -4,7 +4,8 @@
 \alias{checkAndRemoveJasminDuplicates}
 \title{Checks JASMIN1 and JASMIN2 data for duplicates}
 \usage{
-checkAndRemoveJasminDuplicates(evlogs)
+checkAndRemoveJasminDuplicates(evlogs, snVar = "logger_sn",
+  timeVar = "logger_time")
 }
 \arguments{
 \item{evlogs}{(data.frame) JASMIN1 or JASMIN2 trial data}
@@ -40,6 +41,7 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 }
 

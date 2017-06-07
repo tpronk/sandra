@@ -5,7 +5,8 @@
 \title{Calculates d-scores from trial data}
 \usage{
 calculateDScores(ds, settings, splithalves = 0,
-  splithalf_method = "pearson", verbose = F, what = "all", ...)
+  splithalf_method = "pearson", splithalf_aggregation = mean, verbose = F,
+  what = "all", ...)
 }
 \arguments{
 \item{ds}{(data.frame) Trial data.}
@@ -13,6 +14,10 @@ calculateDScores(ds, settings, splithalves = 0,
 \item{settings}{(list) D-score calculation settings.}
 
 \item{splithalves}{(integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.}
+
+\item{splithalf_method}{(character) Type of correlation to calculate between splithaves. Default = "pearson"}
+
+\item{splithalf_aggregation}{(function) Type of aggregation to apply to splithalf correlations. Default = mean. If NULL, a vector with all correlation is returned}
 
 \item{verbose}{(logical) If TRUE, then print debug output.}
 
@@ -41,13 +46,13 @@ The table below shows an overview of elements in settings and their meaning.
 The table below shows an overview of elements in aux_report and their meaning.
 \tabular{lllll}{
   \strong{Name} \tab \strong{Scope} \tab \strong{Description} \tab \cr
+  task_n \tab task \tab Number of trials in task \cr
   correct_n \tab block \tab Number of correct responses \cr
   correct_mean \tab block \tab Mean or RT of correct responses \cr
   correct_sd \tab block \tab SD of RT of correct responses \cr
   penalty \tab block \tab RT penalty \cr
   adjusted_mean \tab block \tab Mean RT after applying penalty \cr
   inclusive_sd \tab task \tab SD of response times for compatible and incompatible blocks taken together \cr
-  task_n \tab task \tab Number of trials in task \cr
 }
 }
 \examples{
@@ -81,6 +86,7 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 }
 

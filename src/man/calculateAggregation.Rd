@@ -5,7 +5,8 @@
 \title{Calculates scores from trial data using the 'aggregation' approach}
 \usage{
 calculateAggregation(ds, settings, splithalves = 0,
-  splithalf_method = "pearson", verbose = F, ...)
+  splithalf_method = "pearson", splithalf_aggregation = mean, verbose = F,
+  ...)
 }
 \arguments{
 \item{ds}{(data.frame) Trial data.}
@@ -31,6 +32,14 @@ The table below shows an overview of elements in settings and their meaning.
   aggregation_factors \tab character \tab Yes \tab \code{} \tab Apply aggregation_factor_function to each subset of ds formed by unique combinations of values for these variables \cr
   aggregation_factor_function \tab character \tab Yes \tab \code{} \tab Function applied to calculate aggregated scores (e.g. 'median rt for correct responses') \cr
   aggregation_run_function \tab character \tab Yes \tab \code{} \tab Function applied to output of aggregation_factor_function (e.g. difference of medians between red and blue conditions) \cr
+  factor_filter \tab list \tab No \tab \code{} \tab If specified, applies dropAndReport to each combination of aggregation_factors using the settings provided in this list \cr
+  factor_report \tab list \tab No \tab \code{} \tab Variables reported via factor_filter and aggregation_factor_function that are to be added to the output
+}
+
+The table below shows an overview of elements in aux_report and their meaning.
+\tabular{lllll}{
+  \strong{Name} \tab \strong{Scope} \tab \strong{Description} \tab \cr
+  task_n \tab task \tab Number of trials in task \cr
 }
 }
 \examples{
@@ -63,6 +72,7 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 }
 

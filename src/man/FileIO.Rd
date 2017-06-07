@@ -4,7 +4,8 @@
 \alias{FileIO}
 \title{Constructs a SANDRA FileIO instance}
 \usage{
-FileIO(pathScripts, pathOriginal, pathInterim)
+FileIO(safVersion, pathAnalysis, pathScripts, pathOriginal, pathInterim,
+  pathChecksums)
 }
 \arguments{
 \item{pathScripts}{(character) Path to your analysis scripts}
@@ -46,7 +47,8 @@ Other SANDRA: \code{\link{EasyFit}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 
 Other sandra::file input & output: \code{\link{FrameworkFileIO}},
   \code{\link{addPostfix}}, \code{\link{appendData}},
@@ -54,14 +56,14 @@ Other sandra::file input & output: \code{\link{FrameworkFileIO}},
   \code{\link{getExtension}}, \code{\link{path}},
   \code{\link{readData}}, \code{\link{readSurveyTool}},
   \code{\link{readVector}}, \code{\link{resolvePath}},
-  \code{\link{runScript}}, \code{\link{writeData}},
-  \code{\link{writeVector}}
+  \code{\link{runScript}}, \code{\link{updateChecksum}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
 
 Other sandra::FileIO: \code{\link{FrameworkFileIO}},
   \code{\link{appendData}}, \code{\link{existsData}},
   \code{\link{readData}}, \code{\link{readSurveyTool}},
   \code{\link{readVector}}, \code{\link{resolvePath}},
-  \code{\link{runScript}}, \code{\link{writeData}},
-  \code{\link{writeVector}}
+  \code{\link{runScript}}, \code{\link{updateChecksum}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
 }
 

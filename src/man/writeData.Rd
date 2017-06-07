@@ -4,8 +4,8 @@
 \alias{writeData}
 \title{Write a data frame to a tab separated file (with varnames at the top row)}
 \usage{
-writeData(this, filename, output, append = FALSE, sep = "\\t",
-  quote = FALSE, row.names = FALSE, col.names = TRUE, ...)
+writeData(this, filename, output, checksum = TRUE, append = FALSE,
+  sep = "\\t", quote = FALSE, row.names = FALSE, col.names = TRUE, ...)
 }
 \arguments{
 \item{this}{(sandra::FileIO) FileIO instance}
@@ -73,7 +73,7 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeVector}}
 
 Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{addPostfix}},
@@ -82,13 +82,13 @@ Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{path}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{resolvePath}}, \code{\link{runScript}},
-  \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeVector}}
 
 Other sandra::FileIO: \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{appendData}},
   \code{\link{existsData}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{resolvePath}}, \code{\link{runScript}},
-  \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeVector}}
 }
 

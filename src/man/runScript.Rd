@@ -44,7 +44,8 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{path}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
-  \code{\link{timeRemaining}}, \code{\link{writeData}},
+  \code{\link{timeRemaining}},
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
   \code{\link{writeVector}}
 
 Other sandra::file input & output: \code{\link{FileIO}},
@@ -53,14 +54,14 @@ Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{existsData}}, \code{\link{getExtension}},
   \code{\link{path}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
-  \code{\link{resolvePath}}, \code{\link{writeData}},
-  \code{\link{writeVector}}
+  \code{\link{resolvePath}}, \code{\link{updateChecksum}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
 
 Other sandra::FileIO: \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{appendData}},
   \code{\link{existsData}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
-  \code{\link{resolvePath}}, \code{\link{writeData}},
-  \code{\link{writeVector}}
+  \code{\link{resolvePath}}, \code{\link{updateChecksum}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
 }
 

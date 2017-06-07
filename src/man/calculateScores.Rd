@@ -5,7 +5,8 @@
 \title{Calculates scores from trial data}
 \usage{
 calculateScores(type, ds, settings, splithalves = 0,
-  splithalf_method = "pearson", verbose = F, ...)
+  splithalf_method = "pearson", splithalf_aggregation = mean, verbose = F,
+  ...)
 }
 \arguments{
 \item{ds}{(data.frame) Trial data.}
@@ -15,6 +16,8 @@ calculateScores(type, ds, settings, splithalves = 0,
 \item{splithalves}{(integer) If 0, return a single set of d-scores, if > 0, return randomized split-halve reliability averaged over splithalves iterations.}
 
 \item{splithalf_method}{(character) Type of correlation calculated for splithalf reliability. Valid values: "pearson", "kendall", or "spearman".}
+
+\item{splithalf_aggregation}{(function) Type of aggregation to apply to splithalf correlations. Default = mean. If NULL, a vector with all correlation is returned}
 
 \item{verbose}{(logical) If TRUE, then print debug output.}
 
@@ -74,6 +77,7 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 }
 

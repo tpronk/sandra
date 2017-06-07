@@ -48,7 +48,8 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{reportProgress}}, \code{\link{resolvePath}},
   \code{\link{runScript}}, \code{\link{timeRemaining}},
-  \code{\link{writeData}}, \code{\link{writeVector}}
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
+  \code{\link{writeVector}}
 
 Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{addPostfix}},
@@ -56,14 +57,14 @@ Other sandra::file input & output: \code{\link{FileIO}},
   \code{\link{getExtension}}, \code{\link{path}},
   \code{\link{readData}}, \code{\link{readSurveyTool}},
   \code{\link{readVector}}, \code{\link{resolvePath}},
-  \code{\link{runScript}}, \code{\link{writeData}},
-  \code{\link{writeVector}}
+  \code{\link{runScript}}, \code{\link{updateChecksum}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
 
 Other sandra::FileIO: \code{\link{FileIO}},
   \code{\link{FrameworkFileIO}}, \code{\link{existsData}},
   \code{\link{readData}}, \code{\link{readSurveyTool}},
   \code{\link{readVector}}, \code{\link{resolvePath}},
-  \code{\link{runScript}}, \code{\link{writeData}},
-  \code{\link{writeVector}}
+  \code{\link{runScript}}, \code{\link{updateChecksum}},
+  \code{\link{writeData}}, \code{\link{writeVector}}
 }
 

@@ -37,7 +37,8 @@ Other SANDRA: \code{\link{EasyFit}}, \code{\link{FileIO}},
   \code{\link{path}}, \code{\link{readData}},
   \code{\link{readSurveyTool}}, \code{\link{readVector}},
   \code{\link{resolvePath}}, \code{\link{runScript}},
-  \code{\link{timeRemaining}}, \code{\link{writeData}},
+  \code{\link{timeRemaining}},
+  \code{\link{updateChecksum}}, \code{\link{writeData}},
   \code{\link{writeVector}}
 
 Other sandra::ProgressTimer: \code{\link{ProgressTimer}},
