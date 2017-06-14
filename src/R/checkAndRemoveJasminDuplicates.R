@@ -66,7 +66,8 @@ checkAndRemoveJasminDuplicates = function( evlogs, snVar = "logger_sn", timeVar 
     if( length( inconsistents ) > 0 )
     {
       print( paste("checkAndRemoveJasminDuplicates. Inconsistent data for sns: ", paste( unique( inconsistents ), collapse=", " ) ) );
-      sequence_report = c( sequence_report, "inconsistent" );
+      print(evlogs[1,]);
+      sequence_report = c( sequence_report, "inconsistent (", length(unique(inconsistents)), ")" );
     }
   }
   
