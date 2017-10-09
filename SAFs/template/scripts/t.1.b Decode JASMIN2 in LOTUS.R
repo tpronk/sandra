@@ -6,7 +6,7 @@ fileSource = "jasmin2_data.csv";
 
 # Which tables to decode from the file, "task_start" should always be the first element
 # of this tablesToDecode
-tables = c("task_start", "aat", "sciat", "gonogo", "slideshow", "screen");
+tables = c("task_start", "aat", "iat", "sciat", "stiat", "gonogo", "vst", "spt", "slideshow", "screen");
 
 # ************************
 # *** END OF CONFIGURATION
