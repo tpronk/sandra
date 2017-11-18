@@ -1181,7 +1181,7 @@ decodeJasmin1 = function(
     }
   );
   if (is.null(value)) {
-    print(paste("decodeJasmin1.R 1184. Invalid JSON found."));
+    print(paste("decodeJasmin1.R 1184. Invalid JSON found at row.", i));
     print(input[ i, colValue ]);
   }
   
@@ -1245,7 +1245,7 @@ decodeJasmin1 = function(
     metadata[ set_id, "set_id"     ] = set_id;
     metadata[ set_id, cols_lotus   ] = input[ sets[[set_id]][1], cols_lotus ];
     metadata[ set_id, "lotus_says" ] = input[ sets[[set_id]][2], colName ];
-    
+
     # DEBUG
     # g_input   <<- input;
     # g_sets    <<- sets;
@@ -1329,6 +1329,7 @@ decodeJasmin1 = function(
     }
     
     metadata[ set_id, "event_count" ] = nrow( evlogs );
+    metadata[ set_id, "duration"] = evlogs[nrow(evlogs), "time"] - evlogs[1, "time"];
     
     report( conc( "sandra::decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
     report( conc( "sandra::decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
