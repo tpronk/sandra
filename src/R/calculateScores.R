@@ -58,11 +58,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
     result[[ "outlier_fast_n" ]] =
       sum( ds_subset[ ,"rt" ] < settings[[ "fast_report" ]], na.rm = TRUE );
   }
-  # TP Debug
-  if (is.na(result[[ "outlier_fast_n" ]])) {
-    tp_debug <<- ds_subset[ ,"rt" ];
-  }
-  
+
   # Drop fast
   if( !is.null( settings[[ "fast_drop" ]] ) ) {
     ds_subset = ds_subset[ 
