@@ -56,8 +56,13 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   # Report fast
   if( !is.null( settings[[ "fast_report" ]] ) ) {
     result[[ "outlier_fast_n" ]] =
-      sum( ds_subset[ ,"rt" ] < settings[[ "fast_report" ]] );
+      sum( ds_subset[ ,"rt" ] < settings[[ "fast_report" ]], na.rm = TRUE );
   }
+  # TP Debug
+  if (is.na(result[[ "outlier_fast_n" ]])) {
+    tp_debug <<- ds_subset[ ,"rt" ];
+  }
+  
   # Drop fast
   if( !is.null( settings[[ "fast_drop" ]] ) ) {
     ds_subset = ds_subset[ 
@@ -69,7 +74,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
   # Report slow
   if( !is.null( settings[[ "slow_report" ]] ) ) {
     result[[ "outlier_slow_n" ]] =
-      sum( ds_subset[ ,"rt" ] > settings[[ "slow_report" ]] );
+      sum( ds_subset[ ,"rt" ] > settings[[ "slow_report" ]], na.rm = TRUE );
   }
   # Drop slow
   if( !is.null( settings[[ "slow_drop" ]] ) ) {
@@ -87,10 +92,7 @@ dropAndReport =  function( result, ds_subset, settings = list() ) {
     sd_fast  = cur_mean - sd_report * cur_sd;
     sd_slow  = cur_mean + sd_report * cur_sd;
     result[[ "outlier_sd_n" ]] =
-      sum( 
-        ds_subset[ ,"rt" ] > sd_slow
-        | ds_subset[ ,"rt" ] < sd_fast
-      );
+      sum( ds_subset[ ,"rt" ] > sd_slow | ds_subset[ ,"rt" ] < sd_fast, na.rm = TRUE );
   }
   # Drop SD
   if( !is.null( settings[[ "sd_drop" ]] ) ) {
