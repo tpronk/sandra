@@ -1137,7 +1137,18 @@ decodeJasmin1 = function(
   # *****************************************
   # *** End of inner function definitions ***
   # *****************************************
-  # (ADPT process_jasmin/process_lotus_multisession.R)
+
+  # # DEBUG; move locals to global
+  # g_input <<- input
+  # # DEBUG; set locals
+  # input = g_input;
+  # participationID = c( "UserID" );
+  # verbose = FALSE;
+  # timeReportInterval = 60;
+  # set_id_from = 1;
+  # colRunID = "RunID";
+  # colName = "Name";
+  # colValue = "Value"
   
   if( timeReportInterval > 0 ) {
     print( "sandra::decodeJasmin1 started. For big datasets it can take a while before I start providing an estimate of time remaining." );
@@ -1246,16 +1257,6 @@ decodeJasmin1 = function(
     metadata[ set_id, cols_lotus   ] = input[ sets[[set_id]][1], cols_lotus ];
     metadata[ set_id, "lotus_says" ] = input[ sets[[set_id]][2], colName ];
 
-    # DEBUG
-    # g_input   <<- input;
-    # g_sets    <<- sets;
-    # g_set_id  <<- set_id;
-    # g_trialdata <<- trialdata;
-    # input = g_input;
-    # sets  = g_sets;
-    # set_id = g_set_id;
-    # colValue = "Value";
-    
     # custom data
     value = tryCatch(
       fromJSON( input[ sets[[set_id]][1], colValue ] ),
@@ -1329,7 +1330,11 @@ decodeJasmin1 = function(
     }
     
     metadata[ set_id, "event_count" ] = nrow( evlogs );
-    metadata[ set_id, "duration"] = evlogs[nrow(evlogs), "time"] - evlogs[1, "time"];
+    if (metadata[ set_id, "event_count" ] >= 2) {
+      metadata[ set_id, "duration"] = evlogs[nrow(evlogs), "time"] - evlogs[1, "time"];
+    } else {
+      metadata[ set_id, "duration"] = NA;
+    }
     
     report( conc( "sandra::decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
     report( conc( "sandra::decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
