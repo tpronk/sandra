@@ -1265,7 +1265,9 @@ decodeJasmin1 = function(
           "sandra::decodeJasmin1 failed at row",
           sets[[set_id]][1],
           "error message was",
-          cond
+          cond,
+          ", data was ",
+          input[ sets[[set_id]][1], colValue ]
         ) );
       }
     );
