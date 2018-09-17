@@ -1341,10 +1341,10 @@ decodeJasmin1 = function(
     report( conc( "sandra::decodeJasmin1. event_count: ", metadata[ set_id, "event_count" ] ) );
     report( conc( "sandra::decodeJasmin1. lotus_says:  ", metadata[ set_id, "lotus_says"  ] ) );
     
-    # Run conversions (if task_done)
+    # Run conversions 
     metadata[ set_id, "sequence_report" ] = "";
     
-    if( !is.na( metadata[ set_id, "lotus_says" ] ) && metadata[ set_id, "lotus_says" ] == "task_done" )
+    if( !is.na( metadata[ set_id, "lotus_says" ] ) )
     {
       result = parse_data_evlogs( evlogs );
       evlogs = result$evlogs;
